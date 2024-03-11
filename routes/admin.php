@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'can:admin'], function () {
 
-
+    Route::get('/products', [ProductController::class, 'index'])->name('product.list');
     // Route::get('/admin', function () {
     //     return view('admin.index');
     // })->name('admin.index');

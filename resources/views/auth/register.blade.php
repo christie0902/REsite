@@ -12,13 +12,13 @@
  
  @csrf
 
- <input type="text" name="name" value="{{ old('name') }}">
+ <input type="text" name="name" value="{{ old('name') }}" placeholder="Enter your name">
 
- <input type="email" name="email" value="{{ old('email') }}">
+ <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email">
 
- <input type="password" name="password" value="">
+ <input type="password" name="password" value="" placeholder="Enter your password">
 
- <input type="password" name="password_confirmation" value="">
+ <input type="password" name="password_confirmation" value="" placeholder="Confirm your password">
 
  <button>Register</button>
 
