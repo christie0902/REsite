@@ -30,6 +30,9 @@ class Product extends Model
     public function cartItems() {
         return $this->hasMany(CartItem::class);
     }
+    public function variants() {
+        return $this->hasMany(Product_Variant::class);
+    }
 
     protected $fillable = [
         'name', 'description', 'price', 'category_id', 'discount_id', 'image_url', 'stock_quantity', 'sku', 'is_featured', 'promotion_start_date', 'promotion_end_date', 'weight', 'dimensions', 'status',
