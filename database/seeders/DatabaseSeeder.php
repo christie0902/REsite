@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             DiscountsTableSeeder::class,
             ProductsTableSeeder::class,
-            ReviewsTableSeeder::class
+            ReviewsTableSeeder::class,
+            UsersTableSeeder::class
         ]);
     }
 }
