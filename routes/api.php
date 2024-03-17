@@ -23,3 +23,4 @@ Route::get('/featured', [ProductController::class, 'featured']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/search/{search_query}', [ProductController::class, 'search']);
 Route::get('/products/filter-by-color/{color}', [ProductController::class, 'filterByColor']);
+Route::get('/products/filter-by-tag/{tag_id}', [ProductController::class, 'filterByTag']);

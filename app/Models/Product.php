@@ -34,6 +34,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
+    }
+
     protected $fillable = [
         'name', 'description', 'price', 'category_id', 'discount_id', 'image_url', 'stock_quantity', 'sku', 'is_featured', 'promotion_start_date', 'promotion_end_date', 'weight', 'dimensions', 'status',
     ];

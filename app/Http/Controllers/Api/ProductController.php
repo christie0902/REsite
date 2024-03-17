@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Tag;
 
 class ProductController extends Controller
 {
@@ -58,6 +59,17 @@ class ProductController extends Controller
         $productIds = $query->pluck('product_id')->unique();
 
         $products = Product::whereIn('id', $productIds)->get();
+
+        return response()->json($products);
+    }
+
+    public function filterByTag($tag_id)
+    {
+        $tag = Tag::where('id', $tag_id)->firstOrFail();
+
+        $productIds = $tag->products()->pluck('products.id');
+
+        $products = Product::whereIn('products.id', $productIds)->get();
 
         return response()->json($products);
     }
