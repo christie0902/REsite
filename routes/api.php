@@ -25,7 +25,7 @@ Route::get('/products/details/{id}', [ProductController::class, 'show']);
 
 Route::get('/products/search/{search_query}', [ProductController::class, 'search']);
 Route::get('/products/filter-by-color/{color}', [ProductController::class, 'filterByColor']);
-Route::get('/products/filter-by-tag/{tag_id}', [ProductController::class, 'filterByTag']);
-
+// Route::get('/products/filter-by-tag/{tag_id}', [ProductController::class, 'filterByTag']);
+Route::get('/products/filter-by-tags', [ProductController::class, 'filterByTags']);
 
 Route::get('/products/tags', [TagController::class, 'index']);

@@ -11,9 +11,19 @@ use App\Models\Tag;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->paginate(6);
+        $tagIds = $request->query('tags') ? explode(',', $request->query('tags')) : [];
+        $query = Product::query();
+
+        if (!empty($tagIds)) {
+        $query->whereHas('tags', function ($query) use ($tagIds) {
+            $query->whereIn('tags.id', $tagIds);
+        });
+    }
+
+        $products = $query->with('tags')->paginate();
+
         return response()->json($products);
     }
 
@@ -57,14 +67,4 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    public function filterByTag($tag_id)
-    {
-        $tag = Tag::where('id', $tag_id)->firstOrFail();
-
-        $productIds = $tag->products()->pluck('products.id');
-
-        $products = Product::whereIn('products.id', $productIds)->get();
-
-        return response()->json($products);
-    }
 }
