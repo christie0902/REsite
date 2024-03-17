@@ -37,13 +37,7 @@ class ProductController extends Controller
     public function search($search_query)
     {
         $result = Product::with('category')
-            ->where(function ($query) use ($search_query) {
-                $query->where('name', 'like', '%' . $search_query . '%')
-                    ->orWhereHas('category', function($query) use ($search_query) {
-                        $query->where('name', 'like', '%' . $search_query . '%');
-                    });
-            })
-            ->get();
+            ->where('name', 'like', '%' . $search_query . '%')->get();
 
         return response()->json($result);
     }
