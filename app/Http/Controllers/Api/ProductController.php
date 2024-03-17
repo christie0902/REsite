@@ -32,4 +32,18 @@ class ProductController extends Controller
 
         return response()->json($product);
     }
+
+    public function search($search_query)
+    {
+        $result = Product::with('category')
+            ->where(function ($query) use ($search_query) {
+                $query->where('name', 'like', '%' . $search_query . '%')
+                    ->orWhereHas('category', function($query) use ($search_query) {
+                        $query->where('name', 'like', '%' . $search_query . '%');
+                    });
+            })
+            ->get();
+
+        return response()->json($result);
+    }
 }
