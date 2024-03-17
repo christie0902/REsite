@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Product;
-
+use App\Models\ProductVariant;
 
 class ProductController extends Controller
 {
@@ -45,5 +45,20 @@ class ProductController extends Controller
             ->get();
 
         return response()->json($result);
+    }
+  
+    public function filterByColor($color)
+    {
+        $query = ProductVariant::query();
+
+        $query->where('variant_type', 'color')
+            ->where('variant_value', $color);
+
+
+        $productIds = $query->pluck('product_id')->unique();
+
+        $products = Product::whereIn('id', $productIds)->get();
+
+        return response()->json($products);
     }
 }

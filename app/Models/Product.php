@@ -31,7 +31,7 @@ class Product extends Model
         return $this->hasMany(CartItem::class);
     }
     public function variants() {
-        return $this->hasMany(Product_Variant::class);
+        return $this->hasMany(ProductVariant::class);
     }
 
     protected $fillable = [
