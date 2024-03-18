@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap");
+@import url("https://rsms.me/inter/inter.css");
+@import "./customizer.css";
+@import "./cardStyles.css";
+@import "./header.css";
+@import "./category.css";
+@import "./shop-page.css";
+@import "./carousel.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Arial", sans-serif;
+  }
+}
+
+.app {
+  @apply relative w-full h-screen overflow-hidden;
+}
+
+.font-bebas-neue {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.glassmorphism {
+  background: rgba(148, 145, 145, 0.3);
+  box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(82, 38, 38, 0.18);
+}
+
+/* .homepage {
+  background: url("assets/background.jpg"),
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4));
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+} */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-out;
+}

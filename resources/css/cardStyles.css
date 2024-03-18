@@ -1,0 +1,215 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #190707;
+  } */
+
+.card-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 5%;
+  width: 80%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(20px);
+}
+
+.card-container:hover .card-buttons {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.card-container .card-box {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 10px;
+  background: rgb(100, 10, 10);
+  background: radial-gradient(
+    circle,
+    rgba(100, 10, 10, 0.8) 0%,
+    rgba(100, 10, 10, 0.5) 46%,
+    rgba(100, 10, 10, 0) 100%
+  );
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.card-container .card-box::before {
+  content: "Resident";
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  font-size: 4em;
+  font-weight: 900;
+  color: #fff;
+  font-style: italic;
+  opacity: 0;
+}
+
+.card-container .card-box::after {
+  content: "Evil";
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 4em;
+  font-weight: 900;
+  color: #fff;
+  font-style: italic;
+  opacity: 0;
+  transition: 0.5%;
+}
+
+.card-container .card-box:hover::before,
+.card-container .card-box:hover::after {
+  opacity: 0.1;
+}
+
+.card-container .card-name {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  z-index: 10;
+  font-size: 2rem;
+}
+
+.card-container .card-box .card-description {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  width: 50%;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0px;
+  transform-style: preserve-3d;
+  transform: translate3d(-50%, 0, 75px) scale(0.9);
+  transition: transform 0.5s ease-out, opacity 0.5s ease, font-size 0.5s ease;
+  opacity: 0;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.card-container .card-box:hover .card-description {
+  top: 30px;
+  opacity: 1;
+  transform: translate3d(-50%, 0, 75px) scale(1);
+  font-size: 1.8rem;
+}
+
+.card-container .card-box .card-add {
+  position: absolute;
+  bottom: -20px;
+  left: 90%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-weight: bold;
+  background-color: #c8bda1;
+  padding: 10px 30px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: opacity 0.8s, bottom 0.5s; /* Smooth transitions for opacity and bottom */
+  opacity: 0;
+  z-index: 12;
+}
+
+.card-container .card-box:hover .card-add {
+  bottom: 40%;
+  opacity: 1;
+  box-shadow: 10px 0px 0px #4e2d04b3;
+}
+
+.card-container .card-box .card-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transition: 0.5%;
+  background: #fff;
+  transform-style: preserve-3d;
+  z-index: 10;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 50px);
+}
+
+.card-container .card-box .card-product {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 300px;
+  height: auto;
+  /* Specify the properties to transition and their duration */
+  transition: transform 0.5s, width 0.5s;
+  z-index: 9;
+  transform-style: preserve-3d;
+  transform: translate3d(-50%, -50%, 0px) rotate(2deg);
+}
+
+.card-container .card-box:hover .card-product {
+  transform: translate3d(-50%, -50%, 150px) rotate(5deg);
+  width: 200px;
+}
+
+.card-container .card-box .card-circle,
+.card-container .card-box .card-add {
+  background: #eba074;
+}
+
+.square-img {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+}
+.square-img img {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.featured-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  position: relative;
+  z-index: 20;
+  padding: 30px 0;
+  margin-top: -150px;
+  justify-content: center;
+}
+
+.featured-container .featured-card {
+  margin: 0 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}

@@ -1,0 +1,28 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+  }
+  
+  .page-item {
+    padding: 0.5rem 1rem;
+    background: #c7c4c4;
+    color: #333;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .page-item:hover {
+    background: #8f0404;
+    color: white;
+  }
+  .page-item.active {
+    background: #333;
+    color: #fff;
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

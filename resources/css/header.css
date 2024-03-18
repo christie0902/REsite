@@ -1,0 +1,26 @@
+.nav-item a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none; 
+    transition: color 0.3s ease-in-out; 
+  }
+  
+  .nav-item a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #be0a0a; 
+    transition: width 0.3s ease-in-out; 
+  }
+  
+  .nav-item a:hover {
+    color: #be0a0a;
+    cursor: pointer;
+  }
+  
+  .nav-item a:hover::after {
+    width: 100%;
+  }
