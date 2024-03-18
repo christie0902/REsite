@@ -9,12 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('product_tag', function (Blueprint $table) {
+        Schema::create('product_tag', function (Blueprint $table) {
             $table->bigInteger('product_id')->unsigned();
             $table->bigInteger('tag_id')->unsigned();
-            
+            $table->timestamps();
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-       //
+        Schema::dropIfExists('product_tag');
     }
 };
