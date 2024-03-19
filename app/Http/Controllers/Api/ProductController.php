@@ -74,7 +74,7 @@ class ProductController extends Controller
         }, 'images' => function ($query) {
             $query->select('id', 'product_id', 'url', 'is_primary');
         }])
-        ->select('id', 'name', 'description', 'price', 'weight', 'dimensions', 'rating', 'review_count')
+        ->select('id', 'name', 'description', 'price', 'weight', 'dimensions', 'rating', 'review_count', 'image_url')
         ->findOrFail($id);
     
         $sizes = [];
@@ -98,6 +98,7 @@ class ProductController extends Controller
             'price' => $product->price,
             'sizes' => $sizes,
             'colors' => $colors,
+            'primary_image' => $product->image_url,
             'images' => $images,
             'weight' => $product->weight,
             'dimension' => $product->dimensions,

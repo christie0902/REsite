@@ -16,6 +16,7 @@ import Community from "./pages/Community.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
+import ProductDetails from './components/cards/ProductDetails.jsx';
 
 // import ProductCard from "./components/cards/ProductCard.jsx";
 // import model from './assets/model1.png'
@@ -77,6 +78,7 @@ useEffect(() => {
             <Route path="/blogs" element={<BlogPage />} />  
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/product/details/:productId" element={<ProductDetails/>} />
           </Routes>
 
           <Footer />
