@@ -8,6 +8,7 @@ const CartItem = ({productData}) => {
     image_url,
     name,
     size,
+    color,
     quantity,
     price,
     id
@@ -26,8 +27,9 @@ const CartItem = ({productData}) => {
 
       {/* Product Details */}
       <div className="flex-grow ml-2">
-        <h2 className="text-lg font-bold text-gray-900">{name}</h2>
+        <h2 className="text-md font-bold text-gray-900">{name}</h2>
         {size && <p className="text-sm text-gray-700"><strong>Size: </strong> {size}</p>}
+        {color && <p className="text-sm text-gray-700"><strong>Color: </strong> {color}</p>}
       </div>
 
       <div className="flex flex-col justify-between">

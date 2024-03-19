@@ -79,6 +79,7 @@ class ProductController extends Controller
     
         $sizes = [];
         $colors = [];
+        $editions = [];
     
         if ($product->variants->isNotEmpty()) {
             foreach ($product->variants as $variant) {
@@ -86,6 +87,8 @@ class ProductController extends Controller
                     $sizes[] = $variant->variant_value;
                 } elseif ($variant->variant_type === 'color') {
                     $colors[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'edition') {
+                    $editions[] = $variant->variant_value;
                 }
             }
         } 
@@ -98,7 +101,8 @@ class ProductController extends Controller
             'price' => $product->price,
             'sizes' => $sizes,
             'colors' => $colors,
-            'primary_image' => $product->image_url,
+            'edition' => $editions,
+            'image_url' => $product->image_url,
             'images' => $images,
             'weight' => $product->weight,
             'dimension' => $product->dimensions,

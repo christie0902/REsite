@@ -7,6 +7,10 @@ import CustomButton from "../buttons/CustomButton.jsx";
 const ProductDetails = () => {
     const { state, dispatch } = useContext(Context);
     const [productData, setProductData] = useState(null);
+    const [selectSize, setSelectSize] = useState(null);
+    const [selectColor, setSelectColor] = useState(null);
+    const [selectEdition, setSelectEdition] = useState(null);
+
 
     const { productId } = useParams();
 
@@ -37,14 +41,15 @@ const ProductDetails = () => {
         dimension,
         sizes,
         colors,
-        primary_image,
+        edition,
+        image_url,
         images,
         rating,
         review_count,
     } = productData;
 
     const handleColorSelect = (color) => {
-        // Handle color selection
+        setSelectColor(color);
     };
     return (
         <div className="flex flex-col md:flex-row md:items-start bg-black py-8">
@@ -52,7 +57,7 @@ const ProductDetails = () => {
                 <div className="w-full h-96 rounded-lg overflow-hidden mb-4 hover:scale-105">
                     {/* Primary Product Image */}
                     <img
-                        src={primary_image}
+                        src={image_url}
                         alt={name}
                         className="w-full h-full object-contain"
                     />
@@ -71,7 +76,9 @@ const ProductDetails = () => {
                 </div>
             </div>
             <div className="flex-1 px-4">
-                <h2 className="text-3xl font-bold mb-2 text-yellow-500">{name}</h2>
+                <h2 className="text-3xl font-bold mb-2 text-yellow-500 ">
+                    {name}
+                </h2>
                 <p className="text-sm mb-4">{description}</p>
 
                 <div className="flex items-center mb-4">
@@ -137,7 +144,7 @@ const ProductDetails = () => {
                             {sizes.map((s, index) => (
                                 <button
                                     key={index}
-                                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600"
+                                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600"              
                                 >
                                     {s}
                                 </button>
@@ -145,6 +152,26 @@ const ProductDetails = () => {
                         </div>
                     )}
                 </div>
+                {edition && (
+                <div className="mb-4">
+                    <span className="font-bold text-gray-700 dark:text-gray-300">
+                        Edition:
+                    </span>
+
+                    
+                        <div className="flex items-center mt-2">
+                            {edition.map((e, index) => (
+                                <button
+                                    key={index}
+                                    className="bg-gray-700 text-white py-2 px-4 rounded-md font-bold mr-2 hover:bg-gray-400 "
+                                >
+                                    {e}
+                                </button>
+                            ))}
+                        </div>
+                   
+                </div>
+                )}
                 <div>
                     <span className="font-bold text-white mt-15">
                         Product Description:
@@ -154,7 +181,7 @@ const ProductDetails = () => {
                     </p>
                     {dimension && <p>Dimension: {dimension}</p>}
                 </div>
-                <div className="flex w-full -mx-2 mt-20">
+                <div className="flex w-full -mx-2 mt-5">
                     <div className="w-1/2 px-2">
                         <CustomButton
                             type="static"
@@ -165,7 +192,7 @@ const ProductDetails = () => {
                                     type: "product/cart-add",
                                     payload: {
                                         ...productData,
-                                        size: size,
+                                        color: selectColor,
                                     },
                                 });
                             }}
