@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { CustomButton, CustomizerSection } from "./components";
@@ -14,6 +14,8 @@ import reducer from "./lib/utils/reducer.js";
 import initialCustomizerState from "./lib/config/customizerInitialState.js"
 import Community from "./pages/Community.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
+import Register from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
 
 // import ProductCard from "./components/cards/ProductCard.jsx";
 // import model from './assets/model1.png'
@@ -36,7 +38,21 @@ function App() {
     searchResults: null,
     searchQuery: null
   });
-  
+
+  const getUser = async () => {
+    const response = await fetch('/api/user');
+    if (response.status == 200) {
+        const data = await response.json();
+        dispatch({ type: 'user/setUser', payload: data });
+        console.log(data)
+    }
+}
+
+
+useEffect(() => {
+    getUser();
+}, [])
+
   return (
     <>
       <BrowserRouter>
@@ -59,6 +75,8 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/blogs" element={<BlogPage />} />  
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
 
           <Footer />

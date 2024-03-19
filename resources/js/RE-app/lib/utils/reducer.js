@@ -204,6 +204,16 @@ export default function reducer(state, action) {
         ...state,
         searchQuery: action.payload
       }
+      case "user/setUser":
+        return {
+          ...state,
+          user: action.payload
+        }
+      case "user/logout":
+        return {
+            ...state,
+            user: null
+        }
   }
   return state;
 }

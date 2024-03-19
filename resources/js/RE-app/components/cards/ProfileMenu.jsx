@@ -4,7 +4,30 @@ import Context from "../../store/Context";
 
 const ProfileMenu = () => {
   const {state, dispatch} = useContext(Context)
-  
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("/logout", {
+        method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json",
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
+            },
+    
+      });
+
+      if (response.ok) {
+        dispatch({ type: 'user/logout'});
+      } else {
+        console.error("Logout request failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during logout request:", error);
+    }
+  };
+
   return (
     state.profileActive && (
     <div
@@ -27,7 +50,7 @@ const ProfileMenu = () => {
         </li>
       </ul>
       <div className="py-2">
-        <MenuItem label="Log Out" url="#" customStyles="text-sm text-gray-300"/>
+        <MenuItem label="Log Out" customStyles="text-sm text-gray-300" onClick={handleLogout}/>
       </div>
     </div>)
     );

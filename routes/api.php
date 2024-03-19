@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CategoryController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,13 @@ use App\Http\Controllers\Api\CategoryController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    dd(Auth::user());
     return $request->user();
 });
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/featured', [ProductController::class, 'featured']);
-Route::get('/products/details/{id}', [ProductController::class, 'show']);
+// Route::get('/products/details/{id}', [ProductController::class, 'show']);
+Route::get('/products/details/{id}', [ProductController::class, 'getDetails']);
 
 Route::get('/products/search/{search_query}', [ProductController::class, 'search']);
 Route::get('/products/filter-by-color/{color}', [ProductController::class, 'filterByColor']);

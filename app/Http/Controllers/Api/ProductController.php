@@ -67,4 +67,42 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
+    public function getDetails($id)
+    {
+        $product = Product::with(['variants' => function ($query) {
+            $query->select('id', 'product_id', 'variant_type', 'variant_value');
+        }, 'images' => function ($query) {
+            $query->select('id', 'product_id', 'url', 'is_primary');
+        }])
+        ->select('id', 'name', 'description', 'price', 'weight', 'dimensions', 'rating', 'review_count')
+        ->findOrFail($id);
+    
+        $sizes = [];
+        $colors = [];
+    
+        if ($product->variants->isNotEmpty()) {
+            foreach ($product->variants as $variant) {
+                if ($variant->variant_type === 'size') {
+                    $sizes[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'color') {
+                    $colors[] = $variant->variant_value;
+                }
+            }
+        } 
+    
+        $images = $product->images->pluck('url')->toArray();
+    
+        return response()->json([
+            'name' => $product->name,
+            'description' => $product->description,
+            'price' => $product->price,
+            'sizes' => $sizes,
+            'colors' => $colors,
+            'images' => $images,
+            'weight' => $product->weight,
+            'dimension' => $product->dimensions,
+            'rating' => $product->rating,
+            'review_count' => $product->review_count,
+        ]);
+    }
 }

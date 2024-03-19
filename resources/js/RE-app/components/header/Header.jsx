@@ -7,6 +7,7 @@ import SearchBar from '../SearchBar'
 import { Link } from 'react-router-dom';
 import ProfileMenu from '../cards/ProfileMenu'
 import Context from '../../store/Context'
+import Register from '../../pages/Register'
 
 const Header = () => {
   const [currentPage, setCurrentPage] = useState('Home')
@@ -33,12 +34,12 @@ const Header = () => {
             <Icon type={"search"} />
             <Icon type={"cart"} />
             <Icon type={"profile"} />
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
           </div>
     </div>
     </>
-    // Nav link component
-    // Icon component
-    // Home button/menu component
+
   )
 }
 
