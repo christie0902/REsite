@@ -69,24 +69,27 @@ const BasicCard = ({ productData }) => {
             href="#"
             className="flex items-center justify-center rounded-md bg-red-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-300"
           > */}
-                    <CustomButton
-                        type="static"
-                        title="Add To Cart"
-                        customStyles="w-full"
-                        handleClick={() => {
-                            dispatch({
-                                type: "product/cart-add",
-                                payload: { ...productData, size: size },
-                            });
-                        }}
-                    />
-                    <Link to={`/product/details/${id}`} ><CustomButton
-                        type="static"
-                        title="See Details"
-                        customStyles="w-full mt-2"
-                        // handleClick={() => setShowDetails(true)}
-                    /></Link>
-                   
+                    <div className="w-full flex justify-center">
+                        <CustomButton
+                            type="static"
+                            title="Add To Cart"
+                            customStyles="w-full mx-3"
+                            handleClick={() => {
+                                dispatch({
+                                    type: "product/cart-add",
+                                    payload: { ...productData, size: size },
+                                });
+                            }}
+                        />
+                        <Link to={`/product/details/${id}`}>
+                            <CustomButton
+                                type="outline"
+                                title="See Details"
+                                customStyles="w-full"
+                                // handleClick={() => setShowDetails(true)}
+                            />
+                        </Link>
+                    </div>
                     {/* {showDetails && <ProductDetails productId={id} />} */}
                 </div>
             </div>

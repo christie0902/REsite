@@ -49,7 +49,7 @@ const ProductDetails = () => {
     return (
         <div className="flex flex-col md:flex-row md:items-start bg-black py-8">
             <div className="flex-1 flex flex-col items-center px-4 mb-8 md:mb-0">
-                <div className="w-full h-96 rounded-lg overflow-hidden mb-4">
+                <div className="w-full h-96 rounded-lg overflow-hidden mb-4 hover:scale-105">
                     {/* Primary Product Image */}
                     <img
                         src={primary_image}
@@ -71,7 +71,7 @@ const ProductDetails = () => {
                 </div>
             </div>
             <div className="flex-1 px-4">
-                <h2 className="text-2xl font-bold mb-2">{name}</h2>
+                <h2 className="text-3xl font-bold mb-2 text-yellow-500">{name}</h2>
                 <p className="text-sm mb-4">{description}</p>
 
                 <div className="flex items-center mb-4">
@@ -82,18 +82,18 @@ const ProductDetails = () => {
                     />
                 </div>
 
-                <div className="flex mb-4">
-                    <div className="mr-4">
-                        <span className="font-bold text-gray-700 dark:text-gray-300">
-                            Price:
+                <div className="flex mb-4 flex-col ">
+                    <div className="mr-4 mt-5">
+                        <span className="font-bold text-gray-700 text-yellow-500 text-2xl">
+                            Price:{" "}
                         </span>
-                        <span className="text-gray-600 dark:text-gray-300">
+                        <span className="text-yellow-500 text-2xl font-bold">
                             ${price}
                         </span>
                     </div>
                     <div>
                         <span className="font-bold text-gray-700 dark:text-gray-300">
-                            Availability:
+                            Availability: {""}
                         </span>
                         <span className="text-gray-600 dark:text-gray-300">
                             In Stock
@@ -102,7 +102,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="mb-4">
                     <span className="font-bold text-gray-700 dark:text-gray-300">
-                        Select Color:
+                        Color:
                     </span>
 
                     {colors && (
@@ -129,7 +129,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="mb-4">
                     <span className="font-bold text-gray-700 dark:text-gray-300">
-                        Select Size:
+                        Size:
                     </span>
 
                     {sizes && (
@@ -146,13 +146,13 @@ const ProductDetails = () => {
                     )}
                 </div>
                 <div>
-                    <span className="font-bold text-gray-700 dark:text-gray-300">
+                    <span className="font-bold text-white mt-15">
                         Product Description:
                     </span>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                    <p className="text-gray-400 text-md mt-2 mb-5">
                         {description}
                     </p>
-                    {dimension && <p>Dimension:{dimension}</p>}
+                    {dimension && <p>Dimension: {dimension}</p>}
                 </div>
                 <div className="flex w-full -mx-2 mt-20">
                     <div className="w-1/2 px-2">
