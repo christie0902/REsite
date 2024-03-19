@@ -15,15 +15,42 @@ class ProductController extends Controller
     {
         $tagIds = $request->query('tags') ? explode(',', $request->query('tags')) : [];
         $query = Product::query();
-
+    
         if (!empty($tagIds)) {
-        $query->whereHas('tags', function ($query) use ($tagIds) {
-            $query->whereIn('tags.id', $tagIds);
+            $query->whereHas('tags', function ($query) use ($tagIds) {
+                $query->whereIn('tags.id', $tagIds);
+            });
+        }
+    
+        $products = $query->with(['tags', 'variants' => function ($query) {
+            $query->select('id', 'product_id', 'variant_type', 'variant_value');
+        }])->paginate();
+    
+        
+        $products->getCollection()->transform(function ($product) {
+            $sizes = [];
+            $colors = [];
+            $editions = [];
+    
+            foreach ($product->variants as $variant) {
+                if ($variant->variant_type === 'size') {
+                    $sizes[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'color') {
+                    $colors[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'edition') {
+                    $editions[] = $variant->variant_value;
+                }
+            }
+    
+            $product->sizes = $sizes;
+            $product->colors = $colors;
+            $product->editions = $editions;
+    
+            unset($product->variants);
+    
+            return $product;
         });
-    }
-
-        $products = $query->with('tags')->paginate();
-
+    
         return response()->json($products);
     }
 
@@ -73,7 +100,11 @@ class ProductController extends Controller
             $query->select('id', 'product_id', 'variant_type', 'variant_value');
         }, 'images' => function ($query) {
             $query->select('id', 'product_id', 'url', 'is_primary');
-        }])
+        },
+        'tags' => function ($query) {
+            $query->select('tags.id', 'name');
+        }
+        ])
         ->select('id', 'name', 'description', 'price', 'weight', 'dimensions', 'rating', 'review_count', 'image_url')
         ->findOrFail($id);
     
@@ -94,6 +125,7 @@ class ProductController extends Controller
         } 
     
         $images = $product->images->pluck('url')->toArray();
+        $tags = $product->tags->pluck('name')->toArray();
     
         return response()->json([
             'name' => $product->name,
@@ -108,6 +140,7 @@ class ProductController extends Controller
             'dimension' => $product->dimensions,
             'rating' => $product->rating,
             'review_count' => $product->review_count,
+            'tags' => $tags
         ]);
     }
 }

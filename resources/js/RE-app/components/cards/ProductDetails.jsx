@@ -11,7 +11,6 @@ const ProductDetails = () => {
     const [selectColor, setSelectColor] = useState(null);
     const [selectEdition, setSelectEdition] = useState(null);
 
-
     const { productId } = useParams();
 
     useEffect(() => {
@@ -46,6 +45,7 @@ const ProductDetails = () => {
         images,
         rating,
         review_count,
+        tags,
     } = productData;
 
     const handleColorSelect = (color) => {
@@ -79,7 +79,12 @@ const ProductDetails = () => {
                 <h2 className="text-3xl font-bold mb-2 text-yellow-500 ">
                     {name}
                 </h2>
-                <p className="text-sm mb-4">{description}</p>
+                {tags.length > 0 &&
+                    tags.map((tag) => (
+                        <p className="text-sm mb-4 bg-yellow-700 w-28 px-2 py-1 rounded-sm" key={tag}>
+                            {tag}
+                        </p>
+                    ))}
 
                 <div className="flex items-center mb-4">
                     <Stars
@@ -107,12 +112,12 @@ const ProductDetails = () => {
                         </span>
                     </div>
                 </div>
-                <div className="mb-4">
-                    <span className="font-bold text-gray-700 dark:text-gray-300">
-                        Color:
-                    </span>
+                {colors.length > 0 && (
+                    <div className="mb-4">
+                        <span className="font-bold text-gray-700 dark:text-gray-300">
+                            Color:
+                        </span>
 
-                    {colors && (
                         <div className="flex items-center mt-2">
                             {colors.map((color, index) => (
                                 <label
@@ -132,33 +137,33 @@ const ProductDetails = () => {
                                 </label>
                             ))}
                         </div>
-                    )}
-                </div>
-                <div className="mb-4">
-                    <span className="font-bold text-gray-700 dark:text-gray-300">
-                        Size:
-                    </span>
+                    </div>
+                )}
 
-                    {sizes && (
+                {sizes.length > 0 && (
+                    <div className="mb-4">
+                        <span className="font-bold text-gray-700 dark:text-gray-300">
+                            Size:
+                        </span>
+
                         <div className="flex items-center mt-2">
                             {sizes.map((s, index) => (
                                 <button
                                     key={index}
-                                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600"              
+                                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600"
                                 >
                                     {s}
                                 </button>
                             ))}
                         </div>
-                    )}
-                </div>
-                {edition && (
-                <div className="mb-4">
-                    <span className="font-bold text-gray-700 dark:text-gray-300">
-                        Edition:
-                    </span>
+                    </div>
+                )}
+                {edition.length > 0 && (
+                    <div className="mb-4">
+                        <span className="font-bold text-gray-700 dark:text-gray-300">
+                            Edition:
+                        </span>
 
-                    
                         <div className="flex items-center mt-2">
                             {edition.map((e, index) => (
                                 <button
@@ -169,8 +174,7 @@ const ProductDetails = () => {
                                 </button>
                             ))}
                         </div>
-                   
-                </div>
+                    </div>
                 )}
                 <div>
                     <span className="font-bold text-white mt-15">
