@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    dd(Auth::user());
+  //  dd(Auth::user());
     return $request->user();
 });
 Route::get('/products', [ProductController::class, 'index']);

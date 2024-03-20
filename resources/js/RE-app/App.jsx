@@ -41,19 +41,23 @@ function App() {
   });
 
   const getUser = async () => {
-    const response = await fetch('/api/user');
-    if (response.status == 200) {
-        const data = await response.json();
-        dispatch({ type: 'user/setUser', payload: data });
-        console.log(data)
+    const response = await fetch('/api/user', {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  
+    if (response.status === 200) {
+      const data = await response.json();
+      dispatch({ type: 'user/setUser', payload: data });
     }
-}
-
-
-useEffect(() => {
+  };
+  useEffect(() => {
     getUser();
-}, [])
-
+    console.log(state.user);
+  }, []);
+  console.log(state.user);
   return (
     <>
       <BrowserRouter>

@@ -7,11 +7,15 @@ const CartItem = ({productData}) => {
   const {
     image_url,
     name,
-    size,
-    color,
+    sizes,
+    editions,
+    colors,
     quantity,
     price,
-    id
+    id,
+    selectedColor,
+    selectedSize,
+    selectedEdition
   } = productData
   const {state, dispatch} = useContext(Context)
 
@@ -28,8 +32,15 @@ const CartItem = ({productData}) => {
       {/* Product Details */}
       <div className="flex-grow ml-2">
         <h2 className="text-md font-bold text-gray-900">{name}</h2>
-        {size && <p className="text-sm text-gray-700"><strong>Size: </strong> {size}</p>}
-        {color && <p className="text-sm text-gray-700"><strong>Color: </strong> {color}</p>}
+        {sizes?.length > 0 && <p className="text-sm text-gray-700"><select>{sizes.map(size => {
+          return <option value={size}>{size}</option>
+        })}</select> </p>}
+        {colors?.length > 0 && <p className="text-sm text-gray-700"><select>{colors.map(color => {
+          return <option value={color}>{color}</option>
+        })}</select> </p>}
+        {editions?.length > 0 && <p className="text-sm text-gray-700"><select>{editions.map(edition => {
+          return <option value={edition}>{edition}</option>
+        })}</select> </p>}
       </div>
 
       <div className="flex flex-col justify-between">

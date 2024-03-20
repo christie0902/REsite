@@ -51,6 +51,15 @@ const ProductDetails = () => {
     const handleColorSelect = (color) => {
         setSelectColor(color);
     };
+
+    const handleSizeSelect = (size) => {
+        setSelectSize(size);
+    };
+    
+    const handleEditionSelect = (edition) => {
+        setSelectEdition(edition);
+    };
+
     return (
         <div className="flex flex-col md:flex-row md:items-start bg-black py-8">
             <div className="flex-1 flex flex-col items-center px-4 mb-8 md:mb-0">
@@ -76,12 +85,15 @@ const ProductDetails = () => {
                 </div>
             </div>
             <div className="flex-1 px-4">
-                <h2 className="text-3xl font-bold mb-2 text-yellow-500 ">
+                <h2 className="text-4xl font-bold mb-3 text-yellow-500 ">
                     {name}
                 </h2>
                 {tags.length > 0 &&
                     tags.map((tag) => (
-                        <p className="text-sm mb-4 bg-yellow-700 w-28 px-2 py-1 rounded-sm" key={tag}>
+                        <p
+                            className="text-sm mb-4 bg-yellow-700 w-24 flex justify-center items-center py-1 rounded-sm"
+                            key={tag}
+                        >
                             {tag}
                         </p>
                     ))}
@@ -140,42 +152,30 @@ const ProductDetails = () => {
                     </div>
                 )}
 
-                {sizes.length > 0 && (
-                    <div className="mb-4">
-                        <span className="font-bold text-gray-700 dark:text-gray-300">
-                            Size:
-                        </span>
-
-                        <div className="flex items-center mt-2">
-                            {sizes.map((s, index) => (
-                                <button
-                                    key={index}
-                                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600"
-                                >
-                                    {s}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-                {edition.length > 0 && (
-                    <div className="mb-4">
-                        <span className="font-bold text-gray-700 dark:text-gray-300">
-                            Edition:
-                        </span>
-
-                        <div className="flex items-center mt-2">
-                            {edition.map((e, index) => (
-                                <button
-                                    key={index}
-                                    className="bg-gray-700 text-white py-2 px-4 rounded-md font-bold mr-2 hover:bg-gray-400 "
-                                >
-                                    {e}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                {sizes.map((s, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleSizeSelect(s)}
+                        className={`bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 ${
+                            selectSize === s
+                                ? "bg-red-500"
+                                : ""
+                        }`}
+                    >
+                        {s}
+                    </button>
+                ))}
+                {edition.map((e, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleEditionSelect(e)}
+                        className={`bg-gray-700 text-white py-2 px-4 rounded-md font-bold mr-2 hover:bg-gray-400 ${
+                            selectEdition === e ? "bg-red-500" : ""
+                        }`}
+                    >
+                        {e}
+                    </button>
+                ))}
                 <div>
                     <span className="font-bold text-white mt-15">
                         Product Description:
@@ -196,7 +196,9 @@ const ProductDetails = () => {
                                     type: "product/cart-add",
                                     payload: {
                                         ...productData,
-                                        color: selectColor,
+                                        selectedColor: selectColor,
+                                        selectedSize: selectSize,
+                                        selectedEdition: selectEdition,
                                     },
                                 });
                             }}
