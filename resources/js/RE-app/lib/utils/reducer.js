@@ -77,6 +77,29 @@ export default function reducer(state, action) {
         cartActive: !state.cartActive,
       };
 
+      case "product/cart-update":
+        return {
+          ...state,
+          cart: state.cart.map((item) => {
+            if (item.id === action.payload.id) {
+              return {
+                ...item,
+                ...action.payload,
+              };
+            }
+            return item;
+          }),
+          total: sumProducts(state.cart.map((item) => {
+            if (item.id === action.payload.id) {
+              return {
+                ...item,
+                ...action.payload,
+              };
+            }
+            return item;
+          })),
+        };
+
     // PROFILE ------------------------------------------------------
 
     case "profile/set-profileVisibility":

@@ -10,6 +10,7 @@ const ProductDetails = () => {
     const [selectSize, setSelectSize] = useState(null);
     const [selectColor, setSelectColor] = useState(null);
     const [selectEdition, setSelectEdition] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
     const { productId } = useParams();
 
@@ -55,9 +56,24 @@ const ProductDetails = () => {
     const handleSizeSelect = (size) => {
         setSelectSize(size);
     };
-    
+
     const handleEditionSelect = (edition) => {
         setSelectEdition(edition);
+    };
+
+    const increaseQuantity = () => {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+    };
+
+    const decreaseQuantity = () => {
+        setQuantity((prevQuantity) =>
+            prevQuantity > 1 ? prevQuantity - 1 : 1
+        );
+    };
+
+    const handleQuantityChange = (e) => {
+        const newQuantity = parseInt(e.target.value, 10);
+        setQuantity(isNaN(newQuantity) || newQuantity < 1 ? 1 : newQuantity);
     };
 
     return (
@@ -157,9 +173,7 @@ const ProductDetails = () => {
                         key={index}
                         onClick={() => handleSizeSelect(s)}
                         className={`bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 ${
-                            selectSize === s
-                                ? "bg-red-500"
-                                : ""
+                            selectSize === s ? "bg-red-500" : ""
                         }`}
                     >
                         {s}
@@ -176,6 +190,25 @@ const ProductDetails = () => {
                         {e}
                     </button>
                 ))}
+                 <div className="flex items-center">
+                            <button 
+                            className="cursor-pointer rounded-l bg-gray-600 py-1 px-3 hover:bg-red-700 hover:text-white"
+                            aria-label="Decrease quantity"
+                            onClick={decreaseQuantity}>-</button>
+                            <input
+                                type="number"
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                data-input-counter
+                                data-input-counter-min="1"
+                                data-input-counter-max="50"
+                                className="bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-red-500 focus:border-red-500 block w-8 py-2.5"
+                            />
+                            <button 
+                            className="cursor-pointer rounded-r bg-gray-600 py-1 px-3 hover:bg-red-700 hover:text-white"
+                            aria-label="Increase quantity"
+                            onClick={increaseQuantity}>+</button>
+                        </div>
                 <div>
                     <span className="font-bold text-white mt-15">
                         Product Description:
@@ -187,6 +220,7 @@ const ProductDetails = () => {
                 </div>
                 <div className="flex w-full -mx-2 mt-5">
                     <div className="w-1/2 px-2">
+                       
                         <CustomButton
                             type="static"
                             title="Add To Cart"
@@ -199,6 +233,7 @@ const ProductDetails = () => {
                                         selectedColor: selectColor,
                                         selectedSize: selectSize,
                                         selectedEdition: selectEdition,
+                                        quantity: quantity,
                                     },
                                 });
                             }}

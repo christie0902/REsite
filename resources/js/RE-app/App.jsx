@@ -55,9 +55,9 @@ function App() {
   };
   useEffect(() => {
     getUser();
-    console.log(state.user);
   }, []);
-  console.log(state.user);
+
+  console.log(state.user)
   return (
     <>
       <BrowserRouter>

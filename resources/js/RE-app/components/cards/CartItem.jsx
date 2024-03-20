@@ -19,6 +19,38 @@ const CartItem = ({productData}) => {
   } = productData
   const {state, dispatch} = useContext(Context)
 
+  const handleSizeChange = (e) => {
+    const newSize = e.target.value;
+    dispatch({
+      type: 'product/cart-update',
+      payload: {
+        id,
+        selectedSize: newSize,
+      },
+    });
+  };
+
+  const handleColorChange = (e) => {
+    const newColor = e.target.value;
+    dispatch({
+      type: 'product/cart-update',
+      payload: {
+        id,
+        selectedColor: newColor,
+      },
+    });
+  };
+
+  const handleEditionChange = (e) => {
+    const newEdition = e.target.value;
+    dispatch({
+      type: 'product/cart-update',
+      payload: {
+        id,
+        selectedEdition: newEdition,
+      },
+    });
+  };
 
   return (
     <div className="flex items-start justify-between p-2 pt-3 bg-gray-100 bg-opacity-40 rounded-lg shadow-xl backdrop-filter backdrop-blur-lg">
@@ -32,15 +64,36 @@ const CartItem = ({productData}) => {
       {/* Product Details */}
       <div className="flex-grow ml-2">
         <h2 className="text-md font-bold text-gray-900">{name}</h2>
-        {sizes?.length > 0 && <p className="text-sm text-gray-700"><select>{sizes.map(size => {
-          return <option value={size}>{size}</option>
-        })}</select> </p>}
-        {colors?.length > 0 && <p className="text-sm text-gray-700"><select>{colors.map(color => {
-          return <option value={color}>{color}</option>
-        })}</select> </p>}
-        {editions?.length > 0 && <p className="text-sm text-gray-700"><select>{editions.map(edition => {
-          return <option value={edition}>{edition}</option>
-        })}</select> </p>}
+        {sizes?.length > 0 && (
+        <p className="text-sm text-gray-700">
+          Size:
+          <select value={selectedSize} onChange={handleSizeChange}>
+            {sizes.map((size) => (
+              <option key={size} value={size}>{size}</option>
+            ))}
+          </select>
+        </p>
+      )}
+      {colors?.length > 0 && (
+        <p className="text-sm text-gray-700">
+          Color:
+          <select value={selectedColor} onChange={handleColorChange}>
+            {colors.map((color) => (
+              <option key={color} value={color}>{color}</option>
+            ))}
+          </select>
+        </p>
+      )}
+      {editions?.length > 0 && (
+        <p className="text-sm text-gray-700">
+          Edition:
+          <select value={selectedEdition} onChange={handleEditionChange}>
+            {editions.map((edition) => (
+              <option key={edition} value={edition}>{edition}</option>
+            ))}
+          </select>
+        </p>
+      )}
       </div>
 
       <div className="flex flex-col justify-between">

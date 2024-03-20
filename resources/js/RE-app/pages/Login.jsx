@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Context from "../store/Context";
+import axios from 'axios';
+import '../../bootstrap.js';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -13,29 +15,23 @@ export default function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const response = await fetch("/login", {
-            method: "POST",
-            body: JSON.stringify(values),
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json",
-                "X-CSRF-TOKEN": document
-                    .querySelector('meta[name="csrf-token"]')
-                    .getAttribute("content"),
-            },
-        });
-
-        const responseData = await response.json();
-
-        if (Math.floor(response.status / 100) === 2) {
-            
-            navigate('/');
-        } else {
-            
-            console.log("Login failed:", responseData.message);
+        try {
+            const response = await axios.post('/login', values);
+            const response_data = response.data;
+            navigate("/");
+    
+        } catch (error) {
+            switch (error.response.status) {
+                case 422:
+                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    break;
+                case 500:
+                    console.log('UNKNOWN ERROR', error.response.data);
+                    break;
+            }
         }
-    };
+    }
+    
 
     const handleChange = (event) => {
         setValues((previousValues) => ({
