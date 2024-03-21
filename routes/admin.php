@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'can:admin'], function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
-    
+    Route::delete('/products/{id}', [ProductController::class, 'delete'])->name('admin.products.delete');
 });

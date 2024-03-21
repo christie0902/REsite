@@ -7,6 +7,13 @@
 <title>Product Table</title>
 </head>
 <body>
+
+  @if(session('success_message'))
+  <div class="alert alert-success">
+      {{ session('success_message') }}
+  </div>
+  @endif
+
   <div class="top-bar">
     {{-- Search bar --}}
     <form action="{{ route('admin.products.index') }}" method="get">
@@ -16,7 +23,7 @@
 
     <button id="add-product">+ Add Product</button>
     <button id="import-csv">Import CSV</button>
-</div>
+  </div>
 
 @if(request()->has('search-product') && !empty(request()->input('search-product')))
     <p>{{ $products->total() }} results for "{{ request()->input('search-product') }}"</p>
@@ -44,13 +51,21 @@
               <img src={{$product["image_url"]}} alt="Product Image" class="product-image">
               {{ htmlspecialchars($product["name"]) }}
           </td>
-            <td>{{htmlspecialchars($product["category"]["name"])}}</td>
+            <td>{{$product["category"]["name"]}}</td>
             <td class="stock">{{htmlspecialchars($product["stock_quantity"])}}</td>
             <td class="price">${{htmlspecialchars($product["price"])}}</td>
             <td>
                 <div class="action-icons">
                     <img src="{{ asset('icon-img/edit-icon.png') }}" alt="Edit" title="Edit" class="icon" />
-                    <img src="{{ asset('icon-img/delete-icon.png') }}" alt="Delete" title="Delete" class="icon"/>
+
+                    <form action="{{ route('admin.products.delete', $product->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="icon-button" style="background: none; border: none; padding: 0; cursor: pointer;">
+                          <img src="{{ asset('icon-img/delete-icon.png') }}" alt="Delete" title="Delete" class="icon"/>
+                      </button>
+                  </form>
+
                 </div>
             </td>
         </tr>
