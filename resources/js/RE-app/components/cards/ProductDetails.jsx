@@ -35,6 +35,7 @@ const ProductDetails = () => {
     }
 
     const {
+        id,
         name,
         description,
         price,
@@ -48,7 +49,7 @@ const ProductDetails = () => {
         review_count,
         tags,
     } = productData;
-
+console.log(productData);
     const handleColorSelect = (color) => {
         setSelectColor(color);
     };
@@ -139,6 +140,31 @@ const ProductDetails = () => {
                             In Stock
                         </span>
                     </div>
+                    <div className="flex items-center mt-6 mb-3">
+                        <button
+                            className="cursor-pointer rounded-l bg-gray-800 py-1 px-3 hover:bg-red-700 hover:text-white"
+                            aria-label="Decrease quantity"
+                            onClick={decreaseQuantity}
+                        >
+                            -
+                        </button>
+                        <input
+                            type="number"
+                            value={quantity}
+                            onChange={handleQuantityChange}
+                            data-input-counter
+                            data-input-counter-min="1"
+                            data-input-counter-max="50"
+                            className="bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-red-500 focus:border-red-500 block w-8 py-2.5"
+                        />
+                        <button
+                            className="cursor-pointer rounded-r bg-gray-800 py-1 px-3 hover:bg-red-700 hover:text-white"
+                            aria-label="Increase quantity"
+                            onClick={increaseQuantity}
+                        >
+                            +
+                        </button>
+                    </div>
                 </div>
                 {colors.length > 0 && (
                     <div className="mb-4">
@@ -150,7 +176,11 @@ const ProductDetails = () => {
                             {colors.map((color, index) => (
                                 <label
                                     key={index}
-                                    className={`w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer mr-2 hover:border-gray-500`}
+                                    className={`w-8 h-8 rounded-full border-2 border-gray-300 cursor-pointer mr-2 hover:border-gray-500 ${
+                                        selectColor === color
+                                            ? "border-red-500 scale-125"
+                                            : ""
+                                    }`}
                                     style={{ backgroundColor: color }}
                                 >
                                     <input
@@ -167,48 +197,48 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 )}
+                {sizes.length > 0 && (
+                    <div className="mb-4">
+                        <span className="font-bold text-gray-700">
+                            Size: {""}
+                        </span>
+                        {sizes.map((s, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleSizeSelect(s)}
+                                className={`bg-gray-800 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 ${
+                                    selectSize === s
+                                        ? "border-white scale-105"
+                                        : ""
+                                }`}
+                            >
+                                {s}
+                            </button>
+                        ))}
+                    </div>
+                )}
 
-                {sizes.map((s, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleSizeSelect(s)}
-                        className={`bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 ${
-                            selectSize === s ? "bg-red-500" : ""
-                        }`}
-                    >
-                        {s}
-                    </button>
-                ))}
-                {edition.map((e, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleEditionSelect(e)}
-                        className={`bg-gray-700 text-white py-2 px-4 rounded-md font-bold mr-2 hover:bg-gray-400 ${
-                            selectEdition === e ? "bg-red-500" : ""
-                        }`}
-                    >
-                        {e}
-                    </button>
-                ))}
-                 <div className="flex items-center">
-                            <button 
-                            className="cursor-pointer rounded-l bg-gray-600 py-1 px-3 hover:bg-red-700 hover:text-white"
-                            aria-label="Decrease quantity"
-                            onClick={decreaseQuantity}>-</button>
-                            <input
-                                type="number"
-                                value={quantity}
-                                onChange={handleQuantityChange}
-                                data-input-counter
-                                data-input-counter-min="1"
-                                data-input-counter-max="50"
-                                className="bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-red-500 focus:border-red-500 block w-8 py-2.5"
-                            />
-                            <button 
-                            className="cursor-pointer rounded-r bg-gray-600 py-1 px-3 hover:bg-red-700 hover:text-white"
-                            aria-label="Increase quantity"
-                            onClick={increaseQuantity}>+</button>
-                        </div>
+                {edition.length > 0 && (
+                    <div className="mb-4">
+                        <span className="font-bold text-gray-700 dark:text-gray-300">
+                            Edition: {""}
+                        </span>
+                        {edition.map((e, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleEditionSelect(e)}
+                                className={`bg-gray-700 text-white py-2 px-4 rounded-md font-bold mr-2 hover:bg-gray-400 ${
+                                    selectEdition === e
+                                        ? "border-white scale-105"
+                                        : ""
+                                }`}
+                            >
+                                {e}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 <div>
                     <span className="font-bold text-white mt-15">
                         Product Description:
@@ -220,7 +250,6 @@ const ProductDetails = () => {
                 </div>
                 <div className="flex w-full -mx-2 mt-5">
                     <div className="w-1/2 px-2">
-                       
                         <CustomButton
                             type="static"
                             title="Add To Cart"
@@ -230,6 +259,7 @@ const ProductDetails = () => {
                                     type: "product/cart-add",
                                     payload: {
                                         ...productData,
+                                        id: id,
                                         selectedColor: selectColor,
                                         selectedSize: selectSize,
                                         selectedEdition: selectEdition,

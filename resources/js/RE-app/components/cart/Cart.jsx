@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import CartItem from "../cards/CartItem";
 import CustomButton from "../buttons/CustomButton";
 import Context from "../../store/Context";
+import { Link } from "react-router-dom";
+
 
 const Cart = ({ productData }) => {
   const { state, dispatch } = useContext(Context);
@@ -85,11 +87,11 @@ const Cart = ({ productData }) => {
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6 flex gap-3 flex-row">
-                        <CustomButton
+                      <Link to={'/checkout'}> <CustomButton
                           type="static"
                           title="Checkout"
                           customStyles="w-full"
-                        />
+                        /></Link>
                         <CustomButton
                           type="outline"
                           title="Clear Cart"

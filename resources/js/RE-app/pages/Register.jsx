@@ -23,7 +23,7 @@ export default function Register(props) {
             const response = await axios.post('/register', values);
             const response_data = response.data;
             navigate("/");
-            location.reload();
+            
         } catch (error) {
             switch (error.response.status) {
                 case 422:

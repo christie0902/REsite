@@ -17,60 +17,40 @@ import BlogPage from "./pages/BlogPage.jsx";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import ProductDetails from './components/cards/ProductDetails.jsx';
+import Checkout from './pages/Checkout.jsx';
+import LocalStorageHandler from './LocalStorageHandler.jsx';
 
-// import ProductCard from "./components/cards/ProductCard.jsx";
-// import model from './assets/model1.png'
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, {
-    user: null,
-    cart: [],
-    customizerState: initialCustomizerState,
-    searchActive: false,
-    cartActive: false,
-    profileActive: false,
-    currency: '$',
-    variant: {
-      size: null,
-      color: null,
-      edition: null
-    },
-    total: 0,
-    searchResults: null,
-    searchQuery: null
-  });
-
-  const getUser = async () => {
-    const response = await fetch('/api/user', {
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-  
-    if (response.status === 200) {
-      const data = await response.json();
-      dispatch({ type: 'user/setUser', payload: data });
-    }
+  const initialState = () => {
+    const localData = localStorage.getItem('session');
+    return localData
+      ? { ...JSON.parse(localData) }
+      : {
+          user: null,
+          cart: [],
+          customizerState: initialCustomizerState,
+          searchActive: false,
+          cartActive: false,
+          profileActive: false,
+          currency: '$',
+          total: 0,
+          searchResults: null,
+          searchQuery: null
+        };
   };
-  useEffect(() => {
-    getUser();
-  }, []);
+
+  const [state, dispatch] = useReducer(reducer, initialState());
+
 
   console.log(state.user)
   return (
     <>
       <BrowserRouter>
         <Context.Provider value={{ state, dispatch }}>
+          <LocalStorageHandler />
           <Header />
           <Cart />
-          {/* <ProductCard img_url={model} product_name="Nemesis Model" description="RE3" price="$50"/> */}
-          {/* <CustomizerSection /> */}
-          {/* <ProductCard        
-        img_url="src/assets/model1.png"
-        product_name="Nemesis Model"
-        description="$50"/>
-      */}
 
 
           <Routes>
@@ -82,6 +62,7 @@ function App() {
             <Route path="/blogs" element={<BlogPage />} />  
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/product/details/:productId" element={<ProductDetails/>} />
           </Routes>
 

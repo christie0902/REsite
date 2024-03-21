@@ -128,6 +128,7 @@ class ProductController extends Controller
         $tags = $product->tags->pluck('name')->toArray();
     
         return response()->json([
+            "id" => $product->id,
             'name' => $product->name,
             'description' => $product->description,
             'price' => $product->price,

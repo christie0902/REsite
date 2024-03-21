@@ -11,6 +11,8 @@ const ProfileMenu = () => {
             .post("/logout")
             .then((response) => {
                 console.log("Logged out successfully");
+                localStorage.removeItem("session");
+                dispatch({ type: 'user/logout' });
                 location.reload();
             })
             .catch((error) => {
@@ -55,7 +57,7 @@ const ProfileMenu = () => {
                                 <MenuItem label="Setting" url="#" />
                             </li>
                         
-                        {state.user.role === "admin" && (
+                        {state.user && state.user.role === "admin" && (
                             <li className="font-bold text-yellow-600">
                                 <MenuItem label="Admin Hub" url="/admin/products" />
                             </li>

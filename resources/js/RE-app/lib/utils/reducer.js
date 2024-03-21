@@ -16,26 +16,44 @@ export default function reducer(state, action) {
   }
 
   switch (action.type) {
+    // GENERAL -------------------------------------------------------
+
+    case "state/recover" :
+      return {
+        ...state,
+        cart: action.payload.cart,
+        customizerState: action.payload.customizerState,
+        currency: action.payload.currency,
+        total: action.payload.total
+      }
+
     // CART ----------------------------------------------------------
     case "product/cart-add":
-
-      if (state.cart.some((item) => item.id === action.payload.id)) {
+      console.log(action.payload.id)
+      const existingItemIndex = state.cart.findIndex((item) => item.id === action.payload.id);
+      
+      if (existingItemIndex !== -1) {
+        const updatedCart = state.cart.map((item, index) => {
+          if (index === existingItemIndex) {
+            return { ...item, quantity: item.quantity + action.payload.quantity };
+          }
+          return item;
+        });
+    
         return {
           ...state,
-          cart: state.cart.map((item) => {           
-             return { ...item, quantity: item.quantity + 1 }
-          }
-          ),
-         total: sumProducts(state.cart)
-         
+          cart: updatedCart,
+          total: sumProducts(updatedCart),
         };
       } else {
+        const newProduct = { ...action.payload, quantity: action.payload.quantity };
+        const newCart = [...state.cart, newProduct];
+        
         return {
           ...state,
-          cart: [...state.cart, { ...action.payload, quantity: 1 }],
-          total: sumProducts([...state.cart, { ...action.payload, quantity: 1 }])
+          cart: newCart,
+          total: sumProducts(newCart),
         };
-       
       }
 
       case "product/cart-setQuantity":
