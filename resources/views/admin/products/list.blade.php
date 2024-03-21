@@ -8,13 +8,22 @@
 </head>
 <body>
   <div class="top-bar">
-    <form action="" method="post">
-    <input type="text" id="search-product" placeholder="Search in products" />
-    <button>Search</button>
+    {{-- Search bar --}}
+    <form action="{{ route('admin.products.index') }}" method="get">
+      <input type="text" id="search-product" name="search-product" placeholder="Search in products" value="{{ request()->input('search-product') }}">
+      <button type="submit">Search</button>
   </form>
+
     <button id="add-product">+ Add Product</button>
     <button id="import-csv">Import CSV</button>
 </div>
+
+@if(request()->has('search-product') && !empty(request()->input('search-product')))
+    <p>{{ $products->total() }} results for "{{ request()->input('search-product') }}"</p>
+@else
+    <p>Showing all products ({{ $products->total() }})</p>
+@endif
+
 <table>
   <thead>
     <tr>

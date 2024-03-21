@@ -8,28 +8,28 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = Product::with('category')->paginate(10);
-        return view('admin.products.list', compact('products'));
-    }
+    public function index(Request $request)
+{
+    $search_query = $request->input('search-product');
 
-    //Search function
-    public function search(Request $request)
-    {
-        $search_query = $request->query('search-product');
+    $products = Product::with('category');
 
-        $search_result = Product::with('category')
-            ->where('name', 'like', "%{$search_query}%")
-            ->orWhereHas('category', function($query) use ($search_query) {
-                $query->where('name', 'like', "%{$search_query}%");
+    if (!empty($search_query)) {
+        $products = $products->where('name', 'LIKE', "%{$search_query}%")
+            ->orWhere('description', 'LIKE', "%{$search_query}%")
+            ->orWhereHas('category', function ($query) use ($search_query) {
+                $query->where('name', 'LIKE', "%{$search_query}%");
             })
-            ->limit(10)
-            ->get();
-
-        return view('admin.products.list', compact('search_result'));
+            ->orWhereHas('variants', function ($query) use ($search_query) {
+                $query->where('variant_type', 'LIKE', "%{$search_query}%")
+                      ->orWhere('variant_value', 'LIKE', "%{$search_query}%");
+            });
     }
 
+    $products = $products->paginate(10);
+
+    return view('admin.products.list', ['products' => $products]);
+}
     //Edit function
     public function edit($id = null)
     {
