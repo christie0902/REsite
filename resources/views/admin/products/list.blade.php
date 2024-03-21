@@ -21,7 +21,7 @@
       <button type="submit">Search</button>
   </form>
 
-    <button id="add-product">+ Add Product</button>
+    <button id="add-product" onclick="window.location='{{ route('admin.products.add') }}'">+ Add Product</button>
     <button id="import-csv">Import CSV</button>
   </div>
 
@@ -58,6 +58,9 @@
                 <div class="action-icons">
                     <img src="{{ asset('icon-img/edit-icon.png') }}" alt="Edit" title="Edit" class="icon" />
 
+
+
+                    {{-- Delete logic --}}
                     <form action="{{ route('admin.products.delete', $product->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this product?');">
                       @csrf
                       @method('DELETE')
