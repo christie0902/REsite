@@ -26,13 +26,7 @@
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" name="name" required class="form-control" placeholder="Product Name" value="{{ old('name') }}">
             </div>
-    
-            <div class="form-group">
-                <label for="productDescription">Descriptions</label>
-                <textarea id="productDescription" name="description" class="form-control" placeholder="Descriptions">{{ old('description') }}</textarea>
-            </div>
 
-            {{-- Category & SKU --}}
             <div class="form-group">
                 <label for="category">Category:</label>
                 <select name="category_id" id="category" class="form-control" required>
@@ -47,6 +41,20 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="productDescription">Descriptions</label>
+                <textarea id="productDescription" name="description" class="form-control" placeholder="Descriptions" rows="8">{{ old('description') }}</textarea>
+            </div>
+
+            {{-- Product Image --}}
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple" >
+            </div>
+
+            {{-- Size & SKU --}}
+    
 
             <div class="form-group">
                 <label for="sku">SKU</label>
@@ -70,24 +78,19 @@
                 <input type="text" id="productPrice" name="price" required class="form-control" placeholder="Price" value="{{ old('price') }}">
             </div>
     
-            {{-- Product Image --}}
-            <div class="form-group">
-                <label for="productImage">Product Image</label>
-                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple" >
-            </div>
+           
     
             {{-- Visibility --}}
-            <div>
-                <input type="radio" id="visibilityPublished" name="status" value="active" {{ old('status', 'active') == 'active' ? 'checked' : '' }}>
-                <label for="visibilityPublished">Published</label>
-            </div>
-            <div>
-                <input type="radio" id="visibilityScheduled" name="status" value="scheduled" {{ old('status') == 'scheduled' ? 'checked' : '' }}>
-                <label for="visibilityScheduled">Scheduled</label>
-            </div>
-            <div>
-                <input type="radio" id="visibilityHidden" name="status" value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
-                <label for="visibilityHidden">Hidden</label>
+            <div class="form-group">
+                <label class="visibility-label">Visibility:</label>
+                <div class="visibility-options">
+                    <input type="radio" id="visibilityPublished" name="status" value="active" {{ old('status', 'active') == 'active' ? 'checked' : '' }}>
+                    <label for="visibilityPublished">Published</label>
+                    <input type="radio" id="visibilityScheduled" name="status" value="scheduled" {{ old('status') == 'scheduled' ? 'checked' : '' }}>
+                    <label for="visibilityScheduled">Scheduled</label>
+                    <input type="radio" id="visibilityHidden" name="status" value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
+                    <label for="visibilityHidden">Hidden</label>
+                </div>
             </div>
     
             <div class="form-group">
