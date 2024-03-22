@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
@@ -39,3 +40,4 @@ Route::get('/products/categories', [CategoryController::class, 'index']);
 
 Route::post('/checkout', [CheckoutController::class, 'process']);
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+Route::Get('dashboard',[DashboardController::class,'index'])->name('dashboard');

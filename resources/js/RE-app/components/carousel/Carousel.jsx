@@ -80,7 +80,7 @@ const Carousel = () => {
           height: "3px",
           backgroundColor: "#7e0b0b",
           position: "absolute",
-          zIndex: 100,
+          zIndex: 30,
           top: 0,
           left: 0,
         }}
@@ -89,7 +89,7 @@ const Carousel = () => {
           height: "3px",
           backgroundColor: "#7e0b0b",
           position: "absolute",
-          zIndex: 100,
+          zIndex: 30,
           top: 0,
           left: 0,
         }}

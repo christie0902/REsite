@@ -24,7 +24,7 @@ const ProfileMenu = () => {
         state.profileActive && (
             <div
                 id="dropdownDivider"
-                className="z-10 divide-y divide-gray-500 rounded-sm shadow-lg backdrop-blur-lg bg-opacity-30 bg-gray-600 border border-gray-600 w-44 dark:divide-gray-600 absolute top-10 right-12"
+                className="z-10 divide-y divide-gray-500 rounded-sm shadow-lg backdrop-blur-lg bg-opacity-30 bg-gray-600 border border-gray-600 w-44 dark:divide-gray-600 absolute top-10 right-12 z-50"
                 style={{ backdropFilter: "blur(10px)" }}
             >
                 {state.user === null ? (

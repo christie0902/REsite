@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Checkout = () => {
     const { state } = useContext(Context);
     const { cart, currency, total } = state;
-    const [paymentType, setPaymentType] = useState("card"); // default to card
+    const [paymentType, setPaymentType] = useState("card");
     const [nameOnCard, setNameOnCard] = useState("");
     const [cardNumber, setCardNumber] = useState("");
     const [expirationMonth, setExpirationMonth] = useState("01");
@@ -40,7 +40,7 @@ const Checkout = () => {
             alert(`Payment failed: ${error.response ? error.response.data.message : error.message}`);
         }
     };
-
+console.log(state.user)
     return (
         <>
             <div className="min-w-screen min-h-screen bg-black">
