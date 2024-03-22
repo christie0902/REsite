@@ -21,6 +21,14 @@ class OrderController extends Controller
     $primaryAddress = $order->user->addresses->where('is_primary', true)->first();
     $order->user->primary_address = $primaryAddress;
 
+    foreach ($order->items as $item) {
+        $variantDescription = '';
+        if ($item->productVariant) {
+            $variantDescription = $item->productVariant->variant_type . ': ' . $item->productVariant->variant_value;
+        }
+        $item->variant_description = $variantDescription;
+    }
+
     return response()->json($order);
 }
 }
