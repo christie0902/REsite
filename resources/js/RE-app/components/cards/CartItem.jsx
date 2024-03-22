@@ -8,7 +8,7 @@ const CartItem = ({productData}) => {
     image_url,
     name,
     sizes,
-    editions,
+    edition,
     colors,
     quantity,
     price,
@@ -19,6 +19,7 @@ const CartItem = ({productData}) => {
   } = productData
   const {state, dispatch} = useContext(Context)
 
+  console.log(productData)
   const handleSizeChange = (e) => {
     const newSize = e.target.value;
     dispatch({
@@ -84,12 +85,12 @@ const CartItem = ({productData}) => {
           </select>
         </p>
       )}
-      {editions?.length > 0 && (
+      {edition?.length > 0 && (
         <p className="text-sm text-gray-700">
           Edition:
           <select value={selectedEdition} onChange={handleEditionChange}>
-            {editions.map((edition) => (
-              <option key={edition} value={edition}>{edition}</option>
+            {edition.map((editionOption) => (
+              <option key={editionOption} value={editionOption}>{editionOption}</option>
             ))}
           </select>
         </p>

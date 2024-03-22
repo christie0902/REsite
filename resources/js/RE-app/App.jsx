@@ -19,6 +19,7 @@ import Login from './pages/Login.jsx';
 import ProductDetails from './components/cards/ProductDetails.jsx';
 import Checkout from './pages/Checkout.jsx';
 import LocalStorageHandler from './LocalStorageHandler.jsx';
+import OrderSummary from './pages/OrderSummary.jsx';
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/product/details/:productId" element={<ProductDetails/>} />
+            <Route path="/order-summary/:orderId" element={<OrderSummary />} />
           </Routes>
 
           <Footer />

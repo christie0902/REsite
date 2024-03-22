@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,4 @@ Route::get('/products/tags', [TagController::class, 'index']);
 Route::get('/products/categories', [CategoryController::class, 'index']);
 
 Route::post('/checkout', [CheckoutController::class, 'process']);
+Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');

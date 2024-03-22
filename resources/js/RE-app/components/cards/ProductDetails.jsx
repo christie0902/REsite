@@ -248,6 +248,9 @@ console.log(productData);
                     </p>
                     {dimension && <p>Dimension: {dimension}</p>}
                 </div>
+
+
+                {/* Add to cart */}
                 <div className="flex w-full -mx-2 mt-5">
                     <div className="w-1/2 px-2">
                         <CustomButton
@@ -255,6 +258,7 @@ console.log(productData);
                             title="Add To Cart"
                             customStyles="w-full"
                             handleClick={() => {
+                                console.log(selectColor, selectSize, selectEdition);
                                 dispatch({
                                     type: "product/cart-add",
                                     payload: {

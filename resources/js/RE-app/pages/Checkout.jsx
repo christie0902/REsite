@@ -1,6 +1,7 @@
 import { CustomButton } from "../components";
 import React, { useContext, useState, useEffect } from "react";
 import Context from "../store/Context";
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
     const { state } = useContext(Context);
@@ -11,6 +12,8 @@ const Checkout = () => {
     const [expirationMonth, setExpirationMonth] = useState("01");
     const [expirationYear, setExpirationYear] = useState("2024");
     const [securityCode, setSecurityCode] = useState("");
+    const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,9 +33,11 @@ const Checkout = () => {
 
             console.log("Payment successful:", response.data);
             alert("Payment successful!");
+            navigate(`/order-summary/${response.data.orderId}`);
+            
         } catch (error) {
-            console.error("Payment failed:", error.response);
-            alert("Payment failed. Please try again.");
+            console.error("Payment failed:", error.response || error);
+            alert(`Payment failed: ${error.response ? error.response.data.message : error.message}`);
         }
     };
 
