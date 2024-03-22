@@ -54,7 +54,7 @@ const handleSearch = async (event) => {
 
   return (
     <div ref={searchBarRef} >
-     <form className="max-w-fit mx-auto backdrop-blur-md bg-white/10 rounded-lg border border-gray-200/50"
+     <form className="max-w-fit mx-auto backdrop-blur-md bg-white/13 rounded-md border border-gray-200/50"
      onSubmit={handleSearch}
      >
         <div className="relative">
@@ -66,7 +66,7 @@ const handleSearch = async (event) => {
             <input type="search" 
             data-allowsearch="true"
             id="default-search" 
-            className="block w-full p-3 pl-10 text-sm text-gray-900 border border-transparent rounded-lg bg-transparent backdrop-blur-lg"
+            className="block w-full p-3 pl-10 text-sm text-white border border-transparent rounded-lg bg-transparent backdrop-blur-lg"
             placeholder="Enter your search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

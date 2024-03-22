@@ -10,6 +10,8 @@ use App\Models\Discount;
 use App\Models\ProductVariant;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Image;
 
 class ProductController extends Controller
 {
@@ -47,17 +49,13 @@ class ProductController extends Controller
     }
 
     //Edit function
-    public function edit($id = null)
+    public function edit($id)
     {
-        if ($id) {
-            $product = Product::with('category', 'images', 'variants')->findOrFail($id);
-        } else {
-            $product = new Product;
-        }
-        $images = $product->images;
-        $variants = $product->variants;
-        
-        return view('admin.products.edit', compact('product', 'images', 'variants'));
+        $product = Product::with('category', 'images', 'variants')->findOrFail($id);
+        $categories = Category::all();
+        $discounts = Discount::all();
+
+        return view('admin.products.edit', compact('product', 'categories', 'discounts'));
     }
 
     // store/save function
@@ -140,8 +138,6 @@ class ProductController extends Controller
                             $product->images()->create(['url' => $uploadedFileUrl]);
                         }
             
-                        // Save the image to the images table
-                        
                     }
                 }
         });
@@ -156,7 +152,84 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success_message', 'Product data saved successfully.');
     }
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:500',
+            'price' => 'required|numeric|between:0,9999.99',
+            'hasSizes' => 'required|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'product_images.*' => 'nullable|mimes:jpg,jpeg,png|max:2048',
+            'stock_quantity' => 'required|integer|min:0',
+            'sku' => 'required|string|max:50|unique:products,sku,' . $id,
+            'discount_id' => 'nullable|exists:discounts,id',
+            'promotion_start_date' => 'nullable|date',
+            'promotion_end_date' => 'nullable|date|after_or_equal:promotion_start_date',
+            'status' => 'required|in:active,inactive',
+        ], [
+            'name.required' => 'The product name is required.',
+            'description.max' => 'The description must not exceed 500 characters.',
+            'price.required' => 'The price is required.',
+            'price.numeric' => 'The price must be a number.',
+            'hasSizes.required' => 'Please specify if the product has sizes.',
+            'category_id.required' => 'Please select a category for the product.',
+            'stock_quantity.required' => 'The stock quantity is required.',
+            'stock_quantity.integer' => 'The stock quantity must be a whole number.',
+            'stock_quantity.min' => 'The stock quantity must be at least 0.',
+            'sku.required' => 'The SKU is required.',      
+            'status.required' => 'The status is required.',
+        ]);
+    
+        DB::transaction(function () use ($request, $id) {
+            $product = Product::findOrFail($id);
+    
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->category_id = $request->category_id;
+            $product->price = $request->price;
+            $product->hasSizes = $request->hasSizes;
+            $product->stock_quantity = $request->stock_quantity;
+            $product->sku = $request->sku;
+            $product->status = $request->status;
+            $product->discount_id = $request->input('discount_id'); 
+            $product->promotion_start_date = $request->promotion_start_date ?? null;
+            $product->promotion_end_date = $request->promotion_end_date ?? null;
+    
+            $product->save();
+    
+            // Handle variants
+            if ($request->has('variants')) {
+                foreach ($request->variants as $variantData) {
+                    $variant = new ProductVariant;
+                    $variant->product_id = $product->id;
+                    $variant->size = $variantData['size'];
+                    $variant->color = $variantData['color'];
+                    $variant->save();
+                }
+            }
+    
+             // Handle deletion of existing images
+            if ($request->has('deleted_images')) {
+                foreach ($request->deleted_images as $imageId) {
+                    $image = Image::findOrFail($imageId);
+                    Storage::delete($image->url); 
+                    $image->delete();
+                }
+            }
 
+            // Handle addition of new images
+            if ($request->hasFile('product_images')) {
+                foreach ($request->file('product_images') as $file) {
+                    $uploadedFileUrl = Cloudinary::upload($file->getRealPath())->getSecurePath();
+                    $product->images()->create(['url' => $uploadedFileUrl]);
+                }
+            }
+
+    });
+    
+        return redirect()->back()->with('success_message', 'Product data updated successfully.');
+    }
     
 //delete function
     public function delete($id)

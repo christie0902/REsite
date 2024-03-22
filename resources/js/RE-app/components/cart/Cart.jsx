@@ -90,6 +90,19 @@ const Cart = ({ productData }) => {
                       <Link to={'/checkout'}> <CustomButton
                           type="static"
                           title="Checkout"
+                          handleClick={()=>{
+                            dispatch({
+                              type: "product/cart-update",
+                              payload: {
+                                  ...productData,
+                                  id: id,
+                                  selectedColor: selectColor,
+                                  selectedSize: selectSize,
+                                  selectedEdition: selectEdition,
+                                  quantity: quantity,
+                              },
+                          });
+                          }}
                           customStyles="w-full"
                         /></Link>
                         <CustomButton

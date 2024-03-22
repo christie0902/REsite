@@ -20,8 +20,8 @@ Route::group(['middleware' => 'can:admin'], function () {
     Route::delete('/products/{id}', [ProductController::class, 'delete'])->name('admin.products.delete');
     Route::get('/products/add', [ProductController::class, 'create'])->name('admin.products.add');
     Route::post('/products/store', [ProductController::class,'store'])->name('admin.products.store');
-
-
+    Route::get('/admin/products/edit/{id}', [ProductController::class,'edit'])->name('admin.products.edit');
+    Route::put('/admin/products/{id}', [ProductController::class,'update'])->name('admin.products.update');
 
     Route::get('/upload', [FileUploadController::class, 'showUploadForm']);
     Route::post('/upload',[FileUploadController::class, 'storeUploads'])->name('image.upload');
