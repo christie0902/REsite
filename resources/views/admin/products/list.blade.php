@@ -19,7 +19,21 @@
     <form action="{{ route('admin.products.index') }}" method="get">
       <input type="text" id="search-product" name="search-product" placeholder="Search in products" value="{{ request()->input('search-product') }}">
       <button type="submit">Search</button>
-  </form>
+
+    {{-- Sorting selection --}}
+      <div class="sort-selection" style="margin-left: 20px; display: inline-block; margin-top: 10px;">
+        <select name="sort" id="sort">
+          <option value="updated_at">Sort by Date</option>
+          <option value="name" {{ request()->input('sort') == 'name' ? 'selected' : '' }}>Sort by Name</option>
+          <option value="category" {{ request()->input('sort') == 'category' ? 'selected' : '' }}>Sort by Category</option>
+        </select>
+        <select name="order" id="order">
+          <option value="asc" {{ request()->input('order') == 'asc' ? 'selected' : '' }}>Ascending</option>
+          <option value="desc" {{ request()->input('order') == 'desc' ? 'selected' : '' }}>Descending</option>
+        </select>
+        <button type="submit">Sort</button>
+      </div>
+</form>
 
     <button id="add-product" onclick="window.location='{{ route('admin.products.add') }}'">+ Add Product</button>
     <button id="import-csv">Import CSV</button>
