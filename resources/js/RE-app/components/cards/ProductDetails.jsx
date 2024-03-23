@@ -11,6 +11,7 @@ const ProductDetails = () => {
     const [selectColor, setSelectColor] = useState(null);
     const [selectEdition, setSelectEdition] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [primaryImg, setPrimaryImg] = useState('')
 
     const { productId } = useParams();
 
@@ -22,6 +23,7 @@ const ProductDetails = () => {
                 );
                 const data = await response.json();
                 setProductData(data);
+                setPrimaryImg(data.image_url);
             } catch (error) {
                 console.error("Error fetching product data:", error);
             }
@@ -83,7 +85,7 @@ console.log(productData);
                 <div className="w-full h-96 rounded-lg overflow-hidden mb-4 hover:scale-105">
                     {/* Primary Product Image */}
                     <img
-                        src={image_url}
+                        src={primaryImg}
                         alt={name}
                         className="w-full h-full object-contain"
                     />
@@ -91,7 +93,7 @@ console.log(productData);
                 <div className="flex -mx-2 mb-4 overflow-x-auto">
                     {/* Thumbnail Images */}
                     {images.map((img, index) => (
-                        <div key={index} className="px-2 flex-none">
+                        <div key={index} className="px-2 flex-none" onClick={()=> setPrimaryImg(img)}>
                             <img
                                 src={img}
                                 alt={`${name} ${index + 1}`}
