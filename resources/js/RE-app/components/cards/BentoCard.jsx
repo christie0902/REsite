@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const BentoCard = () => {
-  return (
-    <div>BentoCard</div>
-  )
-}
+    return <div>BentoCard</div>;
+};
 
-export default BentoCard
+export default BentoCard;

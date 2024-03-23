@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Context from "../store/Context";
-import '../../bootstrap.js';
+import "../../bootstrap.js";
 
 export default function Register(props) {
-
     const navigate = useNavigate();
 
-    const {state, dispatch} = useContext(Context);
+    const { state, dispatch } = useContext(Context);
 
     const [values, setValues] = useState({
         email: "",
@@ -20,21 +19,23 @@ export default function Register(props) {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/register', values);
+            const response = await axios.post("/register", values);
             const response_data = response.data;
             navigate("/");
-            
         } catch (error) {
             switch (error.response.status) {
                 case 422:
-                    console.log('VALIDATION FAILED:', error.response.data.errors);
+                    console.log(
+                        "VALIDATION FAILED:",
+                        error.response.data.errors,
+                    );
                     break;
                 case 500:
-                    console.log('UNKNOWN ERROR', error.response.data);
+                    console.log("UNKNOWN ERROR", error.response.data);
                     break;
             }
         }
-    }
+    };
 
     const handleChange = (event) => {
         setValues((previous_values) => {

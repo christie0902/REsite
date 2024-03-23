@@ -12,7 +12,7 @@ const ProfileMenu = () => {
             .then((response) => {
                 console.log("Logged out successfully");
                 localStorage.removeItem("session");
-                dispatch({ type: 'user/logout' });
+                dispatch({ type: "user/logout" });
                 location.reload();
             })
             .catch((error) => {
@@ -56,12 +56,15 @@ const ProfileMenu = () => {
                             <li>
                                 <MenuItem label="Setting" url="#" />
                             </li>
-                        
-                        {state.user && state.user.role === "admin" && (
-                            <li className="font-bold text-yellow-600">
-                                <MenuItem label="Admin Hub" url="/admin/products" />
-                            </li>
-                        )}
+
+                            {state.user && state.user.role === "admin" && (
+                                <li className="font-bold text-yellow-600">
+                                    <MenuItem
+                                        label="Admin Hub"
+                                        url="/admin/products"
+                                    />
+                                </li>
+                            )}
                         </ul>
                         <div className="py-2">
                             <MenuItem

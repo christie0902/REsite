@@ -4,52 +4,52 @@ import tShirt from "../../assets/website-design/product.png";
 import pin from "../../assets/REPin.webp";
 
 export default [
-  {
-    //----------------------------------------------------------
-    id: "29ERJBK6F986", //str (random)
-    //----------------------------------------------------------
-    name: "Nemesis Model", //str
-    //----------------------------------------------------------
-    description: "Resident EVIL boss toy", //str
-    //----------------------------------------------------------
-    price: 50, //float
-    //----------------------------------------------------------
-    categories: ["Toy", "Model", "Evil"], //[str]
-    //----------------------------------------------------------
-    discountRate: 0, //float
-    //----------------------------------------------------------
-    image_url: model, //str
-    //----------------------------------------------------------
-    stockQuantity: 1, //int
-    //----------------------------------------------------------
-    sku: "f8327h0832", //str
-    //----------------------------------------------------------
-    isFeatured: true, //bool
-    //----------------------------------------------------------
-    weight: 2, //float
-    //----------------------------------------------------------
-    dimensions: "2x2x2", //str
-    //----------------------------------------------------------
-    status: "active", //str
-    //----------------------------------------------------------
-    created: "Sun Mar 1 2024 12:51:01", //date
-    //----------------------------------------------------------
-    lastUpdated: "Sun Mar 10 2024 11:51:01", //date
-    //----------------------------------------------------------
-    hasSizes: false, //bool
-    //----------------------------------------------------------
-    variants: ["id1", "id2"], //[str]
-    //----------------------------------------------------------
-    noOfReviews: 4, //int
-    //----------------------------------------------------------
-    rating: 5, //int (1-5)
-    //----------------------------------------------------------
-    tags: ["#nemesis", "#bigdaddy"], //[str]
-    //----------------------------------------------------------
-    inWishlist: true, //bool
-    //----------------------------------------------------------
-  },
-  /* {
+    {
+        //----------------------------------------------------------
+        id: "29ERJBK6F986", //str (random)
+        //----------------------------------------------------------
+        name: "Nemesis Model", //str
+        //----------------------------------------------------------
+        description: "Resident EVIL boss toy", //str
+        //----------------------------------------------------------
+        price: 50, //float
+        //----------------------------------------------------------
+        categories: ["Toy", "Model", "Evil"], //[str]
+        //----------------------------------------------------------
+        discountRate: 0, //float
+        //----------------------------------------------------------
+        image_url: model, //str
+        //----------------------------------------------------------
+        stockQuantity: 1, //int
+        //----------------------------------------------------------
+        sku: "f8327h0832", //str
+        //----------------------------------------------------------
+        isFeatured: true, //bool
+        //----------------------------------------------------------
+        weight: 2, //float
+        //----------------------------------------------------------
+        dimensions: "2x2x2", //str
+        //----------------------------------------------------------
+        status: "active", //str
+        //----------------------------------------------------------
+        created: "Sun Mar 1 2024 12:51:01", //date
+        //----------------------------------------------------------
+        lastUpdated: "Sun Mar 10 2024 11:51:01", //date
+        //----------------------------------------------------------
+        hasSizes: false, //bool
+        //----------------------------------------------------------
+        variants: ["id1", "id2"], //[str]
+        //----------------------------------------------------------
+        noOfReviews: 4, //int
+        //----------------------------------------------------------
+        rating: 5, //int (1-5)
+        //----------------------------------------------------------
+        tags: ["#nemesis", "#bigdaddy"], //[str]
+        //----------------------------------------------------------
+        inWishlist: true, //bool
+        //----------------------------------------------------------
+    },
+    /* {
     "id": "YH4FZDYZ46OU",
     "name": "Umbrella Corp Logo Cap",
     "description": "Resident Evil series collectible figure inspired by Umbrella Corporation Logo Cap",
@@ -83,7 +83,7 @@ export default [
     ],
     "inWishlist": true
 }, */
-/* {
+    /* {
     "id": "3KKXW22QNQPX",
     "name": "Biohazard Warning Mug",
     "description": "Resident Evil series collectible figure inspired by Biohazard Warning Mug",
@@ -117,7 +117,7 @@ export default [
     ],
     "inWishlist": false
 }, */
-  /* {
+    /* {
     id: "E6660KRDESAQ",
     name: "Tyrant X Model",
     description: "Resident Evil boss toy",
@@ -220,7 +220,7 @@ export default [
        ],
        "inWishlist": false
    }, */
-   /* {
+    /* {
        "id": "LW49QKEVLBZ6",
        "name": "S.T.A.R.S. Uniform T-Shirt",
        "description": "Resident Evil series collectible figure inspired by Jill Valentine's S.T.A.R.S. Uniform T-Shirt",
@@ -254,40 +254,30 @@ export default [
        "inWishlist": false
    }, */
     {
-       "id": "AHP1HF791F2U",
-       "name": "Leon Kennedy RPD Hoodie",
-       "description": "Resident Evil series collectible figure inspired by Leon S. Kennedy RPD Hoodie",
-       "price": 131.84,
-       "categories": [
-           "Collectible",
-           "Figure",
-           "Resident Evil"
-       ],
-       "discountRate": 0.28,
-       "image_url": tShirt,
-       "stockQuantity": 1,
-       "sku": "YJTFPG4ICX",
-       "isFeatured": false,
-       "weight": 4.95,
-       "dimensions": "3x1x1",
-       "status": "active",
-       "created": "Sat Mar 23 2024 00:00:00",
-       "lastUpdated": "Wed Apr 10 2024 00:00:00",
-       "hasSizes": true,
-       "variants": [
-           "G1U",
-           "QUJ",
-           "YAW"
-       ],
-       "noOfReviews": 99,
-       "rating": 1,
-       "tags": [
-           "#leons.kennedyrpdhoodie",
-           "#residentevil"
-       ],
-       "inWishlist": true
-   },
-   /*{
+        id: "AHP1HF791F2U",
+        name: "Leon Kennedy RPD Hoodie",
+        description:
+            "Resident Evil series collectible figure inspired by Leon S. Kennedy RPD Hoodie",
+        price: 131.84,
+        categories: ["Collectible", "Figure", "Resident Evil"],
+        discountRate: 0.28,
+        image_url: tShirt,
+        stockQuantity: 1,
+        sku: "YJTFPG4ICX",
+        isFeatured: false,
+        weight: 4.95,
+        dimensions: "3x1x1",
+        status: "active",
+        created: "Sat Mar 23 2024 00:00:00",
+        lastUpdated: "Wed Apr 10 2024 00:00:00",
+        hasSizes: true,
+        variants: ["G1U", "QUJ", "YAW"],
+        noOfReviews: 99,
+        rating: 1,
+        tags: ["#leons.kennedyrpdhoodie", "#residentevil"],
+        inWishlist: true,
+    },
+    /*{
        "id": "YH4FZDYZ46OU",
        "name": "Umbrella Corp Logo Cap",
        "description": "Resident Evil series collectible figure inspired by Umbrella Corporation Logo Cap",
@@ -321,7 +311,7 @@ export default [
        ],
        "inWishlist": true
    }, */
-   /* {
+    /* {
        "id": "3KKXW22QNQPX",
        "name": "Biohazard Warning Mug",
        "description": "Resident Evil series collectible figure inspired by Biohazard Warning Mug",
@@ -387,38 +377,28 @@ export default [
        ],
        "inWishlist": false
    }, */
-   {
-       "id": "UY5U1J0FSUFD",
-       "name": "Nemesis Enamel Pin",
-       "description": "Resident Evil series collectible figure inspired by Nemesis Enamel Pin",
-       "price": 145.56,
-       "categories": [
-           "Collectible",
-           "Figure",
-           "Resident Evil"
-       ],
-       "discountRate": 0.08,
-       "image_url": pin,
-       "stockQuantity": 12,
-       "sku": "FELGQM643F",
-       "isFeatured": false,
-       "weight": 0.57,
-       "dimensions": "4x1x4",
-       "status": "active",
-       "created": "Fri Jan 05 2024 00:00:00",
-       "lastUpdated": "Thu Jan 25 2024 00:00:00",
-       "hasSizes": true,
-       "variants": [
-           "QIR",
-           "TW8",
-           "NW2"
-       ],
-       "noOfReviews": 11,
-       "rating": 5,
-       "tags": [
-           "#nemesisenamelpin",
-           "#residentevil"
-       ],
-       "inWishlist": true
-   }
+    {
+        id: "UY5U1J0FSUFD",
+        name: "Nemesis Enamel Pin",
+        description:
+            "Resident Evil series collectible figure inspired by Nemesis Enamel Pin",
+        price: 145.56,
+        categories: ["Collectible", "Figure", "Resident Evil"],
+        discountRate: 0.08,
+        image_url: pin,
+        stockQuantity: 12,
+        sku: "FELGQM643F",
+        isFeatured: false,
+        weight: 0.57,
+        dimensions: "4x1x4",
+        status: "active",
+        created: "Fri Jan 05 2024 00:00:00",
+        lastUpdated: "Thu Jan 25 2024 00:00:00",
+        hasSizes: true,
+        variants: ["QIR", "TW8", "NW2"],
+        noOfReviews: 11,
+        rating: 5,
+        tags: ["#nemesisenamelpin", "#residentevil"],
+        inWishlist: true,
+    },
 ];

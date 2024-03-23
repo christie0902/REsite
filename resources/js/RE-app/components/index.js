@@ -7,7 +7,13 @@ import PresetIcon from "./customizer/PresetIcon";
 import Tab from "./customizer/Tab";
 import CustomizerSection from "./customizer/CustomizerSection";
 
-
-
-
-export { CustomButton, AIPicker, ColorPicker, FilePicker, Tab, Preset, PresetIcon, CustomizerSection };
+export {
+    CustomButton,
+    AIPicker,
+    ColorPicker,
+    FilePicker,
+    Tab,
+    Preset,
+    PresetIcon,
+    CustomizerSection,
+};

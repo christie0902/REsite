@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AdminHub = () => {
-  return (
-    <div>AdminHub</div>
-  )
-}
+    return <div>AdminHub</div>;
+};
 
-export default AdminHub
+export default AdminHub;

@@ -59,4 +59,4 @@ export default [
         copy1: "Limited edition, best model of all time!",
         buttonLabel: "ADD TO CART",
     },
-]
+];

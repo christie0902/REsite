@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Feedback = () => {
-  return (
-    <div>Feedback</div>
-  )
-}
+    return <div>Feedback</div>;
+};
 
-export default Feedback
+export default Feedback;

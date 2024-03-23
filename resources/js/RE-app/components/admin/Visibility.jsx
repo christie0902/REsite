@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Visibility = () => {
-  return (
-    <div>Visibility</div>
-  )
-}
+    return <div>Visibility</div>;
+};
 
-export default Visibility
+export default Visibility;

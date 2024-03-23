@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const InfoForm = () => {
-  return (
-    <div>InfoForm</div>
-  )
-}
+    return <div>InfoForm</div>;
+};
 
-export default InfoForm
+export default InfoForm;

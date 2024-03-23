@@ -1,12 +1,12 @@
-import React from 'react'
-import BentoCard from './BentoCard'
+import React from "react";
+import BentoCard from "./BentoCard";
 
 const Dashboard = () => {
-  return (
-    {/* <BentoCard>
+    return {
+        /* <BentoCard>
         Data
-    </BentoCard> */}
-  )
-}
+    </BentoCard> */
+    };
+};
 
-export default Dashboard
+export default Dashboard;

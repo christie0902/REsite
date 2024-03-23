@@ -1,7 +1,7 @@
 import { CustomButton } from "../components";
 import React, { useContext, useState, useEffect } from "react";
 import Context from "../store/Context";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
     const { state } = useContext(Context);
@@ -14,7 +14,6 @@ const Checkout = () => {
     const [securityCode, setSecurityCode] = useState("");
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -25,22 +24,26 @@ const Checkout = () => {
             expirationMonth,
             expirationYear,
             securityCode,
-            total
+            total,
         };
 
         try {
-            const response = await axios.post("api/checkout", {paymentData, cart});
+            const response = await axios.post("api/checkout", {
+                paymentData,
+                cart,
+            });
 
             console.log("Payment successful:", response.data);
             alert("Payment successful!");
             navigate(`/order-summary/${response.data.orderId}`);
-            
         } catch (error) {
             console.error("Payment failed:", error.response || error);
-            alert(`Payment failed: ${error.response ? error.response.data.message : error.message}`);
+            alert(
+                `Payment failed: ${error.response ? error.response.data.message : error.message}`,
+            );
         }
     };
-console.log(state.user)
+    console.log(state.user);
     return (
         <>
             <div className="min-w-screen min-h-screen bg-black">
@@ -188,7 +191,7 @@ console.log(state.user)
                                                         }
                                                         onChange={() =>
                                                             setPaymentType(
-                                                                "card"
+                                                                "card",
                                                             )
                                                         }
                                                     />
@@ -204,7 +207,18 @@ console.log(state.user)
                                                         Name on card
                                                     </label>
                                                     <div>
-                                                    <input className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800 transition-colors" placeholder="John Smith" type="text" value={nameOnCard} onChange={(e) => setNameOnCard(e.target.value)} />
+                                                        <input
+                                                            className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800 transition-colors"
+                                                            placeholder="John Smith"
+                                                            type="text"
+                                                            value={nameOnCard}
+                                                            onChange={(e) =>
+                                                                setNameOnCard(
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="mb-3">
@@ -212,7 +226,18 @@ console.log(state.user)
                                                         Card number
                                                     </label>
                                                     <div>
-                                                    <input className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800 transition-colors" placeholder="0000 0000 0000 0000" type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+                                                        <input
+                                                            className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800 transition-colors"
+                                                            placeholder="0000 0000 0000 0000"
+                                                            type="text"
+                                                            value={cardNumber}
+                                                            onChange={(e) =>
+                                                                setCardNumber(
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="mb-3 -mx-2 flex items-end">
@@ -221,7 +246,18 @@ console.log(state.user)
                                                             Expiration date
                                                         </label>
                                                         <div>
-                                                        <select className="form-select w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800" value={expirationMonth} onChange={(e) => setExpirationMonth(e.target.value)}>
+                                                            <select
+                                                                className="form-select w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800"
+                                                                value={
+                                                                    expirationMonth
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setExpirationMonth(
+                                                                        e.target
+                                                                            .value,
+                                                                    )
+                                                                }
+                                                            >
                                                                 <option value="01">
                                                                     01 - January
                                                                 </option>
@@ -266,7 +302,18 @@ console.log(state.user)
                                                         </div>
                                                     </div>
                                                     <div className="px-2 w-1/4">
-                                                    <select className="form-select w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800" value={expirationYear} onChange={(e) => setExpirationYear(e.target.value)}>
+                                                        <select
+                                                            className="form-select w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800"
+                                                            value={
+                                                                expirationYear
+                                                            }
+                                                            onChange={(e) =>
+                                                                setExpirationYear(
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                        >
                                                             <option value="2024">
                                                                 2024
                                                             </option>
@@ -292,7 +339,20 @@ console.log(state.user)
                                                             Security code
                                                         </label>
                                                         <div>
-                                                        <input className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800" placeholder="000" type="text" value={securityCode} onChange={(e) => setSecurityCode(e.target.value)} />
+                                                            <input
+                                                                className="w-full px-3 py-2 mb-1 border border-gray-500 rounded-md focus:outline-none focus:border-yellow-500 bg-gray-800"
+                                                                placeholder="000"
+                                                                type="text"
+                                                                value={
+                                                                    securityCode
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setSecurityCode(
+                                                                        e.target
+                                                                            .value,
+                                                                    )
+                                                                }
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -303,21 +363,18 @@ console.log(state.user)
                                                 htmlFor="type2"
                                                 className="flex items-center cursor-pointer"
                                             >
-                                                 <input
-                                                        type="radio"
-                                                        className="form-radio h-5 w-5 text-red-500"
-                                                        name="type"
-                                                        id="type2"
-                                                        checked={
-                                                            paymentType ===
-                                                            "paypal"
-                                                        }
-                                                        onChange={() =>
-                                                            setPaymentType(
-                                                                "paypal"
-                                                            )
-                                                        }
-                                                    />
+                                                <input
+                                                    type="radio"
+                                                    className="form-radio h-5 w-5 text-red-500"
+                                                    name="type"
+                                                    id="type2"
+                                                    checked={
+                                                        paymentType === "paypal"
+                                                    }
+                                                    onChange={() =>
+                                                        setPaymentType("paypal")
+                                                    }
+                                                />
                                                 <img
                                                     src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
                                                     width="80"

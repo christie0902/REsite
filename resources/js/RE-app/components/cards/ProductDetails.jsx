@@ -11,7 +11,7 @@ const ProductDetails = () => {
     const [selectColor, setSelectColor] = useState(null);
     const [selectEdition, setSelectEdition] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [primaryImg, setPrimaryImg] = useState('')
+    const [primaryImg, setPrimaryImg] = useState("");
 
     const { productId } = useParams();
 
@@ -19,7 +19,7 @@ const ProductDetails = () => {
         const fetchProductData = async () => {
             try {
                 const response = await fetch(
-                    `http://www.re-mall.test/api/products/details/${productId}`
+                    `http://www.re-mall.test/api/products/details/${productId}`,
                 );
                 const data = await response.json();
                 setProductData(data);
@@ -51,7 +51,7 @@ const ProductDetails = () => {
         review_count,
         tags,
     } = productData;
-console.log(productData);
+    console.log(productData);
     const handleColorSelect = (color) => {
         setSelectColor(color);
     };
@@ -70,7 +70,7 @@ console.log(productData);
 
     const decreaseQuantity = () => {
         setQuantity((prevQuantity) =>
-            prevQuantity > 1 ? prevQuantity - 1 : 1
+            prevQuantity > 1 ? prevQuantity - 1 : 1,
         );
     };
 
@@ -93,7 +93,11 @@ console.log(productData);
                 <div className="flex -mx-2 mb-4 overflow-x-auto">
                     {/* Thumbnail Images */}
                     {images.map((img, index) => (
-                        <div key={index} className="px-2 flex-none" onClick={()=> setPrimaryImg(img)}>
+                        <div
+                            key={index}
+                            className="px-2 flex-none"
+                            onClick={() => setPrimaryImg(img)}
+                        >
                             <img
                                 src={img}
                                 alt={`${name} ${index + 1}`}
@@ -251,7 +255,6 @@ console.log(productData);
                     {dimension && <p>Dimension: {dimension}</p>}
                 </div>
 
-
                 {/* Add to cart */}
                 <div className="flex w-full -mx-2 mt-5">
                     <div className="w-1/2 px-2">
@@ -260,7 +263,11 @@ console.log(productData);
                             title="Add To Cart"
                             customStyles="w-full"
                             handleClick={() => {
-                                console.log(selectColor, selectSize, selectEdition);
+                                console.log(
+                                    selectColor,
+                                    selectSize,
+                                    selectEdition,
+                                );
                                 dispatch({
                                     type: "product/cart-add",
                                     payload: {

@@ -77,7 +77,11 @@ const BasicCard = ({ productData }) => {
                             handleClick={() => {
                                 dispatch({
                                     type: "product/cart-add",
-                                    payload: { ...productData, size: size, quantity: 1 },
+                                    payload: {
+                                        ...productData,
+                                        size: size,
+                                        quantity: 1,
+                                    },
                                 });
                             }}
                         />
