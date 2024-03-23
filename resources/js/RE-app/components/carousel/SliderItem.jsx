@@ -1,7 +1,9 @@
 import { motion, useAnimate } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import Context from "../../store/Context";
 
 const SliderItem = ({ product, triggerAnimation }) => {
+  const { state, dispatch } = useContext(Context);
   const [triggerKey1, setTriggerKey1] = useState(0);
   const [triggerKey2, setTriggerKey2] = useState(10);
   const [triggerKey3, setTriggerKey3] = useState(100);
@@ -154,7 +156,15 @@ const SliderItem = ({ product, triggerAnimation }) => {
             transform: "translateX(0px) translateY(0px)",
           }}
           transition={{ duration: 1.5 }}>
-            <button className="recon-button">
+            <button className="recon-button"
+            handleClick={() => {
+              console.log(product);
+              dispatch({
+                  type: "product/cart-add",
+                  payload: { ...product, quantity: 1 },
+              });
+          }}
+            >
               {name === "Customize T-Shirt" ? "TRY NOW" : "ADD TO CART"}
             </button>
           </motion.div>
