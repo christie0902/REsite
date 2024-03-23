@@ -40,4 +40,3 @@ Route::get('/products/categories', [CategoryController::class, 'index']);
 
 Route::post('/checkout', [CheckoutController::class, 'process']);
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-Route::Get('dashboard',[DashboardController::class,'index'])->name('dashboard');

@@ -59,7 +59,7 @@ const ProfileMenu = () => {
                         
                         {state.user && state.user.role === "admin" && (
                             <li className="font-bold text-yellow-600">
-                                <MenuItem label="Admin Hub" url="/admin/products" />
+                                <MenuItem label="Admin Hub" url="/admin/dashboard" />
                             </li>
                         )}
                         </ul>
