@@ -62,7 +62,7 @@
         <!-- Most Sold Items -->
         <div class="items-card">
             <div class="card-title">
-                Most Sold Items
+                Best sellers
             </div>
             <!-- Placeholder for items list -->
             <div class="chart-container" style="width:100%; height:350px">
