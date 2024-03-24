@@ -25,7 +25,17 @@ function App() {
     const initialState = () => {
         const localData = localStorage.getItem("session");
         return localData
-            ? { ...JSON.parse(localData) }
+            ? {
+                  searchActive: false,
+                  cartActive: false,
+                  profileActive: false,
+                  currency: "$",
+                  total: 0,
+                  searchResults: null,
+                  profileActive: false,
+                  searchQuery: null,
+                  ...JSON.parse(localData),
+              }
             : {
                   user: null,
                   cart: [],
@@ -42,7 +52,6 @@ function App() {
 
     const [state, dispatch] = useReducer(reducer, initialState());
 
-    console.log(state.user);
     return (
         <>
             <BrowserRouter>

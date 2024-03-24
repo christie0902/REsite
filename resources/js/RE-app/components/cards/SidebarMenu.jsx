@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SidebarMenu = ({ menuActive, setMenuActive }) => {
-    const [currentPage, setCurrentPage] = useState("Home");
+    let location = useLocation()
     const baseStyle = "text-2xl font-normal ";
+    const header = document.querySelector(".header-container");
 
-    const generateCustomStyle = (label) => {
-        return label === currentPage
+    const closeMenu = (e) => {
+         if(!Array.from(header.querySelectorAll('.header-container *')).some(child=> child === e.target)){
+            setMenuActive(false);
+        };
+    }
+
+    useEffect(() => {
+        
+      document.addEventListener("click", closeMenu);
+    
+      return () => {
+        document.removeEventListener("click", closeMenu);
+      }
+    }, [])
+    
+
+    const generateCustomStyle = (path) => {
+        return path === location.pathname
             ? "text-2xl font-bold text-red-900"
             : baseStyle;
     };
@@ -21,6 +38,7 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
         <>
             <div
                 className="absolute z-20 left-0 top-0 flex flex-col bg-clip-padding backdrop-filter backdrop-blur-lg bg-white/30 text-gray-700 h-[calc(100vh-2rem)] w-full h-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 border border-gray-200/30"
+                data-allowsidebar="true"
                 style={sidebarStyle}
             >
                 <button
@@ -63,8 +81,10 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
                             <MenuItem
                                 label="Home"
                                 url="#"
-                                customStyles={generateCustomStyle("Home")}
-                                onClick={() => setCurrentPage("Home")}
+                                customStyles={generateCustomStyle("/")}
+                                onClick={() => {                                    
+                                    setMenuActive(false);
+                                }}
                             />
                         </Link>
 
@@ -72,8 +92,10 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
                             <MenuItem
                                 label="Shop"
                                 url="#"
-                                customStyles={generateCustomStyle("Shop")}
-                                onClick={() => setCurrentPage("Shop")}
+                                customStyles={generateCustomStyle("/shop")}
+                                onClick={() => {                                    
+                                    setMenuActive(false);
+                                }}
                             />
                         </Link>
 
@@ -81,8 +103,10 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
                             <MenuItem
                                 label="Customizer"
                                 url="#"
-                                customStyles={generateCustomStyle("Customizer")}
-                                onClick={() => setCurrentPage("Customizer")}
+                                customStyles={generateCustomStyle("/customizer")}
+                                onClick={() => {                                    
+                                    setMenuActive(false);
+                                }}
                             />
                         </Link>
 
@@ -90,8 +114,10 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
                             <MenuItem
                                 label="Community"
                                 url="#"
-                                customStyles={generateCustomStyle("Community")}
-                                onClick={() => setCurrentPage("Community")}
+                                customStyles={generateCustomStyle("/community")}
+                                onClick={() => {                                    
+                                    setMenuActive(false);
+                                }}
                             />
                         </Link>
 
@@ -99,8 +125,10 @@ const SidebarMenu = ({ menuActive, setMenuActive }) => {
                             <MenuItem
                                 label="Contact"
                                 url="#"
-                                customStyles={generateCustomStyle("Contact")}
-                                onClick={() => setCurrentPage("Contact")}
+                                customStyles={generateCustomStyle("/contact")}
+                                onClick={() => {                                    
+                                    setMenuActive(false);
+                                }}
                             />
                         </Link>
                     </div>

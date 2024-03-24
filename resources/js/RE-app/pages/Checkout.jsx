@@ -43,7 +43,6 @@ const Checkout = () => {
             );
         }
     };
-    console.log(state.user);
     return (
         <>
             <div className="min-w-screen min-h-screen bg-black">

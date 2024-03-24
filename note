@@ -1,0 +1,47 @@
+/* 
+✅ mobile nav doesn't close after selecting a page.
+✅ can't click on add to cart through image.
+✅ add to cart click doesn't work
+✅ shirt customizer window doesn't account for height of scree + nav bar
+✅  orContinue Shopping-> needs a space and does nothing
+✅ responsiveness of customizer and carousel for phone screens
+✅ check out should be bigger than clear cart button
+✅ checkout should be disabled for an empty cart
+✅ clicking checkout doesn't close the cart
+✅ customizer intro can't handle thin phones
+✅ nest hub: nav menu broken
+✅ mobile nav doesn't close on click outside.
+✅ click outside of profile menu should close profile menu
+✅ clicking outside cart should close cart
+✅ header links don't highlight.
+✅ mobile nav links don't highlight.
+✅ header and nav links don't highlight at app startup
+✅ profile menu can't open after initial page load
+✅ profile menu should close after selecting an option
+✅ nav bars should use URL location instead of Context or local state
+✅ highlighted page always home first despite actual page
+❌ Search bar styling
+✅ Search bar icon should stop being rendered, not just become invisible and take up space.
+❌ Password length validation failure. No visual indication.
+❌ at no point can you select the size of the customized t shirt
+❌ card hover implies action if click but nothing happens
+❌ bug in filter where if you select 4 things then unselct them then just select 1 thing. the first four items will not match the new filter
+❌ edit details & view carrier details doesn't work
+❌ completing a purchase doesn't clear your cart
+❌ no front end validation for empty fields
+❌ there is no visual indication payment is happening after a click. needs a loader or to change to an inbetween page to prevent repeated clicks
+❌ styling of summary page blocks not even
+❌ add variant info to basic card data
+⚠️ some options aren't shown in cart
+⚠️ cards in carousel aren't animated
+⚠️ active page in nav is not selected because it needs blood splatter URL
+
+
+------ ADMIN HUB ------
+
+❌ dropdown drops up off screen
+❌ no option to say a product doesn't have sizes. fails validation if you don't click has sizes.
+❌ no navigation bar/buttons. back takes you back to a previous state of the same page. 
+❌ no confirmation
+❌ border or b&w the image on delete instead of just a checkmark
+❌ needs drag and drop image */

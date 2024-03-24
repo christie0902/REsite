@@ -35,13 +35,25 @@ const Icon = ({ type }) => {
                 });
                 break;
             case "cart":
-                setIconHTML(<img src={cartIcon} alt="cart icon" />);
+                setIconHTML(
+                    <img
+                        src={cartIcon}
+                        alt="cart icon"
+                        className="cart-icon-img"
+                    />,
+                );
                 setHandleClick(() => () => {
                     dispatch({ type: "product/toggle-cartVisibility" });
                 });
                 break;
             case "profile":
-                setIconHTML(<img src={profileIcon} alt="profile icon" />);
+                setIconHTML(
+                    <img
+                        src={profileIcon}
+                        alt="profile icon"
+                        className="prof-icon"
+                    />,
+                );
                 setHandleClick(() => () => {
                     dispatch({ type: "profile/toggle-profileVisibility" });
                 });
@@ -51,13 +63,13 @@ const Icon = ({ type }) => {
         }
     };
     return (
-        <div className="cart-icon w-10">
-            {
-                <>
-                    <div onClick={handleClick}>{showIcon && iconHTML}</div>
-                </>
-            }
-        </div>
+        <>
+            {showIcon && (
+                <div className="cart-icon w-10">
+                    <div onClick={handleClick}>{iconHTML}</div>
+                </div>
+            )}
+        </>
     );
 };
 

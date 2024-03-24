@@ -1,5 +1,11 @@
+
+.app {
+  @apply relative w-full overflow-hidden;
+  height: calc(100vh - 64px);
+}
+
 .home {
-    @apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
+    @apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:pl-60 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
   }
   
   .home-content {
@@ -7,7 +13,7 @@
   }
   
   .head-text {
-    @apply xl:text-[10rem] sm:text-[6rem] text-[3rem] xl:leading-[11rem] sm:leading-[7rem] leading-[3rem] font-bebas-neue text-yellow-600;
+    @apply xl:text-[8rem] sm:text-[6rem] text-[3rem] xl:leading-[9rem] sm:leading-[7rem] leading-[3rem] font-bebas-neue text-yellow-600;
   }
   
   .download-btn {

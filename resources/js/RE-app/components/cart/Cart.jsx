@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CartItem from "../cards/CartItem";
 import CustomButton from "../buttons/CustomButton";
 import Context from "../../store/Context";
@@ -6,9 +6,24 @@ import { Link } from "react-router-dom";
 
 const Cart = ({ productData }) => {
     const { state, dispatch } = useContext(Context);
-    const handleClick = () => {
+    const backdrop = useRef()
+    const toggleVisibility = () => {
         dispatch({ type: "product/toggle-cartVisibility" });
     };
+
+    const closeCart = (e) => {
+        if(e.target === backdrop.current){
+            toggleVisibility()
+       };
+   }
+
+   useEffect(() => {
+    document.addEventListener("click", closeCart);  
+    return () => {
+      document.removeEventListener("click", closeCart);
+    }
+  }, [])
+
     return (
         <>
             {state.cartActive && (
@@ -17,11 +32,12 @@ const Cart = ({ productData }) => {
                     aria-labelledby="slide-over-title"
                     role="dialog"
                     aria-modal="true"
+                    id="shoppingCartContainer"
                 >
-                    <div className="fixed inset-0  backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg"></div>
+                    <div  className="fixed inset-0  backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg"></div>
 
                     <div className="fixed inset-0 overflow-hidden">
-                        <div className="absolute inset-0 overflow-hidden">
+                        <div ref={backdrop} className="absolute inset-0 overflow-hidden">
                             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                                 <div className="pointer-events-auto w-screen max-w-md">
                                     <div className="flex h-full flex-col overflow-y-scroll  backdrop-blur-md bg-white/20 border border-gray-800/50 shadow-lg backdrop-filter backdrop-blur-sm rounded-lg shadow-xl">
@@ -37,7 +53,7 @@ const Cart = ({ productData }) => {
                                                     <button
                                                         type="button"
                                                         className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                                                        onClick={handleClick}
+                                                        onClick={toggleVisibility}
                                                     >
                                                         <span className="sr-only">
                                                             Close panel
@@ -102,30 +118,21 @@ const Cart = ({ productData }) => {
                                                 checkout.
                                             </p>
                                             <div className="mt-6 flex gap-3 flex-row">
-                                                <Link to={"/checkout"}>
+                                                <Link to={"/checkout"} className="w-2/3"
+                                                >
                                                     {" "}
-                                                    <CustomButton
+                                                   { state.cart?.length > 0 ? <CustomButton
                                                         type="static"
                                                         title="Checkout"
                                                         handleClick={() => {
-                                                            dispatch({
-                                                                type: "product/cart-update",
-                                                                payload: {
-                                                                    ...productData,
-                                                                    id: id,
-                                                                    selectedColor:
-                                                                        selectColor,
-                                                                    selectedSize:
-                                                                        selectSize,
-                                                                    selectedEdition:
-                                                                        selectEdition,
-                                                                    quantity:
-                                                                        quantity,
-                                                                },
-                                                            });
+                                                            toggleVisibility()
                                                         }}
                                                         customStyles="w-full"
-                                                    />
+                                                    />: <CustomButton
+                                                    type="static"
+                                                    title="Checkout"
+                                                    customStyles="w-full"
+                                                />}
                                                 </Link>
                                                 <CustomButton
                                                     type="outline"
@@ -135,19 +142,17 @@ const Cart = ({ productData }) => {
                                                         dispatch({
                                                             type: "product/cart-clear",
                                                         });
-                                                        dispatch({
-                                                            type: "product/set-cartVisibility",
-                                                            payload: false,
-                                                        });
+                                                        toggleVisibility()
                                                     }}
                                                 />
                                             </div>
                                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                 <p>
-                                                    or
+                                                    {'or '}
                                                     <button
                                                         type="button"
                                                         className="font-medium text-red-600 hover:text-indigo-500"
+                                                        onClick={()=> toggleVisibility()}
                                                     >
                                                         Continue Shopping
                                                         <span aria-hidden="true">

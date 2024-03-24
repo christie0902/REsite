@@ -18,10 +18,6 @@
   }
 }
 
-.app {
-  @apply relative w-full h-screen overflow-hidden;
-}
-
 .font-bebas-neue {
   font-family: "Bebas Neue", sans-serif;
 }

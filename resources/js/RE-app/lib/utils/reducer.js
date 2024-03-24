@@ -158,7 +158,7 @@ export default function reducer(state, action) {
         case "profile/set-profileVisibility":
             return {
                 ...state,
-                searchActive: action.payload,
+                profileActive: action.payload,
             };
 
         case "profile/toggle-profileVisibility":
@@ -167,7 +167,7 @@ export default function reducer(state, action) {
                 profileActive: !state.profileActive,
             };
 
-        // SEARCH --------------------------------------------------------
+                // SEARCH --------------------------------------------------------
 
         case "search/set-searchVisibility":
             return {

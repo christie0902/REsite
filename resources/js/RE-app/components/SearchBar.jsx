@@ -55,13 +55,13 @@ const SearchBar = () => {
     return (
         <div ref={searchBarRef}>
             <form
-                className="max-w-fit mx-auto backdrop-blur-md bg-white/13 rounded-md border border-gray-200/50"
+                className="nav-search-form mx-auto backdrop-blur-md bg-white/13 rounded-md border border-gray-200/50"
                 onSubmit={handleSearch}
             >
-                <div className="relative">
+                <div>
                     <div className="absolute inset-y-0 start-0 flex items-center pl-3 pointer-events-none">
                         <svg
-                            className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                            className="w-5 h-5 text-gray-500 dark:text-gray-400 "
                             aria-hidden="true"
                             fill="none"
                             viewBox="0 0 20 20"
@@ -79,7 +79,7 @@ const SearchBar = () => {
                         type="search"
                         data-allowsearch="true"
                         id="default-search"
-                        className="block w-full p-3 pl-10 text-sm text-white border border-transparent rounded-lg bg-transparent backdrop-blur-lg"
+                        className="nav-search"
                         placeholder="Enter your search..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -89,7 +89,7 @@ const SearchBar = () => {
                         allowSearch={"true"}
                         type="static"
                         title="Search"
-                        customStyles="absolute end-2.5 bottom-1 bg-transparent text-white"
+                        customStyles="absolute end-2.5 bottom-1 bg-transparent text-white search-btn"
                     />
                 </div>
             </form>

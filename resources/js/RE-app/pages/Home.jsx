@@ -32,7 +32,6 @@ const Home = () => {
         <div className="homepage">
             <Carousel />
             <CustomizerSection />
-            {/* <FeaturedProducts /> */}
             <CategorySection />
             <BlogSection />
             <Newsletter />

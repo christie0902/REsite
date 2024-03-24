@@ -58,7 +58,6 @@ const Shop = () => {
                     links: data.links,
                 },
             });
-            console.log(products);
         } catch (error) {
             console.error("Could not load data:", error);
         }

@@ -19,7 +19,6 @@ const CartItem = ({ productData }) => {
     } = productData;
     const { state, dispatch } = useContext(Context);
 
-    console.log(productData);
     const handleSizeChange = (e) => {
         const newSize = e.target.value;
         dispatch({

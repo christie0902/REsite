@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import Context from "../../store/Context";
 import "../../../bootstrap.js";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const ProfileMenu = () => {
     const { state, dispatch } = useContext(Context);
+
     const handleLogout = async () => {
         axios
             .post("/logout")
@@ -20,12 +21,28 @@ const ProfileMenu = () => {
             });
     };
 
+    const closeProfile = (e) => {
+        if(![ document.querySelector('.prof-icon'), ...Array.from(document.querySelectorAll('#dropdownDivider *'))].some(element=> element === e.target)){
+            dispatch({type: "profile/set-profileVisibility", payload: false})
+       };
+   }
+
+   useEffect(() => {
+     document.addEventListener("click", closeProfile);
+   
+     return () => {
+       document.removeEventListener("click", closeProfile);
+     }
+   }, [])
+   
+    
     return (
         state.profileActive && (
             <div
                 id="dropdownDivider"
                 className="z-10 divide-y divide-gray-500 rounded-sm shadow-lg backdrop-blur-lg bg-opacity-30 bg-gray-600 border border-gray-600 w-44 dark:divide-gray-600 absolute top-10 right-12 z-50"
                 style={{ backdropFilter: "blur(10px)" }}
+                onClick={()=> dispatch({type: "profile/set-profileVisibility", payload: false})}
             >
                 {state.user?.id ?  (
                     <>
