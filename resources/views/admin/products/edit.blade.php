@@ -54,19 +54,7 @@
                 <label for="productDescription">Descriptions</label>
                 <textarea id="productDescription" name="description" class="form-control" placeholder="Descriptions" rows="8">{{ $product->description ?? old('description') }}</textarea>
             </div>
-        
-            {{-- Product Image --}}
-            <div class="form-group">
-                <label for="productImage">Product Images</label>
-                @foreach($product->images as $image)
-                    <div class="existing-image">
-                        <img src="{{ $image->url }}" alt="Product Image">
-                        <input type="checkbox" name="deleted_images[]" value="{{ $image->id }}"> Delete
-                    </div>
-                @endforeach
-                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple">
-            </div>
-            
+
             {{-- Variants Section --}}
             {{-- Add new variants --}}
             <div class="form-group">
@@ -89,10 +77,23 @@
                     <input type="text" name="variants[existing][{{ $variant->id }}][sku]" class="form-control" placeholder="SKU" value="{{ $variant->sku }}">
                     <input type="number" name="variants[existing][{{ $variant->id }}][stock_quantity]" class="form-control" placeholder="Stock Quantity" value="{{ $variant->stock_quantity }}">
 
-                    <button type="button" onclick="removeVariantGroup(this)" data-variant-id="{{ $variant->id }}">Remove</button>
+                    <button type="button" onclick="confirmRemoveVariant(this)" data-variant-id="{{ $variant->id }}" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 5px 10px; font-size: 16px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; margin-bottom: 3px;">Remove</button>
                 </div>
                 @endforeach
             </div>
+        
+            {{-- Product Image --}}
+            <div class="form-group">
+                <label for="productImage">Product Images</label>
+                @foreach($product->images as $image)
+                    <div class="existing-image">
+                        <img src="{{ $image->url }}" alt="Product Image">
+                        <input type="checkbox" name="deleted_images[]" value="{{ $image->id }}"> Delete
+                    </div>
+                @endforeach
+                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple">
+            </div>
+            
 
             {{-- Size & SKU --}}
         
@@ -125,6 +126,7 @@
                 </div>
             </div>
         
+            {{-- Discount --}}
             <div class="form-group">
                 <label for="discount">Discount:</label>
                 <select name="discount_id" id="discount" class="form-control">
@@ -167,14 +169,23 @@
                     </select>
                     <input type="text" name="variants[new][${newVariantIndex}][value]" class="form-control" placeholder="Value">
                     <input type="number" name="variants[new][${newVariantIndex}][stock_quantity]" class="form-control" placeholder="Stock Quantity">
-                    <button type="button" onclick="removeVariantGroup(this)">Remove</button>
+                    <button type="button" onclick="confirmRemoveVariant(this)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 5px 10px; font-size: 16px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; margin-bottom: 3px;">Remove</button>
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', variantGroupHtml);
             newVariantIndex++;
-            })
+         })
 
-            function removeVariantGroup(button) {
+       
+    })
+    function confirmRemoveVariant(element) {
+    const isConfirmed = confirm("Are you sure you want to remove this variant?");
+    
+    if (isConfirmed) {
+        removeVariantGroup(element);
+    }
+}
+    function removeVariantGroup(button) {
                 const variantId = button.getAttribute('data-variant-id');
                 if (variantId) {
                     const input = document.createElement('input');
@@ -184,8 +195,7 @@
                     document.forms[0].appendChild(input);
                 }
                 button.parentElement.remove(); 
-            }
-    })
+        }
     </script>
 </body>
 </html>

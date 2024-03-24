@@ -56,6 +56,14 @@
                 <div id="imagePreview"></div>
             </div>
 
+            
+
+            {{-- Size & SKU --}}
+            <div class="form-group">
+                <label for="sku">SKU</label>
+                <input type="text" id="sku" name="sku" required class="form-control" placeholder="SKU" value="{{ old('sku')}}">
+            </div>
+            
             {{-- Variants Section --}}
             <div class="form-group">
                 <label>Variants:</label>
@@ -64,15 +72,7 @@
                 </div>
                 <button type="button" id="addVariant" style="background-color: #17a2b8; color: white; border: 1px solid #17a2b8; padding: 5px 10px; font-size: 14px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; transition: background-color 0.3s, border-color 0.3s;">Add Variant</button>
             </div>
-
-            {{-- Size & SKU --}}
-    
-
-            <div class="form-group">
-                <label for="sku">SKU</label>
-                <input type="text" id="sku" name="sku" required class="form-control" placeholder="SKU" value="{{ old('sku')}}">
-            </div>
-    
+            
             {{-- <div class="form-group">
                 <label for="hasSizes">Has Sizes:</label>
                 <input type="checkbox" id="hasSizes" name="hasSizes" value="1" {{ old('hasSizes') ? 'checked' : '' }} class="form-control-checkbox">
