@@ -88,7 +88,7 @@ function OrderSummary() {
                     </div>
                     <div className="flex justify-between gap-5">
                         {/* Summary */}
-                        <div className="order-summary backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg p-6  mb-8 w-full">
+                        <div className="order-summary backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg p-6  w-full">
                             <h2 className="text-xl font-bold mb-4">Summary</h2>
                             <p className="mb-3">Delivery: $10.00</p>
                             <p className="mb-3">Discount: $0.00</p>

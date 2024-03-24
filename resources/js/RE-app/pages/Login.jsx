@@ -15,6 +15,7 @@ export default function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        dispatch({type: "product/cart-clear"});
         try {
             const response = await axios.post("/login", values);
             const response_data = response.data;

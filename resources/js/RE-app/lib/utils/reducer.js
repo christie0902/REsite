@@ -40,7 +40,7 @@ export default function reducer(state, action) {
                         };
                     }
                     return item;
-                });
+                }).filter(item => item.quantity > 0);
 
                 return {
                     ...state,
@@ -77,7 +77,7 @@ export default function reducer(state, action) {
                         ],
                         quantity: action.payload.quantity,
                     },
-                ),
+                ).filter(item => item.quantity > 0),
                 total: sumProducts(
                     [...state.cart].toSpliced(
                         state.cart.findIndex(
@@ -100,11 +100,11 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 cart: state.cart.filter(
-                    (product) => product.id !== action.payload,
+                    (product) => (product.id !== action.payload && product.quantity > 0),
                 ),
                 total: sumProducts(
                     state.cart.filter(
-                        (product) => product.id !== action.payload,
+                        (product) => (product.id !== action.payload),
                     ),
                 ),
             };
@@ -139,7 +139,7 @@ export default function reducer(state, action) {
                         };
                     }
                     return item;
-                }),
+                }).filter(product = product.quantity > 0),
                 total: sumProducts(
                     state.cart.map((item) => {
                         if (item.id === action.payload.id) {
@@ -289,6 +289,7 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 user: null,
+                cart: []
             };
     }
     return state;

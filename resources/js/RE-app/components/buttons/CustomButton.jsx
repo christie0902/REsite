@@ -25,7 +25,7 @@ const CustomButton = ({
         } else if (type === "static") {
             return {
                 color: "#FFFFFF",
-                backgroundColor: "rgba(139, 0, 0, 0.5)",
+                backgroundColor: "rgba(100, 0, 0)",
                 border: "1px solid rgba(255, 255, 255, 0.2)",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 backdropFilter: "blur(10px)",

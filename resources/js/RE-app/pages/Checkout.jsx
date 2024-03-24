@@ -4,7 +4,7 @@ import Context from "../store/Context";
 import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
-    const { state } = useContext(Context);
+    const { state, dispatch } = useContext(Context);
     const { cart, currency, total } = state;
     const [paymentType, setPaymentType] = useState("card");
     const [nameOnCard, setNameOnCard] = useState("");
@@ -12,10 +12,13 @@ const Checkout = () => {
     const [expirationMonth, setExpirationMonth] = useState("01");
     const [expirationYear, setExpirationYear] = useState("2024");
     const [securityCode, setSecurityCode] = useState("");
+    const [isLoading, setisLoading] = useState(false)
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(isLoading) return;
+        setisLoading(true);
 
         const paymentData = {
             paymentType,
@@ -35,12 +38,15 @@ const Checkout = () => {
 
             console.log("Payment successful:", response.data);
             alert("Payment successful!");
+            dispatch({type: "product/cart-clear"})
             navigate(`/order-summary/${response.data.orderId}`);
         } catch (error) {
             console.error("Payment failed:", error.response || error);
             alert(
                 `Payment failed: ${error.response ? error.response.data.message : error.message}`,
             );
+        } finally {
+            setisLoading(false);
         }
     };
     return (
@@ -384,11 +390,14 @@ const Checkout = () => {
                                     </div>
                                     {/* End of payment info */}
                                     <div>
-                                        <CustomButton
+                                        {!isLoading ? <CustomButton
                                             type="static"
                                             title="PAY NOW"
                                             customStyles="w-full"
-                                        />
+                                        />:<div className="btn-loading-placeholder">
+                                            <div className="btn-spinner animate-spin"></div> Please Wait...
+                                        </div>
+                                        }
                                     </div>
                                 </form>
                             </div>
