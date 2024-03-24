@@ -35,6 +35,5 @@
 ❌ edit details & view carrier details doesn't work
 ❌ no front end validation for empty fields
 ❌ add variant info to basic card data
-⚠️ some options aren't shown in cart
+⚠️ some options aren't shown in cart (product card didn't get variant data)
 ⚠️ cards in carousel aren't animated
-⚠️ active page in nav is not selected because it needs blood splatter URL
