@@ -30,15 +30,28 @@
                 Orders this month
             </div>
             <div class="sales-amount">
-                ${{ number_format($thisMonthOrdersCount, 2) }}
+                {{ number_format($thisMonthOrdersCount, 0) }}
             </div>
         </div>
+
+         {{-- Month filter --}}
+        <form action="{{ route('admin.dashboard') }}" method="GET">
+            <select name="months" id="timeframeSelect">
+                <option value="3" @if ($months == 3) selected @endif>Last 3 Months</option>
+                <option value="6" @if ($months == 6) selected @endif>Last 6 Months</option>
+                <option value="12" @if ($months == 12) selected @endif>Last 12 Months</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
     </div>
+
+   
+
     <div class="dashboard-container">
         <!-- Monthly Revenue - this would be a chart, you will need to setup Chart.js or similar -->
         <div class="revenue-card">
             <div class="card-title">
-                Revenue (Last 6 Months)
+                Revenue (Last {{$months}} Months)
             </div>
             
             <div class="chart-container" style="width:100%; height:350px">
@@ -126,11 +139,19 @@
                         ],
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)', 
-                        borderWidth: 1
+                        borderWidth: 1,
+                        bar: {
+                            minBarLength: 2,
+                        }
                     }]
                 },
                 options: {
+                    
                     scales: {
+                        x: {
+                            categoryPercentage: 0.8,
+                            barPercentage: 0.9,
+                        },
                         y: {
                             beginAtZero: true
                         }

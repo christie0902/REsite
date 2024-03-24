@@ -142,6 +142,40 @@
     margin-left: 10px;
 }
 
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    flex:1;
+    
+}
+
+select {
+    padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px; 
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 16px;
+        cursor: pointer;
+}
+
+button {
+    padding: 8px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+}
+
+.filter-form_button:hover {
+    background-color: #0056b3;
+}
+
 @media (max-width: 1280px) {
     .dashboard-container {
         grid-template-columns: 1fr; 
@@ -149,3 +183,4 @@
         gap: 8px;
     }
 }
+
