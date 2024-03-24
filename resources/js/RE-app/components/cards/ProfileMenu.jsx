@@ -27,21 +27,7 @@ const ProfileMenu = () => {
                 className="z-10 divide-y divide-gray-500 rounded-sm shadow-lg backdrop-blur-lg bg-opacity-30 bg-gray-600 border border-gray-600 w-44 dark:divide-gray-600 absolute top-10 right-12 z-50"
                 style={{ backdropFilter: "blur(10px)" }}
             >
-                {state.user === null ? (
-                    <ul
-                        className="py-2 text-sm text-gray-300"
-                        aria-labelledby="dropdownDividerButton"
-                    >
-                        <li>
-                            <Link to="/login">
-                                <MenuItem label="Sign In" />
-                            </Link>
-                            <Link to="/register">
-                                <MenuItem label="Register" />
-                            </Link>
-                        </li>
-                    </ul>
-                ) : (
+                {state.user?.id ?  (
                     <>
                         <ul
                             className="py-2 text-sm text-gray-300"
@@ -74,6 +60,20 @@ const ProfileMenu = () => {
                             />
                         </div>
                     </>
+                ):(
+                    <ul
+                        className="py-2 text-sm text-gray-300"
+                        aria-labelledby="dropdownDividerButton"
+                    >
+                        <li>
+                            <Link to="/login">
+                                <MenuItem label="Sign In" />
+                            </Link>
+                            <Link to="/register">
+                                <MenuItem label="Register" />
+                            </Link>
+                        </li>
+                    </ul>
                 )}
             </div>
         )
