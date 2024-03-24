@@ -52,7 +52,8 @@
             {{-- Product Image --}}
             <div class="form-group">
                 <label for="productImage">Product Image</label>
-                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple" >
+                <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple">
+                <div id="imagePreview"></div>
             </div>
 
             {{-- Size & SKU --}}
@@ -120,4 +121,19 @@
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('productImage').addEventListener('change', function() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            for(let file of this.files) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.height = 100;
+                img.width = 100;
+                img.style.objectFit = "contain";
+                preview.appendChild(img);
+            }
+        });
+        </script>
     @endsection
