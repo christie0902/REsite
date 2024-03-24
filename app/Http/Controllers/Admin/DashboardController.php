@@ -8,16 +8,21 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 
+
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        $months = $request->input('months', 6);
+
         $todaysSales = $this->getTodaysSales();
-        $monthlyRevenue = $this->getMonthlyRevenue();
-        $mostSoldItems = $this->getMostSoldItems();
+        $thisMonthOrdersCount = $this->getMonthlyOrdersCount();
+        $thisMonthRevenue = $this->getThisMonthRevenue();
+        $monthlyRevenue = $this->getMonthlyRevenue($months);
+        $mostSoldItems = $this->getMostSoldItems($months);
         $latestOrders = $this->getLatestOrders();
 
-        return view('admin.dashboard.dashboard', compact('todaysSales', 'monthlyRevenue', 'mostSoldItems', 'latestOrders'));
+        return view('admin.dashboard.dashboard', compact('todaysSales', 'monthlyRevenue', 'mostSoldItems', 'latestOrders', 'thisMonthOrdersCount', 'thisMonthRevenue', 'months'));
     }
 
         public function getTodaysSales()
@@ -29,25 +34,35 @@ class DashboardController extends Controller
         return $salesToday;
     }
 
-    public function getMonthlyRevenue()
+    public function getMonthlyRevenue($months = 6)
     {
-        $monthlyRevenue = Order::selectRaw('MONTH(created_at) as month, SUM(total_price) as total')
-                            ->groupBy('month')
-                            ->get();
+        $start = Carbon::now()->subMonths($months-1)->startOfMonth();
+        $currentMonth = Carbon::now()->endOfMonth();
+
+        $monthlyRevenue = Order::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(total_price) as total')
+                                ->whereBetween('created_at', [$start, $currentMonth])
+                                ->groupBy('year', 'month')
+                                ->orderBy('year', 'asc')
+                                ->orderBy('month', 'asc')
+                                ->get();
 
         return $monthlyRevenue;
     }
 
-    public function getMostSoldItems()
+    public function getMostSoldItems($months = 6)
     {
-        $mostSoldItems = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
-                                ->selectRaw('product_id, SUM(quantity) as total_quantity')
-                                ->groupBy('product_id')
-                                ->orderByDesc('total_quantity')
-                                ->take(5)
-                                ->get();
+        $start = Carbon::now()->subMonths($months-1)->startOfMonth();
+        $end = Carbon::now()->endOfMonth();
 
-        // You might also want to join with the `products` table to get the product names.
+        $mostSoldItems = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+                            ->join('products', 'order_items.product_id', '=', 'products.id')
+                            ->whereBetween('orders.created_at', [$start, $end])
+                            ->selectRaw('products.name, SUM(order_items.quantity) as total_quantity')
+                            ->groupBy('order_items.product_id', 'products.name')
+                            ->orderByDesc('total_quantity')
+                            ->take(10)
+                            ->get();
+        
         return $mostSoldItems;
     }
 
@@ -59,5 +74,27 @@ class DashboardController extends Controller
                             ->get();
 
         return $latestOrders;
+    }
+
+    public function getMonthlyOrdersCount()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $ordersCount = Order::whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                            ->count();
+
+        return $ordersCount;
+    }
+
+public function getThisMonthRevenue()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $revenueThisMonth = Order::whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                                ->sum('total_price');
+
+        return $revenueThisMonth;
     }
 }

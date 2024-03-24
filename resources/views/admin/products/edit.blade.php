@@ -17,6 +17,12 @@
     @endif
 
     <div class="container">
+        <div class="nav-buttons">
+            <a href="{{ route('admin.products.index') }}" 
+            style="text-decoration: none; 
+            font-size: 16px; ">&lt; Back to List</a>
+        </div>
+
         <h1>Edit Product {{$product->id}}</h1>
         <form action="{{ route('admin.products.update', $product->id)}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -48,6 +54,33 @@
                 <label for="productDescription">Descriptions</label>
                 <textarea id="productDescription" name="description" class="form-control" placeholder="Descriptions" rows="8">{{ $product->description ?? old('description') }}</textarea>
             </div>
+
+            {{-- Variants Section --}}
+            {{-- Add new variants --}}
+            <div class="form-group">
+                <label>Variants:</label>
+                <div id="new-variants-container"></div>
+                <button type="button" id="addNewVariant" style="background-color: #17a2b8; color: white; border: 1px solid #17a2b8; padding: 5px 10px; font-size: 14px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; transition: background-color 0.3s, border-color 0.3s;">Add Variant</button>
+            </div>
+
+            {{-- Existing variants --}}
+            <div class="form-group">
+                <label>Variants:</label>
+                @foreach ($product->variants as $index => $variant)
+                <div class="variant-group" id="variant-group-{{ $index }}">
+                    <select name="variants[existing][{{ $variant->id }}][type]" class="form-control">
+                        <option value="size" @if($variant->variant_type == 'size') selected @endif>Size</option>
+                        <option value="color" @if($variant->variant_type == 'color') selected @endif>Color</option>
+                        <option value="edition" @if($variant->variant_type == 'edition') selected @endif>Edition</option>
+                    </select>
+                    <input type="text" name="variants[existing][{{ $variant->id }}][value]" class="form-control" placeholder="Value" value="{{ $variant->variant_value }}">
+                    <input type="text" name="variants[existing][{{ $variant->id }}][sku]" class="form-control" placeholder="SKU" value="{{ $variant->sku }}">
+                    <input type="number" name="variants[existing][{{ $variant->id }}][stock_quantity]" class="form-control" placeholder="Stock Quantity" value="{{ $variant->stock_quantity }}">
+
+                    <button type="button" onclick="confirmRemoveVariant(this)" data-variant-id="{{ $variant->id }}" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 5px 10px; font-size: 16px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; margin-bottom: 3px;">Remove</button>
+                </div>
+                @endforeach
+            </div>
         
             {{-- Product Image --}}
             <div class="form-group">
@@ -60,18 +93,13 @@
                 @endforeach
                 <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple">
             </div>
-        
+            
+
             {{-- Size & SKU --}}
         
             <div class="form-group">
                 <label for="sku">SKU</label>
                 <input type="text" id="sku" name="sku" required class="form-control" placeholder="SKU" value="{{ $product->sku ?? old('sku')}}">
-            </div>
-        
-            <div class="form-group">
-                <label for="hasSizes">Has Sizes:</label>
-                <input type="checkbox" id="hasSizes" name="hasSizes" value="1" {{ ($product->hasSizes ?? old('hasSizes')) ? 'checked' : '' }} class="form-control-checkbox">
-                <span>Check if the product has sizes</span>
             </div>
         
             {{-- Stock & Pricing --}}
@@ -98,6 +126,7 @@
                 </div>
             </div>
         
+            {{-- Discount --}}
             <div class="form-group">
                 <label for="discount">Discount:</label>
                 <select name="discount_id" id="discount" class="form-control">
@@ -123,5 +152,50 @@
             <button type="submit" class="btn btn-primary">{{ $product->id ? 'Update Product' : 'Add Product' }}</button>
         </form>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let newVariantIndex = 0;
+
+        document.getElementById('addNewVariant').addEventListener('click', function() {
+            const container = document.getElementById('new-variants-container');
+            const variantGroupHtml = `
+                <div class="variant-group">
+                    <select name="variants[new][${newVariantIndex}][type]" class="form-control">
+                        <option value="">Select Variant Type</option>
+                        <option value="size">Size</option>
+                        <option value="color">Color</option>
+                        <option value="edition">Edition</option>
+                    </select>
+                    <input type="text" name="variants[new][${newVariantIndex}][value]" class="form-control" placeholder="Value">
+                    <input type="number" name="variants[new][${newVariantIndex}][stock_quantity]" class="form-control" placeholder="Stock Quantity">
+                    <button type="button" onclick="confirmRemoveVariant(this)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 5px 10px; font-size: 16px; border-radius: 5px; cursor: pointer; text-align: center; display: inline-block; margin-bottom: 3px;">Remove</button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', variantGroupHtml);
+            newVariantIndex++;
+         })
+
+       
+    })
+    function confirmRemoveVariant(element) {
+    const isConfirmed = confirm("Are you sure you want to remove this variant?");
+    
+    if (isConfirmed) {
+        removeVariantGroup(element);
+    }
+}
+    function removeVariantGroup(button) {
+                const variantId = button.getAttribute('data-variant-id');
+                if (variantId) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'deleted_variants[]';
+                    input.value = variantId;
+                    document.forms[0].appendChild(input);
+                }
+                button.parentElement.remove(); 
+        }
+    </script>
 </body>
 </html>
