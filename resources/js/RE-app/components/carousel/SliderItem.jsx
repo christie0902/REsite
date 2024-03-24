@@ -90,7 +90,7 @@ const SliderItem = ({ product, triggerAnimation }) => {
                         </div>
                     </motion.div>
                     <motion.div
-                        className="right-info add-info"
+                        className="add-info"
                         key={"rightpanel04" + triggerKey3}
                         initial={{
                             transformOrigin: "top left",
@@ -208,7 +208,7 @@ const SliderItem = ({ product, triggerAnimation }) => {
                             opacity: 0,
                         }}
                         animate={{
-                            transformOrigin: " top left",
+                            transformOrigin: "top left",
                             opacity: 1,
                             filter: "blur(0)",
                             transform: "translateX(0px) translateY(0px)",
