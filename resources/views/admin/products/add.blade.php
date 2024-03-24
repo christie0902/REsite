@@ -13,6 +13,12 @@
     @endif
 
     <div class="container">
+        <div class="nav-buttons">
+            <a href="{{ route('admin.products.index') }}" 
+            style="text-decoration: none; 
+            font-size: 16px; ">&lt; Back to List</a>
+        </div>
+
         <h1>Add Product</h1>
         <form action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
             @csrf
