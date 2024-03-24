@@ -94,7 +94,9 @@
         @yield('content')
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script>Chart.register(ChartDataLabels);</script>
 <script src="https://kit.fontawesome.com/f019794326.js" crossorigin="anonymous"></script>
 </body>
 </html>
