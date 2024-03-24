@@ -61,7 +61,7 @@ const ProfileMenu = () => {
                                 <li className="font-bold text-yellow-600">
                                     <MenuItem
                                         label="Admin Hub"
-                                        url="/admin/products"
+                                        url="/admin/dashboard"
                                     />
                                 </li>
                             )}
