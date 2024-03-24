@@ -29,30 +29,16 @@ const SliderItem = ({ product, triggerAnimation }) => {
     } = product;
     return (
         <div className="carousel-item">
-            <div className="flex justify-between">
+            <div className="flex justify-between relative">
                 <motion.div
                     className="left-panel"
                     initial={{
-                        position: "relative",
-                        top: "10%",
-                        left: "21%",
-                        width: "40%",
-                        perspective: "1000px",
-                        zIndex: " 2",
-                        transformOrigin: "top left",
                         transform:
                             "translateX(-50px) translateY(40px) skewY(-7deg)",
                         filter: "blur(20px)",
                         opacity: 0,
                     }}
                     animate={{
-                        position: "relative",
-                        top: "10%",
-                        left: "21%",
-                        width: "40%",
-                        perspective: "1000px",
-                        zIndex: " 2",
-                        transformOrigin: " top left",
                         opacity: 1,
                         filter: "blur(0)",
                         transform:
@@ -104,7 +90,7 @@ const SliderItem = ({ product, triggerAnimation }) => {
                         </div>
                     </motion.div>
                     <motion.div
-                        className="right-info"
+                        className="right-info add-info"
                         key={"rightpanel04" + triggerKey3}
                         initial={{
                             transformOrigin: "top left",
@@ -122,7 +108,7 @@ const SliderItem = ({ product, triggerAnimation }) => {
                     >
                         <button
                             className="recon-button"
-                            handleClick={() => {
+                            onClick={() => {
                                 console.log(product);
                                 dispatch({
                                     type: "product/cart-add",
@@ -136,51 +122,35 @@ const SliderItem = ({ product, triggerAnimation }) => {
                         </button>
                     </motion.div>
                 </motion.div>
-                {/* End of left container */}
+                {/* End of left container------------------------------------------------------------- */}
                 <motion.div
                     className="hero-img"
                     style={{ pointerEvents: "none" }}
                     key={triggerKey1}
                     initial={{
-                        /*height: "220px",*/
                         left: 100,
                         bottom: -800,
-                        zIndex: 5,
-                        position: "relative",
                         opacity: 0,
                     }}
                     animate={{
-                        position: "relative",
                         bottom: 0,
                         left: 0,
-                        zIndex: 5,
                         opacity: 1,
                     }}
                     transition={{ duration: 0.5 }}
                 >
                     <img src={product.image_url} alt="image" />
                 </motion.div>
+                {/* END OF HERO IMG------------------------------------------------------------- */}
                 <motion.div
                     className="right-panel"
                     initial={{
-                        position: "relative",
-                        top: "15%",
-                        right: "9%",
-                        width: "32%",
-                        zIndex: "5",
-                        textAlign: " right",
                         opacity: 0,
                         filter: "blur(20px)",
                         transform:
                             "translateX(100px) translateY(-40px) skewY(-9deg)",
                     }}
                     animate={{
-                        position: "relative",
-                        top: "15%",
-                        right: "9%",
-                        width: "32%",
-                        zIndex: "5",
-                        textAlign: " right",
                         opacity: 1,
                         filter: "blur(0px)",
                         transform:
