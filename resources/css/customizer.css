@@ -7,7 +7,7 @@
   }
   
   .head-text {
-    @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-bebas-neue text-yellow-600;
+    @apply xl:text-[10rem] sm:text-[6rem] text-[3rem] xl:leading-[11rem] sm:leading-[7rem] leading-[3rem] font-bebas-neue text-yellow-600;
   }
   
   .download-btn {

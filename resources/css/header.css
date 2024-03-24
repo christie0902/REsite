@@ -24,3 +24,6 @@
   .nav-item a:hover::after {
     width: 100%;
   }
+  .nav-item{
+    margin-right: 15px;
+  }
