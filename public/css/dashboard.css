@@ -1,0 +1,120 @@
+.dashboard-container {
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f3f4f6;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 16px;
+}
+.order-header-row {
+    background-color: #3a3939; 
+    color: #ffffff;
+}
+
+.order-header {
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid #18202b; 
+}
+
+.sales-card, 
+.revenue-card, 
+.items-card {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.sales-amount {
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.chart-container {
+    margin-top: 8px;
+}
+
+.sold-items-list {
+    margin-top: 8px;
+}
+
+.item-detail {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-top: 8px;
+}
+
+.orders-title {
+    font-size: 1.125rem; 
+    font-weight: 600;
+    color: #4a5568; 
+    margin-bottom: 1rem;
+}
+
+.orders-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.order-row {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.order-data {
+    padding: 12px;
+    font-size: 14px;
+}
+
+.completed-status {
+    background-color: #c7f7e2;
+    color: #059669;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pending-status {
+    background-color: #fef3c7;
+    color: #f59e0b;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.refunded-status {
+    background-color: #3d3c3b;
+    color: #c0b69d;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cancelled-status {
+    background-color: #fecaca;
+    color: #b91c1c;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.order-data .fa-ellipsis {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}

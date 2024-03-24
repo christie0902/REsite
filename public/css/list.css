@@ -83,7 +83,6 @@ button {
     color: white;
 }
 
-/* Adjust your table row to include images */
 table td img.product-image {
   width: 50px; 
   height: auto;
@@ -115,4 +114,12 @@ th.price, td.price {
 th.action, td.action {
   white-space: nowrap; 
   width: 10%; 
+}
+
+.sort-selection { 
+  margin-left: 20px; 
+  display: inline-block;
+}
+.sort-selection select, .sort-selection button { 
+  padding: 5px; 
 }

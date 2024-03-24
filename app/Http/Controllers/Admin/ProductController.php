@@ -18,6 +18,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search_query = $request->input('search-product');
+        $sort = $request->input('sort', 'updated_at'); 
+        $order = $request->input('order', 'desc');
 
         $products = Product::with('category');
 
@@ -31,6 +33,14 @@ class ProductController extends Controller
                     $query->where('variant_type', 'LIKE', "%{$search_query}%")
                         ->orWhere('variant_value', 'LIKE', "%{$search_query}%");
                 });
+        }
+
+        if ($sort == 'category') {
+            $products = $products->join('categories', 'products.category_id', '=', 'categories.id')
+                                 ->orderBy('categories.name', $order)
+                                 ->select('products.*');
+        } else {
+            $products = $products->orderBy($sort, $order);
         }
 
         $products = $products->paginate(10);

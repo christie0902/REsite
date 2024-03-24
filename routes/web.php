@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::view('/{path?}', 'react-app')->where('path', '.*');
+Route::view('/{path?}', 'react-app')->where('path', '.*')->name('storefront');

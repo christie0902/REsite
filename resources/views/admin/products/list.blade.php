@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('css/list.css') }}">
-<title>Product Table</title>
-</head>
-<body>
+@extends('admin.layout.layout')
 
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('css/list.css') }}">
+@endpush
+
+@section('content')
   @if(session('success_message'))
   <div class="alert alert-success">
       {{ session('success_message') }}
@@ -19,7 +16,21 @@
     <form action="{{ route('admin.products.index') }}" method="get">
       <input type="text" id="search-product" name="search-product" placeholder="Search in products" value="{{ request()->input('search-product') }}">
       <button type="submit">Search</button>
-  </form>
+
+    {{-- Sorting selection --}}
+      <div class="sort-selection" style="margin-left: 20px; display: inline-block; margin-top: 10px;">
+        <select name="sort" id="sort">
+          <option value="updated_at">Sort by Date</option>
+          <option value="name" {{ request()->input('sort') == 'name' ? 'selected' : '' }}>Sort by Name</option>
+          <option value="category" {{ request()->input('sort') == 'category' ? 'selected' : '' }}>Sort by Category</option>
+        </select>
+        <select name="order" id="order">
+          <option value="asc" {{ request()->input('order') == 'asc' ? 'selected' : '' }}>Ascending</option>
+          <option value="desc" {{ request()->input('order') == 'desc' ? 'selected' : '' }}>Descending</option>
+        </select>
+        <button type="submit">Sort</button>
+      </div>
+</form>
 
     <button id="add-product" onclick="window.location='{{ route('admin.products.add') }}'">+ Add Product</button>
     <button id="import-csv">Import CSV</button>
@@ -80,5 +91,4 @@
 <div class="pagination">
     {{ $products->links() }} <!-- Pagination links -->
   </div>
-</body>
-</html>
+@endsection
