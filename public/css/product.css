@@ -2,7 +2,23 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
 }
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s, border-color 0.3s;
+}
 
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
 .container {
     width: 80%;
     margin: 2em auto;
@@ -109,7 +125,7 @@ button:hover {
     white-space: pre;
 }
 
-input[type="file"] {
+.form-control-file {
     opacity: 1;
     width: 100%;
     height: 100%;
@@ -137,6 +153,7 @@ input[type="file"] {
 .nav-buttons {
     margin-bottom: 20px;
 }
+
 
 
 @media (max-width: 768px) {

@@ -12,6 +12,8 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Image;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -68,19 +70,18 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'categories', 'discounts'));
     }
 
-    // store/save function
-    public function store(Request $request, $id = null)
+    // store function
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
             'price' => 'required|numeric|between:0,9999.99',
-            'hasSizes' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'product_images' => 'required',
             'product_images.*' => 'mimes:jpg,jpeg,png|max:2048',
             'stock_quantity' => 'required|integer|min:0',
-            'sku' => 'required|string|max:50|unique:products,sku,' . ($id ?: 'NULL') . ',id',
+            'sku' => 'required|string|max:50|unique:products,sku',
             'discount_id' => 'nullable|exists:discounts,id',
             'promotion_start_date' => 'nullable|date',
             'promotion_end_date' => 'nullable|date|after_or_equal:promotion_start_date',
@@ -90,7 +91,6 @@ class ProductController extends Controller
             'description.max' => 'The description must not exceed 500 characters.',
             'price.required' => 'The price is required.',
             'price.numeric' => 'The price must be a number.',
-            'hasSizes.required' => 'Please specify if the product has sizes.',
             'category.required' => 'Please select a category for the product.',
             'image_url.url' => 'The image URL format is invalid.',
             'stock_quantity.required' => 'The stock quantity is required.',
@@ -99,37 +99,36 @@ class ProductController extends Controller
             'sku.required' => 'The SKU is required.',      
             'status.required' => 'The status is required.',
         ]);
-        DB::transaction(function () use ($request, $id) {
-                if ($id) {
-                    $product = Product::with('category', 'images', 'variants')->findOrFail($id);
-                } else {
-                    $product = new Product;
-                }
-                $images = $product->images;
-                $variants = $product->variants;
-
+             DB::transaction(function () use ($request) {
+                $product = new Product;
+                
                 $product->name = $request->name;
                 $product->description = $request->description;
                 $product->category_id = $request->category_id;
                 $product->price = $request->price;
-                $product->hasSizes = $request->hasSizes;
                 $product->stock_quantity = $request->stock_quantity;
                 $product->sku = $request->sku;
                 $product->status = $request->status;
-                $product->discount_id = $request->input('discount_id'); 
+                $product->discount_id = $request->input('discount_id');
                 $product->promotion_start_date = $request->promotion_start_date ?? null;
                 $product->promotion_end_date = $request->promotion_end_date ?? null;
-            
+
                 $product->save();
             
                 // Handle variants
-                if ($request->has('variants')) {
-                    foreach ($request->variants as $variantData) {
-                        $variant = new ProductVariant;
-                        $variant->product_id = $product->id;
-                        $variant->size = $variantData['size'];
-                        $variant->color = $variantData['color'];
-                        $variant->save();
+                if ($request->has('variants') && is_array($request->variants)) {
+                    foreach ($request->variants as $index => $variant) {
+                        if (!empty($variant['type']) && !empty($variant['value'])) {
+                            $uniquePart = Str::random(2);
+                            $variantSKU = $request->sku . '-' . $variant['type'] . '-' . $index . '-' . $uniquePart;
+
+                            $product->variants()->create([
+                                'variant_type' => $variant['type'],
+                                'variant_value' => $variant['value'],
+                                'sku' => $variantSKU,
+                                'stock_quantity' => $variant['stock_quantity']
+                            ]);
+                        }
                     }
                 }
 
@@ -162,17 +161,18 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success_message', 'Product data saved successfully.');
     }
+
+    // Update function
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
             'price' => 'required|numeric|between:0,9999.99',
-            'hasSizes' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'product_images.*' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             'stock_quantity' => 'required|integer|min:0',
-            'sku' => 'required|string|max:50|unique:products,sku,' . $id,
+            'sku' => ['required', 'string', 'max:50', Rule::unique('products')->ignore($id)],
             'discount_id' => 'nullable|exists:discounts,id',
             'promotion_start_date' => 'nullable|date',
             'promotion_end_date' => 'nullable|date|after_or_equal:promotion_start_date',
@@ -182,7 +182,6 @@ class ProductController extends Controller
             'description.max' => 'The description must not exceed 500 characters.',
             'price.required' => 'The price is required.',
             'price.numeric' => 'The price must be a number.',
-            'hasSizes.required' => 'Please specify if the product has sizes.',
             'category_id.required' => 'Please select a category for the product.',
             'stock_quantity.required' => 'The stock quantity is required.',
             'stock_quantity.integer' => 'The stock quantity must be a whole number.',
@@ -191,14 +190,12 @@ class ProductController extends Controller
             'status.required' => 'The status is required.',
         ]);
     
-        DB::transaction(function () use ($request, $id) {
             $product = Product::findOrFail($id);
     
             $product->name = $request->name;
             $product->description = $request->description;
             $product->category_id = $request->category_id;
             $product->price = $request->price;
-            $product->hasSizes = $request->hasSizes;
             $product->stock_quantity = $request->stock_quantity;
             $product->sku = $request->sku;
             $product->status = $request->status;
@@ -209,13 +206,43 @@ class ProductController extends Controller
             $product->save();
     
             // Handle variants
-            if ($request->has('variants')) {
-                foreach ($request->variants as $variantData) {
-                    $variant = new ProductVariant;
-                    $variant->product_id = $product->id;
-                    $variant->size = $variantData['size'];
-                    $variant->color = $variantData['color'];
-                    $variant->save();
+            if ($request->has('variants.existing')) {
+                foreach ($request->variants['existing'] as $variantId => $variantData) {
+                    $variant = ProductVariant::find($variantId);
+                    if ($variant) {
+                        $variant->update([
+                            'variant_type' => $variantData['type'],
+                            'variant_value' => $variantData['value'],
+                            'sku' => $variantData['sku'],
+                            'stock_quantity' => $variantData['stock_quantity'],
+                        ]);
+                    }
+                }
+            }
+
+            if ($request->has('variants.new') && is_array($request->variants['new'])) {
+                foreach ($request->variants['new'] as $variantData) {
+                    if (!empty($variantData['type']) && !empty($variantData['value'])) {
+                        $uniquePart = Str::random(5);
+                        $variantSKU =  $request->sku . '-' . $uniquePart;
+            
+                        $product->variants()->create([
+                            'variant_type' => $variantData['type'],
+                            'variant_value' => $variantData['value'],
+                            'sku' => $variantSKU,
+                            'stock_quantity' => $variantData['stock_quantity'],
+                        ]);
+                    }
+                }
+            }
+
+            // Handle deletion of variants
+            if ($request->has('deleted_variants')) {
+                foreach ($request->deleted_variants as $variantId) {
+                    $variant = ProductVariant::find($variantId);
+                    if ($variant) {
+                        $variant->delete();
+                    }
                 }
             }
     
@@ -236,7 +263,7 @@ class ProductController extends Controller
                 }
             }
 
-    });
+
     
         return redirect()->back()->with('success_message', 'Product data updated successfully.');
     }
