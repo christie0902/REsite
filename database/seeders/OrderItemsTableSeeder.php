@@ -15,21 +15,25 @@ class OrderItemsTableSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        $orders = DB::table('orders')->pluck('id');
-        $products = DB::table('products')->pluck('id');
+        $orders = DB::table('orders')->get();
+        $products = DB::table('products')->pluck('id')->toArray();
 
-        foreach ($orders as $orderId) {
-            // Each order will have 1 to 3 items
+        foreach ($orders as $order) {
             $numItems = rand(1, 3);
             for ($i = 0; $i < $numItems; $i++) {
+                $selectedProductId = $faker->randomElement($products);
+                $variants = DB::table('product_variants')->where('product_id', $selectedProductId)->pluck('id')->toArray();
+                
+                $productVariantId = !empty($variants) ? ($faker->boolean(75) ? $faker->randomElement($variants) : null) : null;
+
                 DB::table('order_items')->insert([
-                    'order_id' => $orderId,
-                    'product_id' => $faker->randomElement($products),
-                    'product_variant_id' => null, 
+                    'order_id' => $order->id,
+                    'product_id' => $selectedProductId,
+                    'product_variant_id' => $productVariantId, 
                     'quantity' => rand(1, 5),
                     'price' => $faker->randomFloat(2, 10, 200),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_at' => $order->created_at,
+                    'updated_at' => $order->updated_at,
                 ]);
             }
         }
