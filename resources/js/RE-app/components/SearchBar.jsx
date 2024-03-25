@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import CustomButton from "./buttons/CustomButton";
 import Context from "../store/Context";
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
     const { state, dispatch } = useContext(Context);
     const [searchQuery, setSearchQuery] = useState("");
     const searchBarRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -47,6 +49,7 @@ const SearchBar = () => {
                 type: "product/set-searchResults",
                 payload: searchData,
             });
+            navigate('/shop');
         } catch (error) {
             console.error("Error searching products:", error.message);
         }

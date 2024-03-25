@@ -79,13 +79,16 @@
                 </div>
             </a>
 
-            <a href="#" class="{{ Request::is('setting') ? 'active' : '' }}">
-                <div class="menu-item">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
-                </div>
-            </a>
-           
+            <form action="/logout" method="POST" style="margin: 0; padding: 0; background: transparent;">
+                @csrf
+                <button type="submit" class="logout-button" style="background: transparent; border: none; padding: 20; font-size: 1.1rem; margin-bottom: 10px; color:white;">
+                    <div class="menu-item" style="width: 100%;">
+                        <i class="fa-solid fa-right-from-bracket" style="margin-right: 15px;"></i>
+                        <span>Logout</span>
+                    </div>
+                </button>
+            </form>
+
         </div>
     </nav> 
 

@@ -21,9 +21,9 @@ const Shop = () => {
         state.searchResults && setShowPages(false);
     }, [state.searchResults]);
 
-    useEffect(() => {
-        return () => dispatch({ type: "product/clearSearchResults" });
-    }, []);
+    // useEffect(() => {
+    //     return () => dispatch({ type: "product/clearSearchResults" });
+    // }, []);
 
     const handleTagClick = (tagId) => {
         setSelectedTags((prevSelectedTags) => {
@@ -33,7 +33,7 @@ const Shop = () => {
                 : [...prevSelectedTags, tagId];
         });
     };
-
+    
     useEffect(() => {
         loadData(1, selectedTags).catch(console.error);
     }, [selectedTags]);
