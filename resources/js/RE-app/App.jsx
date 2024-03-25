@@ -47,7 +47,7 @@ function App() {
     };
 
     const [state, dispatch] = useReducer(reducer, initialState());
-    console.log(state.user);
+
     return (
         <>
             <BrowserRouter>

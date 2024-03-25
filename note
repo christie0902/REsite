@@ -32,7 +32,7 @@
 ✅ at no point can you select the size of the customized t-shirt
 ✅ fix address to load from user's shipping address
 ✅ card hover implies action if click but nothing happens
-❌ bug in filter where if you select 4 things then unselct them then just select 1 thing. the first four items will not match the new filter
+✅ bug in filter where if you select 4 things then unselct them then just select 1 thing. the first four items will not match the new filter
 ✅ no front end validation for empty fields
 ✅ Display Variants on Checkout page
 ✅ add variant info to basic card data

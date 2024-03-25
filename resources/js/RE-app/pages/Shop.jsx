@@ -125,7 +125,7 @@ const Shop = () => {
                                 <>
                                     {searchResults.map((product, i) => (
                                         <BasicCard
-                                            key={product.id + i + "prodCard"}
+                                            key={product.id + "prodCard"+Date.now()}
                                             productData={product}
                                         />
                                     ))}
@@ -133,7 +133,7 @@ const Shop = () => {
                             ) : (
                                 products.data.map((product, i) => (
                                     <BasicCard
-                                        key={product.id + i + "prodCard"}
+                                        key={product.id + "prodCard"+ Date.now()}
                                         productData={product}
                                     />
                                 ))
