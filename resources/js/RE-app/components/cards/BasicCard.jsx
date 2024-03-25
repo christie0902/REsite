@@ -26,9 +26,13 @@ const BasicCard = ({ productData }) => {
     const defaultColor =sizes?.length > 0 ? colors[0] : undefined;
     const defaultEdition =editions?.length > 0 ? editions[0] : undefined;
 
+
     return (
+       
         <div className="mx-auto max-w-xs transition-transform duration-200 hover:scale-105 hover:border-red-500">
+           
             <div className="relative m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg">
+                <Link to={`/product/details/${id}`}>
                 <a
                     className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
                     href="#"
@@ -42,7 +46,9 @@ const BasicCard = ({ productData }) => {
                         {discount_rate ? `${discount_rate}%` : ""}
                     </span>
                 </a>
+                </Link>
                 <div className="mt-4 px-5 pb-5">
+                <Link to={`/product/details/${id}`}>
                     <a href="#">
                         <h5 className="text-xl tracking-tight text-yellow-600 font-bold ellipsis">
                             {name}
@@ -64,6 +70,7 @@ const BasicCard = ({ productData }) => {
                             />
                         </div>
                     </div>
+                </Link>
                     {/* <a
             handleClick={() => {
               dispatch({
@@ -74,12 +81,14 @@ const BasicCard = ({ productData }) => {
             href="#"
             className="flex items-center justify-center rounded-md bg-red-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-300"
           > */}
+           
                     <div className="w-full flex justify-center">
                         <CustomButton
                             type="static"
                             title="Add To Cart"
                             customStyles="w-full mx-3"
                             handleClick={() => {
+                            
                                 dispatch({
                                     type: "product/cart-add",
                                     payload: {

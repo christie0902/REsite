@@ -258,6 +258,7 @@ const Checkout = () => {
                                                                 "card",
                                                             )
                                                         }
+                                                        required
                                                     />
                                                     <img
                                                         src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
@@ -282,6 +283,7 @@ const Checkout = () => {
                                                                         .value,
                                                                 )
                                                             }
+                                                            required
                                                         />
                                                     </div>
                                                 </div>
@@ -301,6 +303,7 @@ const Checkout = () => {
                                                                         .value,
                                                                 )
                                                             }
+                                                            required
                                                         />
                                                     </div>
                                                 </div>
@@ -416,6 +419,7 @@ const Checkout = () => {
                                                                             .value,
                                                                     )
                                                                 }
+                                                                required
                                                             />
                                                         </div>
                                                     </div>
