@@ -9,6 +9,8 @@ import order from "./order.png";
 import logoShirt from "./logo-tshirt.png";
 import stylishShirt from "./stylish-tshirt.png";
 
+const editIcon="https://res.cloudinary.com/diwszstai/image/upload/v1711394541/site-assets/custom_icon_pazy3d.png";
+
 export {
     ai,
     fileIcon,
@@ -19,4 +21,5 @@ export {
     preset,
     save,
     order,
+    editIcon
 };

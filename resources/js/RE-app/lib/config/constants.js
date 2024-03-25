@@ -7,6 +7,7 @@ import {
     preset,
     save,
     order,
+    editIcon
 } from "../../assets";
 
 export const EditorTabs = [
@@ -29,6 +30,11 @@ export const EditorTabs = [
         name: "preset",
         icon: preset,
         label: "Presets",
+    },
+    {
+        name: "edit",
+        icon: editIcon,
+        label: "Edit",
     },
 ];
 

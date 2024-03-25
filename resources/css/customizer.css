@@ -39,6 +39,10 @@
   .filepicker-container {
     @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] flex flex-col rounded-md;
   }
+
+  .edit-container {
+    @apply absolute left-full ml-3 glassmorphism p-3 w-[290px] h-[350px] flex flex-col rounded-md;
+  }
   
   .preset-container {
     @apply absolute left-full ml-3 glassmorphism p-3 w-[240px] h-[300px] flex rounded-md;

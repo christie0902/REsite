@@ -9,7 +9,7 @@ const Shirt = () => {
     const { nodes, materials } = useGLTF(
         "https://res.cloudinary.com/diwszstai/image/upload/v1710794781/site-assets/shirt_baked_lfhhqu.glb",
     );
-
+        console.log(appState);
     const logoTexture = useTexture(appState.customizerState.logoDecal);
     const fullTexture = useTexture(appState.customizerState.fullDecal);
 
@@ -33,18 +33,26 @@ const Shirt = () => {
             >
                 {appState.customizerState.isFullTexture && (
                     <Decal
-                        position={[0, 0, 0]}
-                        rotation={[0, 0, 0]}
-                        scale={1}
+                        position={[
+                            appState.customizerState.fullImg.xPosition,
+                            appState.customizerState.fullImg.yPosition,
+                            0,
+                        ]}
+                        rotation={[0, 0, appState.customizerState.fullImg.rotation]}
+                        scale={appState.customizerState.fullImg.scale}
                         map={fullTexture}
                     />
                 )}
 
                 {appState.customizerState.isLogoTexture && (
                     <Decal
-                        position={[0, 0.03, 0.15]}
+                        position={[
+                            appState.customizerState.logoImg.xPosition,
+                            appState.customizerState.logoImg.yPosition,
+                            0.15,
+                        ]}
                         rotation={[0, 0, 0]}
-                        scale={0.3}
+                        scale={appState.customizerState.logoImg.scale}
                         map={logoTexture}
                         anisotropy={16}
                         depthTest={false}

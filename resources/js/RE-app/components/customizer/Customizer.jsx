@@ -5,6 +5,8 @@ import { EditorTabs, FilterTabs, DecalTypes } from "../../lib/config/constants";
 import { fadeAnimation, slideAnimation } from "../../lib/config/motion";
 import { ColorPicker, FilePicker, CustomButton, Tab, Preset } from "..";
 import Context from "../../store/Context";
+import ImgSlider from "./ImgSlider";
+import EditImage from "./EditImage";
 
 const Customizer = () => {
     const { state, dispatch } = useContext(Context);
@@ -49,9 +51,16 @@ const Customizer = () => {
                     />
                 );
 
+            case "edit":
+                return (
+                   <EditImage/>
+                )
+
             default:
                 return null;
         }
+
+           
     };
     const handleFile = (type, filePath) => {
         {
@@ -137,10 +146,10 @@ const Customizer = () => {
         reader(file).then((result) => {
             handleDecals(type, result);
             setActiveEditorTab("");
-            // console.log(result);
         });
     };
 
+    
     return (
         <AnimatePresence>
             {!state.customizerState.intro && (

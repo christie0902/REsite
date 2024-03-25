@@ -27,6 +27,7 @@ function App() {
         return localData
             ? {
                   searchActive: false,
+                  customizerState: {...initialCustomizerState},
                   cartActive: false,
                   profileActive: false,
                   currency: "$",
