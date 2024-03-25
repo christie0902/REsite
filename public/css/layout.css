@@ -47,7 +47,7 @@ body {
     color: #ffffff;
     text-decoration: none;
     padding: 10px 15px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-left: 4px solid transparent;
     transition: all 0.3s;
     margin-block: 10px;
@@ -69,7 +69,7 @@ body {
     display: flex;
     align-items: center; 
     gap: 10px;
-    margin-block: 30px;
+    margin-block: 25px;
     margin-left: 10px;
 }
 

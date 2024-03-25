@@ -54,7 +54,7 @@
                 Revenue (Last {{$months}} Months)
             </div>
             
-            <div class="chart-container" style="width:100%; height:350px">
+            <div class="chart-container" style="width:100%; height:280px">
                 <canvas id="monthlyRevenueChart"></canvas>
             </div>
         </div>

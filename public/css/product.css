@@ -57,6 +57,7 @@ select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-block: 3px;
     box-sizing: border-box;
 }
 
