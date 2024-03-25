@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Api\UserAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   //  dd(Auth::user());
     return $request->user();
 });
+Route::middleware('auth:sanctum')->get('/user/address', [UserAddressController::class, 'show']);
+
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/featured', [ProductController::class, 'featured']);
 // Route::get('/products/details/{id}', [ProductController::class, 'show']);

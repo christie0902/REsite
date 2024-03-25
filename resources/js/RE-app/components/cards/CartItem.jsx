@@ -8,7 +8,7 @@ const CartItem = ({ productData }) => {
         image_url,
         name,
         sizes,
-        edition,
+        editions,
         colors,
         quantity,
         price,
@@ -51,7 +51,7 @@ const CartItem = ({ productData }) => {
             },
         });
     };
-
+    console.log(productData);
     return (
         <div className="flex items-start justify-between p-2 pt-3 bg-gray-100 bg-opacity-40 rounded-lg shadow-xl backdrop-filter backdrop-blur-lg">
             {/* Product Image */}
@@ -94,14 +94,14 @@ const CartItem = ({ productData }) => {
                         </select>
                     </p>
                 )}
-                {edition?.length > 0 && (
+                {editions?.length > 0 && (
                     <p className="text-sm text-gray-700">
                         Edition:
                         <select
                             value={selectedEdition}
                             onChange={handleEditionChange}
                         >
-                            {edition.map((editionOption) => (
+                            {editions.map((editionOption) => (
                                 <option
                                     key={editionOption}
                                     value={editionOption}

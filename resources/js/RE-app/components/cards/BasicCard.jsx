@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 const BasicCard = ({ productData }) => {
     const { state, dispatch } = useContext(Context);
     // const [showDetails, setShowDetails] = useState(false);
-    const [size, setsize] = useState("");
     const {
         id,
         image_url,
@@ -19,7 +18,13 @@ const BasicCard = ({ productData }) => {
         discount_price,
         rating,
         review_count,
+        sizes,
+        editions,
+        colors,
     } = productData;
+    const defaultSize = sizes?.length > 0 ? sizes[0] : undefined;
+    const defaultColor =sizes?.length > 0 ? colors[0] : undefined;
+    const defaultEdition =editions?.length > 0 ? editions[0] : undefined;
 
     return (
         <div className="mx-auto max-w-xs transition-transform duration-200 hover:scale-105 hover:border-red-500">
@@ -79,8 +84,10 @@ const BasicCard = ({ productData }) => {
                                     type: "product/cart-add",
                                     payload: {
                                         ...productData,
-                                        size: size,
                                         quantity: 1,
+                                        selectedSize: defaultSize,
+                                        selectedColor: defaultColor,
+                                        selectedEdition: defaultEdition,
                                     },
                                 });
                             }}

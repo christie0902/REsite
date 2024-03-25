@@ -21,7 +21,7 @@ useEffect(() => {
 
     return (
         <div
-            className={`nav-item ${highlightStyle}`}
+            className={`nav-item ${highlightStyle} ml-3 ,mr-3`}
         >
             <a className="text-white text-xl" >
                 {title}

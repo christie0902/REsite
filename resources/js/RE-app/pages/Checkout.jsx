@@ -2,9 +2,11 @@ import { CustomButton } from "../components";
 import React, { useContext, useState, useEffect } from "react";
 import Context from "../store/Context";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Checkout = () => {
     const { state, dispatch } = useContext(Context);
+    const [userAddress, setUserAddress] = useState(null);
     const { cart, currency, total } = state;
     const [paymentType, setPaymentType] = useState("card");
     const [nameOnCard, setNameOnCard] = useState("");
@@ -12,12 +14,32 @@ const Checkout = () => {
     const [expirationMonth, setExpirationMonth] = useState("01");
     const [expirationYear, setExpirationYear] = useState("2024");
     const [securityCode, setSecurityCode] = useState("");
-    const [isLoading, setisLoading] = useState(false)
+    const [isLoading, setisLoading] = useState(false);
     const navigate = useNavigate();
+
+    // Fetch user address if logged in
+    useEffect(() => {
+        const fetchAddress = async () => {
+            if (state.user) {
+                try {
+                    const response = await axios.get('/api/user/address', {
+                        headers: {
+                            'Authorization': `Bearer ${state.user.token}`,
+                        },
+                    });
+                    setUserAddress(response.data);
+                } catch (error) {
+                    console.error("Error fetching address:", error);
+                }
+            }
+        };
+    
+        fetchAddress();
+    }, [state.user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(isLoading) return;
+        if (isLoading) return;
         setisLoading(true);
 
         const paymentData = {
@@ -38,7 +60,7 @@ const Checkout = () => {
 
             console.log("Payment successful:", response.data);
             alert("Payment successful!");
-            dispatch({type: "product/cart-clear"})
+            dispatch({ type: "product/cart-clear" });
             navigate(`/order-summary/${response.data.orderId}`);
         } catch (error) {
             console.error("Payment failed:", error.response || error);
@@ -49,6 +71,19 @@ const Checkout = () => {
             setisLoading(false);
         }
     };
+
+    if (!state.user) {
+        return (
+            <div>
+                <p>Please log in to proceed to checkout.</p>
+                <CustomButton
+                    title="Login"
+                    handleClick={() => navigate("/login")}
+                />
+            </div>
+        );
+    }
+
     return (
         <>
             <div className="min-w-screen min-h-screen bg-black">
@@ -77,11 +112,30 @@ const Checkout = () => {
                                             </div>
                                             <div className="flex-grow pl-3">
                                                 <h6 className="font-semibold uppercase text-yellow-500">
-                                                    {item.name}.
+                                                    {item.name}
                                                 </h6>
                                                 <p className="text-white">
-                                                    x {item.quantity}
+                                                    Quantity: x {item.quantity}
                                                 </p>
+
+                                                {item.selectedSize && (
+                                                    <p className="text-white">
+                                                        Size:{" "}
+                                                        {item.selectedSize}
+                                                    </p>
+                                                )}
+                                                {item.selectedColor && (
+                                                    <p className="text-white">
+                                                        Color:{" "}
+                                                        {item.selectedColor}
+                                                    </p>
+                                                )}
+                                                {item.selectedEdition && (
+                                                    <p className="text-white">
+                                                        Edition:{" "}
+                                                        {item.selectedEdition}
+                                                    </p>
+                                                )}
                                             </div>
                                             <div>
                                                 <span className="font-semibold text-white text-xl">
@@ -158,22 +212,27 @@ const Checkout = () => {
                                             </span>
                                         </div>
                                         <div className="flex-grow pl-3">
-                                            <span>Scott Windon</span>
+                                        <span>{state.user?.name || "Guest"}</span>
                                         </div>
                                     </div>
-                                    <div className="w-full flex items-center">
-                                        <div className="w-32">
-                                            <span className="text-white font-semibold">
-                                                Billing Address
-                                            </span>
+                                    {userAddress ? (
+                                        <div>
+                                            <p>Shipping to:</p>
+                                            <p>{userAddress.address_line1}</p>
+                                            {userAddress.address_line2 && (
+                                                <p>
+                                                    {userAddress.address_line2}
+                                                </p>
+                                            )}
+                                            <p>{`${userAddress.city}, ${userAddress.state} ${userAddress.postal_code}`}</p>
+                                            <p>{userAddress.country}</p>
                                         </div>
-                                        <div className="flex-grow pl-3">
-                                            <span>
-                                                123 George Street, Sydney, NSW
-                                                2000 Australia
-                                            </span>
-                                        </div>
-                                    </div>
+                                    ) : (
+                                        <p>
+                                            No address found. Please add a
+                                            shipping address.
+                                        </p>
+                                    )}
                                 </div>
 
                                 {/* Payment info */}
@@ -390,14 +449,18 @@ const Checkout = () => {
                                     </div>
                                     {/* End of payment info */}
                                     <div>
-                                        {!isLoading ? <CustomButton
-                                            type="static"
-                                            title="PAY NOW"
-                                            customStyles="w-full"
-                                        />:<div className="btn-loading-placeholder">
-                                            <div className="btn-spinner animate-spin"></div> Please Wait...
-                                        </div>
-                                        }
+                                        {!isLoading ? (
+                                            <CustomButton
+                                                type="static"
+                                                title="PAY NOW"
+                                                customStyles="w-full"
+                                            />
+                                        ) : (
+                                            <div className="btn-loading-placeholder">
+                                                <div className="btn-spinner animate-spin"></div>{" "}
+                                                Please Wait...
+                                            </div>
+                                        )}
                                     </div>
                                 </form>
                             </div>

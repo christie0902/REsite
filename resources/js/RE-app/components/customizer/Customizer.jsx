@@ -205,14 +205,16 @@ const Customizer = () => {
                                         const canvas =
                                             document.querySelector("canvas");
                                         const canvasURL = canvas.toDataURL();
+                                        
                                         dispatch({
                                             type: "product/cart-add",
                                             payload: {
-                                                id: Math.random().toString(),
+                                                id: "CT" + Math.random().toFixed(4).toString(),
                                                 name: "Customize Tshirt",
                                                 image_url: canvasURL,
                                                 price: "50",
-                                                size: "Free size",
+                                                sizes: ['S', 'M', 'L', 'XL'],
+                                                selectedSize: "S",
                                                 quantity: 1,
                                             },
                                         });

@@ -139,7 +139,7 @@ export default function reducer(state, action) {
                         };
                     }
                     return item;
-                }).filter(product = product.quantity > 0),
+                }).filter(product => product.quantity > 0),
                 total: sumProducts(
                     state.cart.map((item) => {
                         if (item.id === action.payload.id) {
