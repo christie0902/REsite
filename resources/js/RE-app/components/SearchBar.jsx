@@ -31,28 +31,33 @@ const SearchBar = () => {
         };
     }, [dispatch]);
 
+    // const handleSearch = async (event) => {
+    //     dispatch({
+    //         type: "products/setSearchQuery",
+    //         payload: searchQuery,
+    //     });
+    //     event.preventDefault();
+    //     try {
+    //         const response = await fetch(
+    //             `/api/products/search/${encodeURIComponent(searchQuery)}`,
+    //         );
+    //         if (!response.ok) {
+    //             throw new Error("Failed to fetch search results");
+    //         }
+    //         const searchData = await response.json();
+    //         dispatch({
+    //             type: "product/set-searchResults",
+    //             payload: searchData,
+    //         });
+    //         navigate('/shop');
+    //     } catch (error) {
+    //         console.error("Error searching products:", error.message);
+    //     }
+    // };
+
     const handleSearch = async (event) => {
-        dispatch({
-            type: "products/setSearchQuery",
-            payload: searchQuery,
-        });
         event.preventDefault();
-        try {
-            const response = await fetch(
-                `/api/products/search/${encodeURIComponent(searchQuery)}`,
-            );
-            if (!response.ok) {
-                throw new Error("Failed to fetch search results");
-            }
-            const searchData = await response.json();
-            dispatch({
-                type: "product/set-searchResults",
-                payload: searchData,
-            });
-            navigate('/shop');
-        } catch (error) {
-            console.error("Error searching products:", error.message);
-        }
+        navigate('/shop', { state: { searchQuery } });
     };
 
     return (

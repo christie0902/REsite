@@ -31,9 +31,7 @@ function App() {
                   profileActive: false,
                   currency: "$",
                   total: 0,
-                  searchResults: null,
                   profileActive: false,
-                  searchQuery: null,
                   ...JSON.parse(localData),
               }
             : {
@@ -45,8 +43,6 @@ function App() {
                   profileActive: false,
                   currency: "$",
                   total: 0,
-                  searchResults: null,
-                  searchQuery: null,
               };
     };
 
