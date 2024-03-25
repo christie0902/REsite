@@ -29,15 +29,16 @@
 ✅ zero quantity items remain in context
 ✅ completing a purchase doesn't clear your cart
 ✅ Password length validation failure. No visual indication.
-❌ at no point can you select the size of the customized t-shirt
-❌ card hover implies action if click but nothing happens
+✅ at no point can you select the size of the customized t-shirt
+✅ fix address to load from user's shipping address
+✅ card hover implies action if click but nothing happens
 ❌ bug in filter where if you select 4 things then unselct them then just select 1 thing. the first four items will not match the new filter
-❌ edit details & view carrier details doesn't work
-❌ no front end validation for empty fields
-❌ Display Variants on Checkout page
-❌ add variant info to basic card data
+✅ no front end validation for empty fields
+✅ Display Variants on Checkout page
+✅ add variant info to basic card data
+✅ Change the search feature to redirect user to result page
 ❌ fix category section on the home page
 ❌ fix the customizer section on the home page
-❌ add log out feature from admin hub
+✅ add log out feature from admin hub
 
 ⚠️ cards in carousel aren't animated

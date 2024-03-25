@@ -1,28 +1,56 @@
 import React, { useEffect, useState, useContext } from "react";
-import ProductCard from "../components/cards/ProductCard";
 import BasicCard from "../components/cards/BasicCard";
 import backgroundImg from "../assets/backgrounds/background11.png";
-import SearchBar from "../components/SearchBar";
 import Context from "../store/Context.js";
 import Tags from "../components/Tags.jsx";
 import CategoryList from "../components/cards/CategoryList.jsx";
+import { useLocation } from 'react-router-dom';
 
 const Shop = () => {
     const { state, dispatch } = useContext(Context);
     const [showPages, setShowPages] = useState(true);
     const [selectedTags, setSelectedTags] = useState([]);
+    const location = useLocation();
+    const [searchResults, setSearchResults] = useState([]);
 
     const [products, setProducts] = useState({
         data: [],
         meta: { last_page: 1, current_page: 1 },
     });
 
-    useEffect(() => {
-        state.searchResults && setShowPages(false);
-    }, [state.searchResults]);
+    const searchQuery = location.state?.searchQuery;
 
     useEffect(() => {
-        return () => dispatch({ type: "product/clearSearchResults" });
+        if (searchQuery) {
+            performSearch(searchQuery).catch(console.error);
+        } else {
+            loadData().catch(console.error);
+        }
+    }, [searchQuery]);
+
+    const performSearch = async (query) => {
+        try {
+            const response = await fetch(`/api/products/search/${encodeURIComponent(query)}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch search results");
+            }
+            const searchData = await response.json();
+            setProducts({
+                data: searchData.data || [],
+                meta: {
+                    last_page: searchData.last_page || 1,
+                    current_page: searchData.current_page || 1,
+                    links: searchData.links,
+                },
+            });
+            setSearchResults(searchData);
+        } catch (error) {
+            console.error("Error searching products:", error.message);
+        }
+    };
+
+    useEffect(() => {
+        return () => setSearchResults([]);
     }, []);
 
     const handleTagClick = (tagId) => {
@@ -33,7 +61,7 @@ const Shop = () => {
                 : [...prevSelectedTags, tagId];
         });
     };
-
+    
     useEffect(() => {
         loadData(1, selectedTags).catch(console.error);
     }, [selectedTags]);
@@ -88,14 +116,14 @@ const Shop = () => {
                     />
 
                     <div className="container mx-auto px-4 py-5">
-                        {state.searchResults && (
-                            <p>{`${state.searchResults.length} search results for "${state.searchQuery}"`}</p>
+                        {searchQuery && (
+                            <p>{`${searchResults.length} search results for "${searchQuery}"`}</p>
                         )}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                            {state.searchResults &&
-                            state.searchResults.length > 0 ? (
+                            {searchResults &&
+                            searchResults.length > 0 ? (
                                 <>
-                                    {state.searchResults.map((product, i) => (
+                                    {searchResults.map((product, i) => (
                                         <BasicCard
                                             key={product.id + i + "prodCard"}
                                             productData={product}

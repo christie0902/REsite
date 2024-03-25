@@ -13,10 +13,10 @@ const Contact = () => {
 
     return (
         <section
-            className="py-24 bg-cover bg-center min-h-screen"
+            className=" bg-cover bg-center min-h-screen"
             style={{ backgroundImage: `url(${backgroundImg})` }}
         >
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-20">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 items-stretch">
                     <div className="relative">
                         <div className="relative inset-0 shadow-lg"></div>

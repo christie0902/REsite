@@ -265,21 +265,21 @@ export default function reducer(state, action) {
                 },
             };
 
-        case "product/set-searchResults":
-            return {
-                ...state,
-                searchResults: action.payload,
-            };
-        case "product/clearSearchResults":
-            return {
-                ...state,
-                searchResults: null,
-            };
-        case "products/setSearchQuery":
-            return {
-                ...state,
-                searchQuery: action.payload,
-            };
+        // case "product/set-searchResults":
+        //     return {
+        //         ...state,
+        //         searchResults: action.payload,
+        //     };
+        // case "product/clearSearchResults":
+        //     return {
+        //         ...state,
+        //         searchResults: null,
+        //     };
+        // case "products/setSearchQuery":
+        //     return {
+        //         ...state,
+        //         searchQuery: action.payload,
+        //     };
         case "user/setUser":
             return {
                 ...state,

@@ -7,7 +7,7 @@ import SearchBar from "../SearchBar";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "../cards/ProfileMenu";
 import Context from "../../store/Context";
-import Register from "../../pages/Register";
+
 
 const Header = () => {
     const { state, dispatch } = useContext(Context);
