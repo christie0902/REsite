@@ -7,6 +7,7 @@ import "../../bootstrap.js";
 export default function Login() {
     const navigate = useNavigate();
     const { state, dispatch } = useContext(Context);
+    const [errors, setErrors] = useState({});
 
     const [values, setValues] = useState({
         email: "",
@@ -21,16 +22,12 @@ export default function Login() {
             const response_data = response.data;
             navigate("/");
         } catch (error) {
-            switch (error.response.status) {
-                case 422:
-                    console.log(
-                        "VALIDATION FAILED:",
-                        error.response.data.errors,
-                    );
-                    break;
-                case 500:
-                    console.log("UNKNOWN ERROR", error.response.data);
-                    break;
+            console.error("Error occurred:", error);
+            if (error.response && error.response.data && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+                console.log("VALIDATION FAILED:", error.response.data.errors);
+            } else {
+                console.log("UNKNOWN ERROR", error.response);
             }
         }
     };
@@ -41,13 +38,35 @@ export default function Login() {
             [event.target.name]: event.target.value,
         }));
     };
-
+    console.log('Errors:', errors);
     return (
+    <div style={{ backgroundImage: "url('https://res.cloudinary.com/diwszstai/image/upload/v1711358846/site-assets/background_login_ixege8.png')", backgroundSize: 'cover', backgroundRepeat: "no-repeat", minHeight: '100vh',  backgroundPosition: "top center" }}>
+       
+       {Object.keys(errors).length > 0 && (
+            <div className="errors" style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid #A82003',
+                color: '#FC3E35',
+                padding: '10px',
+                width: '450px',
+                marginInline: "auto",
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              }}>
+                <h4 style={{color: '#9D9190'}}>Errors occured. Please check and try again</h4>
+                {Object.keys(errors).map((key) => (
+                    errors[key].map((errorMessage, index) => (
+                        <p key={key + index}>{errorMessage}</p>
+                    ))
+                ))}
+            </div>
+        )}
+        <h1 className="text-center text-yellow-500 text-3xl pt-20 font-bold">Sign In</h1>
         <form
             action="/login"
             method="post"
             onSubmit={handleSubmit}
-            className="bg-gray-900 bg-opacity-50 rounded-lg p-8 max-w-md mx-auto mt-8 shadow-lg backdrop-filter backdrop-blur-xl border border-gray-800"
+            className="bg-gray-900 bg-opacity-50 rounded-lg p-8 max-w-md mx-auto mt-5 shadow-lg backdrop-filter backdrop-blur-xl border border-gray-800"
         >
             <div className="mb-4">
                 <label htmlFor="email" className="text-white mb-2 block">
@@ -84,5 +103,6 @@ export default function Login() {
                 Login
             </button>
         </form>
+    </div>
     );
 }

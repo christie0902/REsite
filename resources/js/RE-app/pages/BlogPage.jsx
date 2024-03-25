@@ -7,7 +7,7 @@ const BlogPage = () => {
     }, []);
     return (
         <>
-            <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-black antialiased">
+            <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-black antialiased">
                 <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
                     <article className="mx-auto w-full max-w-2xl htmlFormat htmlFormat-sm sm:htmlFormat-base lg:htmlFormat-lg htmlFormat-blue dark:htmlFormat-invert">
                         <header className="mb-4 lg:mb-6 not-htmlFormat">

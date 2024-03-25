@@ -5,6 +5,8 @@ import "../../bootstrap.js";
 
 export default function Register(props) {
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+
 
     const { state, dispatch } = useContext(Context);
 
@@ -23,16 +25,12 @@ export default function Register(props) {
             const response_data = response.data;
             navigate("/");
         } catch (error) {
-            switch (error.response.status) {
-                case 422:
-                    console.log(
-                        "VALIDATION FAILED:",
-                        error.response.data.errors,
-                    );
-                    break;
-                case 500:
-                    console.log("UNKNOWN ERROR", error.response.data);
-                    break;
+            console.error("Error occurred:", error);
+            if (error.response && error.response.data && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+                console.log("VALIDATION FAILED:", error.response.data.errors);
+            } else {
+                console.log("UNKNOWN ERROR", error.response);
             }
         }
     };
@@ -47,6 +45,27 @@ export default function Register(props) {
     };
 
     return (
+    <div style={{ backgroundImage: "url('https://res.cloudinary.com/diwszstai/image/upload/v1711358846/site-assets/background_login_ixege8.png')", backgroundSize: 'cover', backgroundRepeat: "no-repeat", minHeight: '100vh',  backgroundPosition: "top center" }}>
+        {Object.keys(errors).length > 0 && (
+             <div className="errors" style={{
+                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                 backdropFilter: 'blur(10px)',
+                 border: '1px solid #A82003',
+                 color: '#FC3E35',
+                 padding: '10px',
+                 width: '450px',
+                 marginInline: "auto",
+                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+               }}>
+                 <h4 style={{color: '#9D9190'}}>Errors occured. Please check and try again</h4>
+                 {Object.keys(errors).map((key) => (
+                     errors[key].map((errorMessage, index) => (
+                         <p key={key + index}>{errorMessage}</p>
+                     ))
+                 ))}
+             </div>
+         )}
+        <h1 className="text-center text-yellow-500 text-3xl font-bold pt-10">Register</h1>
         <form
             action="/register"
             method="post"
@@ -119,5 +138,6 @@ export default function Register(props) {
                 Register
             </button>
         </form>
+    </div>
     );
 }
