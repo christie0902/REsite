@@ -29,9 +29,10 @@ const EditImage = () => {
     };
 
     const handleScaleChange = (value) => {
+        const newScale = editMode === "logo" ? (0.04 + ((value / 100) * (.36))) :(0.5 + ((value / 100) * (2)));
         dispatch({
             type: editMode === "logo" ? "logo/set-scale" : "full/set-scale",
-            payload: { scale: (0.04 + ((value / 100) * (.36))) },
+            payload: { scale: newScale },
         });
     };
 

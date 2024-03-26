@@ -72,7 +72,7 @@ const Checkout = () => {
         }
     };
 
-    if (!state.user) {
+/*     if (!state.user) {
         return (
             <div>
                 <p>Please log in to proceed to checkout.</p>
@@ -82,7 +82,7 @@ const Checkout = () => {
                 />
             </div>
         );
-    }
+    } */
 
     return (
         <>
@@ -230,7 +230,7 @@ const Checkout = () => {
                                     ) : (
                                         <p>
                                             No address found. Please add a
-                                            shipping address.
+                                            shipping address or log in.
                                         </p>
                                     )}
                                 </div>
@@ -461,8 +461,8 @@ const Checkout = () => {
                                             />
                                         ) : (
                                             <div className="btn-loading-placeholder">
-                                                <div className="btn-spinner animate-spin"></div>{" "}
-                                                Please Wait...
+                                                <div className="btn-spinner animate-spin mr-4"></div>{" "}
+                                                <span className="ml-1">{' Please Wait...'}</span>
                                             </div>
                                         )}
                                     </div>
