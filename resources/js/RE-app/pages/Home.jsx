@@ -31,8 +31,8 @@ const Home = () => {
         <div className="homepage">
             <Carousel />
             <CustomizerSection />
-            <Slide/>
-            {/* <CategorySection /> */}
+            
+            <Slide/> 
             <BlogSection />
             <Newsletter />
         </div>

@@ -5,74 +5,41 @@ import Context from "../../store/Context";
 
 const EditImage = () => {
     const { state, dispatch } = useContext(Context);
-    const [xPosition, setXPosition] = useState(0);
-    const [yPosition, setYPosition] = useState(0);
-    const [scale, setScale] = useState(1);
-    const [rotation, setRotation] = useState(0);
     const [editMode, setEditMode] = useState("logo");
-
-    useEffect(() => {
-        const convertScaleToSliderValue = (modelValue) => {
-            return (modelValue - 0.1) * (100 / 1.9);
-        };
-    
-        const convertRotationToSliderValue = (modelValue) => {
-            return modelValue * (100 / 6.283);
-        };
-    
-        const convertPositionToSliderValue = (modelValue) => {
-            return (modelValue + 0.2) * 250; // Converts from -0.2 to 0.2 range to 0 to 100 range
-        };
-    
-        if (editMode === "logo") {
-            setXPosition(convertPositionToSliderValue(state.customizerState.logoImg.xPosition));
-            setYPosition(convertPositionToSliderValue(state.customizerState.logoImg.yPosition));
-            setScale(convertScaleToSliderValue(state.customizerState.logoImg.scale));
-            setRotation(convertRotationToSliderValue(state.customizerState.logoImg.rotation));
-        } else {
-            setXPosition(convertPositionToSliderValue(state.customizerState.fullImg.xPosition));
-            setYPosition(convertPositionToSliderValue(state.customizerState.fullImg.yPosition));
-            setScale(convertScaleToSliderValue(state.customizerState.fullImg.scale));
-            setRotation(convertRotationToSliderValue(state.customizerState.fullImg.rotation));
-        }
-    }, [editMode, state.customizerState]);
 
     // newValue=min+(sv/100)∗(max−min)
     const handleXChange = (value) => {
-        setXPosition(-0.3 + (value / 100) * (0.6));
         dispatch({
             type:
                 editMode === "logo"
                     ? "logo/set-x-position"
                     : "full/set-x-position",
-            payload: { xPosition: xPosition },
+            payload: { xPosition: (-0.1 + ((value / 100) * (-.2 + .4))) },
         });
     };
 
     const handleYChange = (value) => {
-        setYPosition(-0.3 + (value / 100) * (0.6));
         dispatch({
             type:
                 editMode === "logo"
                     ? "logo/set-y-position"
                     : "full/set-y-position",
-            payload: { yPosition: yPosition },
+            payload: { yPosition: (-0.1 + ((value / 100) * (-.1 + .4))) },
         });
     };
 
     const handleScaleChange = (value) => {
-        setScale(0.1 + (value / 100) * (1.9));
         dispatch({
             type: editMode === "logo" ? "logo/set-scale" : "full/set-scale",
-            payload: { scale: scale },
+            payload: { scale: (0.04 + ((value / 100) * (.36))) },
         });
     };
 
-    const handleRotationChange = (value) => {
-        setRotation(0 + (value/100) * (6.283))
+    const  handleRotationChange = (value) => {
+        console.log(value);
         dispatch({
             type: editMode === "logo" ? "logo/rotate" : "full/rotate",
-            payload: { rotation: value },
+            payload: { rotation: (value/100) * (12.55) }, 
         });
     };
 
