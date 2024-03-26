@@ -163,7 +163,7 @@ class ProductController extends Controller
             'price' => $product->price,
             'sizes' => $sizes,
             'colors' => $colors,
-            'edition' => $editions,
+            'editions' => $editions,
             'image_url' => $product->image_url,
             'images' => $images,
             'weight' => $product->weight,

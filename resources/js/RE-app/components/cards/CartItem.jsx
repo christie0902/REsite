@@ -170,7 +170,7 @@ const CartItem = ({ productData }) => {
 
                 {/* Price and Delete Icon */}
                 <div className="flex items-center">
-                    <p className="text-lg font-bold text-yellow-800 mr-4">
+                    <p className="text-lg font-bold text-black mr-4">
                         {state.currency + price}
                     </p>
                     <button

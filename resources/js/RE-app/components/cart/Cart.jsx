@@ -28,7 +28,7 @@ const Cart = ({ productData }) => {
         <>
             {state.cartActive && (
                 <div
-                    className="relative z-20"
+                    className="relative z-40"
                     aria-labelledby="slide-over-title"
                     role="dialog"
                     aria-modal="true"

@@ -44,7 +44,7 @@ const ProductDetails = () => {
         dimension,
         sizes,
         colors,
-        edition,
+        editions,
         image_url,
         images,
         rating,
@@ -172,7 +172,7 @@ const ProductDetails = () => {
                         </button>
                     </div>
                 </div>
-                {colors.length > 0 && (
+                {colors?.length > 0 && (
                     <div className="mb-4">
                         <span className="font-bold text-gray-700 dark:text-gray-300">
                             Color:
@@ -203,7 +203,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 )}
-                {sizes.length > 0 && (
+                {sizes?.length > 0 && (
                     <div className="mb-4">
                         <span className="font-bold text-gray-700">
                             Size: {""}
@@ -224,12 +224,12 @@ const ProductDetails = () => {
                     </div>
                 )}
 
-                {edition.length > 0 && (
+                {editions?.length > 0 && (
                     <div className="mb-4">
                         <span className="font-bold text-gray-700 dark:text-gray-300">
                             Edition: {""}
                         </span>
-                        {edition.map((e, index) => (
+                        {editions.map((e, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleEditionSelect(e)}
