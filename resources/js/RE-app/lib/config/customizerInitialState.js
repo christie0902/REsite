@@ -11,6 +11,7 @@ export default {
             scale: 0.3,
             xPosition:0,
             yPosition:0.03,
+            rotation:0
     },
     fullImg: {
             scale: 1,

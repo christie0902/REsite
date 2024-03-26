@@ -51,7 +51,7 @@ const Shirt = () => {
                             appState.customizerState.logoImg.yPosition,
                             0.15,
                         ]}
-                        rotation={[0, 0, 0]}
+                        rotation={[0, 0, appState.customizerState.logoImg.rotation]}
                         scale={appState.customizerState.logoImg.scale}
                         map={logoTexture}
                         anisotropy={16}

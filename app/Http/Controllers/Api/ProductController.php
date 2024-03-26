@@ -56,7 +56,36 @@ class ProductController extends Controller
 
     public function featured()
     {
-        $ftProducts = Product::with('category')->where('is_featured', true)->get();
+        $ftProducts = Product::with(['category', 'variants' => function ($query) {
+            $query->select('id', 'product_id', 'variant_type', 'variant_value');
+        }])
+        ->where('is_featured', true)
+        ->get();
+    
+        $ftProducts->transform(function ($product) {
+            $sizes = [];
+            $colors = [];
+            $editions = [];
+    
+            foreach ($product->variants as $variant) {
+                if ($variant->variant_type === 'size') {
+                    $sizes[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'color') {
+                    $colors[] = $variant->variant_value;
+                } elseif ($variant->variant_type === 'edition') {
+                    $editions[] = $variant->variant_value;
+                }
+            }
+    
+            $product->sizes = $sizes;
+            $product->colors = $colors;
+            $product->editions = $editions;
+    
+            unset($product->variants);
+    
+            return $product;
+        });
+    
         return response()->json($ftProducts);
     }
 

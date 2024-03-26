@@ -32,15 +32,18 @@ export default function reducer(state, action) {
             );
 
             if (existingItemIndex !== -1) {
-                const updatedCart = state.cart.map((item, index) => {
-                    if (index === existingItemIndex) {
-                        return {
-                            ...item,
-                            quantity: item.quantity + action.payload.quantity,
-                        };
-                    }
-                    return item;
-                }).filter(item => item.quantity > 0);
+                const updatedCart = state.cart
+                    .map((item, index) => {
+                        if (index === existingItemIndex) {
+                            return {
+                                ...item,
+                                quantity:
+                                    item.quantity + action.payload.quantity,
+                            };
+                        }
+                        return item;
+                    })
+                    .filter((item) => item.quantity > 0);
 
                 return {
                     ...state,
@@ -64,20 +67,22 @@ export default function reducer(state, action) {
         case "product/cart-setQuantity":
             return {
                 ...state,
-                cart: [...state.cart].toSpliced(
-                    state.cart.findIndex(
-                        (item) => item.id === action.payload.id,
-                    ),
-                    1,
-                    {
-                        ...state.cart[
-                            state.cart.findIndex(
-                                (item) => item.id === action.payload.id,
-                            )
-                        ],
-                        quantity: action.payload.quantity,
-                    },
-                ).filter(item => item.quantity > 0),
+                cart: [...state.cart]
+                    .toSpliced(
+                        state.cart.findIndex(
+                            (item) => item.id === action.payload.id,
+                        ),
+                        1,
+                        {
+                            ...state.cart[
+                                state.cart.findIndex(
+                                    (item) => item.id === action.payload.id,
+                                )
+                            ],
+                            quantity: action.payload.quantity,
+                        },
+                    )
+                    .filter((item) => item.quantity > 0),
                 total: sumProducts(
                     [...state.cart].toSpliced(
                         state.cart.findIndex(
@@ -100,11 +105,12 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 cart: state.cart.filter(
-                    (product) => (product.id !== action.payload && product.quantity > 0),
+                    (product) =>
+                        product.id !== action.payload && product.quantity > 0,
                 ),
                 total: sumProducts(
                     state.cart.filter(
-                        (product) => (product.id !== action.payload),
+                        (product) => product.id !== action.payload,
                     ),
                 ),
             };
@@ -131,15 +137,17 @@ export default function reducer(state, action) {
         case "product/cart-update":
             return {
                 ...state,
-                cart: state.cart.map((item) => {
-                    if (item.id === action.payload.id) {
-                        return {
-                            ...item,
-                            ...action.payload,
-                        };
-                    }
-                    return item;
-                }).filter(product => product.quantity > 0),
+                cart: state.cart
+                    .map((item) => {
+                        if (item.id === action.payload.id) {
+                            return {
+                                ...item,
+                                ...action.payload,
+                            };
+                        }
+                        return item;
+                    })
+                    .filter((product) => product.quantity > 0),
                 total: sumProducts(
                     state.cart.map((item) => {
                         if (item.id === action.payload.id) {
@@ -167,7 +175,7 @@ export default function reducer(state, action) {
                 profileActive: !state.profileActive,
             };
 
-                // SEARCH --------------------------------------------------------
+        // SEARCH --------------------------------------------------------
 
         case "search/set-searchVisibility":
             return {
@@ -265,21 +273,86 @@ export default function reducer(state, action) {
                 },
             };
 
-        // case "product/set-searchResults":
-        //     return {
-        //         ...state,
-        //         searchResults: action.payload,
-        //     };
-        // case "product/clearSearchResults":
-        //     return {
-        //         ...state,
-        //         searchResults: null,
-        //     };
-        // case "products/setSearchQuery":
-        //     return {
-        //         ...state,
-        //         searchQuery: action.payload,
-        //     };
+        case "logo/set-x-position":
+        case "logo/set-y-position":
+            return {
+                ...state,
+                customizerState: {
+                    ...state.customizerState,
+                    logoImg: {
+                        ...state.customizerState.logoImg,
+                        ...action.payload,
+                    },
+                },
+            };
+
+        case "full/set-x-position":
+        case "full/set-y-position":
+            return {
+                ...state,
+                customizerState: {
+                    ...state.customizerState,
+                    fullImg: {
+                        ...state.customizerState.fullImg,
+                        ...action.payload,
+                    },
+                },
+            };
+
+        case "logo/set-scale":
+        case "full/set-scale":
+            return {
+                ...state,
+                customizerState: {
+                    ...state.customizerState,
+                    [action.type === "logo/set-scale" ? "logoImg" : "fullImg"]:
+                        {
+                            ...state.customizerState[
+                                action.type === "logo/set-scale"
+                                    ? "logoImg"
+                                    : "fullImg"
+                            ],
+                            scale: action.payload.scale,
+                        },
+                },
+            };
+        case "logo/rotate":
+        case "full/rotate":
+            return {
+                ...state,
+                customizerState: {
+                    ...state.customizerState,
+                    [action.type === "logo/rotate" ? "logoImg" : "fullImg"]: {
+                        ...state.customizerState[
+                            action.type === "logo/rotate"
+                                ? "logoImg"
+                                : "fullImg"
+                        ],
+                        rotation: action.payload.rotation,
+                    },
+                },
+            };
+        case "RESET_CUSTOMIZATION":
+            return {
+                ...state,
+                customizerState: {
+                    ...state.customizerState,
+                    logoImg: {
+                        scale: 0.3,
+                        xPosition: 0,
+                        yPosition: 0.03,
+                        rotation: 0,
+                    },
+                    fullImg: {
+                        scale: 1,
+                        xPosition: 0,
+                        yPosition: 0,
+                        rotation: 0,
+                    },
+                },
+            };
+
+        //  User ------------------------
         case "user/setUser":
             return {
                 ...state,
@@ -289,7 +362,7 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 user: null,
-                cart: []
+                cart: [],
             };
     }
     return state;
