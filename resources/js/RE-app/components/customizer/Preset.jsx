@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import React from "react";
 
 import CustomButton from "../buttons/CustomButton";
-import PresetIcon from "../../assets/preset.png";
-import logo1 from "/public/img/logo1.png";
-import logo2 from "/public/img/logo2.png";
-import logo3 from "/public/img/logo3.png";
-import logo4 from "/public/img/logo4.png";
-import logo5 from "/public/img/logo5.png";
-import logo6 from "/public/img/logo6.png";
-import pattern1 from "/public/img/pattern1.jpg";
-import pattern2 from "/public/img/pattern2.png";
-import pattern3 from "/public/img/pattern7.jpg";
-import pattern4 from "/public/img/pattern4.jpg";
+import PresetIcon from "./PresetIcon.jsx";
+
 
 const Preset = ({ file, setFile, handleFile }) => {
     const [showBtn, setShowBtn] = useState(false);
@@ -26,61 +17,62 @@ const Preset = ({ file, setFile, handleFile }) => {
 
     const presets = [
         {
-            file: logo1,
+            file:  "https://res.cloudinary.com/diwszstai/image/upload/v1711449113/site-assets/14_j3645v.png",
             description: "Logo of RE2",
         },
         {
-            file: logo2,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449111/site-assets/13_c4tafx.png",
             description: "Logo of RE2",
         },
         {
-            file: logo3,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449104/site-assets/9_unvphx.png",
             description: "Logo of RE2",
         },
         {
-            file: logo4,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449097/site-assets/2_w4an5h.png",
             description: "Logo of RE2",
         },
         {
-            file: logo5,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449065/site-assets/1_ejjoe4.png",
             description: "Logo of RE2",
         },
         {
-            file: logo6,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449107/site-assets/10_fexe5z.png",
             description: "Logo of RE2",
         },
         {
-            file: pattern1,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449389/site-assets/texture_hs1q9g.jpg",
             description: "Logo of RE2",
         },
         {
-            file: pattern2,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449391/site-assets/texture1_v1n5zn.jpg",
             description: "Logo of RE2",
         },
         {
-            file: pattern3,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449394/site-assets/texture2_mj9gbh.jpg",
             description: "Logo of RE2",
         },
         {
-            file: pattern4,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449109/site-assets/12_gwz012.png",
             description: "Logo of RE2",
         },
         {
-            file: logo5,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449391/site-assets/texture1_v1n5zn.jpg",
             description: "Logo of RE2",
         },
         {
-            file: logo5,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449065/site-assets/1_ejjoe4.png",
             description: "Logo of RE2",
         },
         {
-            file: logo5,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449389/site-assets/texture_hs1q9g.jpg",
             description: "Logo of RE2",
         },
         {
-            file: logo5,
+            file: "https://res.cloudinary.com/diwszstai/image/upload/v1711449111/site-assets/13_c4tafx.png",
             description: "Logo of RE2",
         },
+        
     ];
     const display = (presetImgs) => {
         return presetImgs.map((preset, i) => (
@@ -105,7 +97,7 @@ const Preset = ({ file, setFile, handleFile }) => {
             {showBtn && (
                 <div
                     className="preset-container flex flex-row absolute m-0 ml-3 gap-3"
-                    style={{ top: "117%", height: "60px" }}
+                    style={{ top: "100%", height: "60px" }}
                 >
                     <CustomButton
                         type="outline"
