@@ -54,7 +54,7 @@
                 Revenue (Last {{$months}} Months)
             </div>
             
-            <div class="chart-container" style="width:100%; height:280px">
+            <div class="chart-container" style="width:100%; height:90%">
                 <canvas id="monthlyRevenueChart"></canvas>
             </div>
         </div>
@@ -65,7 +65,7 @@
                 Best sellers
             </div>
             <!-- Placeholder for items list -->
-            <div class="chart-container" style="width:100%; height:350px">
+            <div class="chart-container" style="width:100%; height:90%">
                 <canvas id="mostSoldItemsChart"></canvas>
             </div>
         </div>
