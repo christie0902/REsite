@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap");
 @import url("https://rsms.me/inter/inter.css");
 @import "./customizer.css";
+@import "./homepage.css";
 @import "./cardStyles.css";
 @import "./header.css";
 @import "./category.css";

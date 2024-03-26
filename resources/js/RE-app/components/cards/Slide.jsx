@@ -14,13 +14,15 @@ const Slider = () => {
     });
 
     const handleMouseEnter = () => {
+        if (window.innerWidth < 600) return;
         setBgStyle({
             backgroundImage: `url(${bgImage2})`,
             left: "50%",
         });
     };
-
+    
     const handleMouseLeave = () => {
+        if (window.innerWidth < 600) return;
         setBgStyle({
             backgroundImage: `url(${bgImage1})`,
             left: "0%",
@@ -30,8 +32,8 @@ const Slider = () => {
     return (
         <section
             className="slider-container slide-card relative flex flex-col sm:flex-row"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => handleMouseLeave()}
         >
             <div className="slider-2 sm:w-1/2">
                 <h1 className="text-6xl font-bold text-yellow-500 mb-4 md:text-7xl font-bebas-neue">
@@ -44,14 +46,9 @@ const Slider = () => {
                 </Link>
             </div>
             <div
-                className="slider-image sm:w-1/2"
+                className="slider-image category-main-img "
                 style={{
                     ...bgStyle,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "100%",
-                    transition:
-                        "1s left ease-in-out, 1s background ease-in-out",
                 }}
             ></div>
             <div className="slider-1 sm:w-1/2">
@@ -77,6 +74,15 @@ const Slider = () => {
                         <span className="mr-2">🎮</span> Apparels
                     </li>
                 </ul>
+                <div className="mobile-shop-button">
+                <Link to={"/shop"}>
+                        <CustomButton
+                            className="mobile-category-button"
+                            type="static"
+                            title="SHOP NOW"
+                            />
+                    </Link>
+                            </div>
             </div>
         </section>
     );
