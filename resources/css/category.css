@@ -21,6 +21,7 @@
 }
 
 .slider-2 {
+  transform-origin: left;
   left: 0;
   opacity: 0;
 }
@@ -28,21 +29,6 @@
 .slider-1 {
   right: 0;
   opacity: 1;
-}
-
-.slider-2 h2,
-.slider-1 h2 {
-  font-size: 1.5rem;
-  color: rgb(234, 179, 8);
-  margin-bottom: 0.5rem;
-}
-
-.slider-2 p,
-.slider-1 p {
-  font-size: 0.9rem;
-  color: white;
-  font-weight: 500;
-  margin: 0;
 }
 
 .slider-image {
@@ -63,7 +49,7 @@
 }
 
 .slider-container:hover .slider-2 {
-  transform: translateX(50%);
+  transform: translateX(calc(50% - 200px));
   opacity: 1;
 }
 

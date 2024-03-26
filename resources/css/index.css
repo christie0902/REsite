@@ -30,6 +30,12 @@
   border: 1px solid rgba(82, 38, 38, 0.18);
 }
 
+.glassmorphism-button {
+  background-color: rgba(83, 4, 4, 0.911);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* .homepage {
   background: url("assets/background.jpg"),
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4));
