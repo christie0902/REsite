@@ -42,7 +42,7 @@ const BlogSection = () => {
         <section className="bg-black bg-opacity-75 py-6 sm:py-8 lg:py-12">
             <div className="mx-auto max-w-screen-xl px-4 md:px-8">
                 <div className="relative mb-10 pt-8 md:mb-16">
-                    <h2 className="mb-4 text-center text-3xl font-bold text-white md:mb-6 md:text-4xl mt-5">
+                    <h2 className="mb-4 text-center text-3xl font-bold text-yellow-500 md:mb-6 md:text-4xl mt-5 font-bebas-neue" >
                         Community Updates
                     </h2>
                     <span className="absolute left-1/2 top-0 -translate-x-1/2 rounded-lg bg-red-900 px-3 text-white">

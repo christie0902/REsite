@@ -81,7 +81,7 @@ const Newsletter = () => {
                                 </div>
                             </dl>
                             <div className="max-w-xl lg:max-w-lg">
-                                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                <h2 className="text-3xl font-bold tracking-tight text-yellow-500 font-bebas-neue sm:text-4xl">
                                     Subscribe to our newsletter!
                                 </h2>
                                 <p className="mt-4 text-lg leading-8 text-gray-300">
