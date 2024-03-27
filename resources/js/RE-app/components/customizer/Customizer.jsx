@@ -228,7 +228,7 @@ const Customizer = () => {
                                             type: "product/cart-add",
                                             payload: {
                                                 id: "CT" + Math.random().toFixed(4).toString(),
-                                                name: "Customize Tshirt",
+                                                name: "Customize T-shirt",
                                                 image_url: canvasURL,
                                                 price: "50",
                                                 sizes: ['S', 'M', 'L', 'XL'],
