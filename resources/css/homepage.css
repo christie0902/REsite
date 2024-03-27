@@ -1,7 +1,7 @@
 /*  Customizer --------------------------------- */
 
 .homepage-container {
-    @apply bg-black text-white py-10 px-2 lg:px-10 w-9/12 mx-auto;
+    @apply bg-black text-white py-12 px-2 lg:px-10 w-9/12 mx-auto;
 }
 
 .homepage-subcontainer {
@@ -82,6 +82,15 @@
         position: relative;
         top: -110px;
     }
+    .homepage-first-info-box {
+        display: none;
+    }
+    .homepage-second-info-box {
+        display: none;
+    }
+    .homepage-third-info-box {
+        display: none;
+    }
 }
 @media (max-height: 800px) {
     .homepage-hero-text {
@@ -97,9 +106,16 @@
     }
     .customizer-link-btn {
         display: block;
-        margin-top: 100px;
+        margin-top: 50px;
     }
-    
+    .homepage-second-info-box {
+        top: 40%;
+        left: 100%;
+    }
+    .homepage-third-info-box {
+        top: 50%;
+        left: 100%;
+    }
 }
 
 /* Categories ----------------------------------- */
