@@ -18,16 +18,17 @@ use Illuminate\Validation\Rule;
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {
-        $search_query = $request->input('search-product');
-        $sort = $request->input('sort', 'updated_at'); 
-        $order = $request->input('order', 'desc');
+{
+    $search_query = $request->input('search-product');
+    $sort = $request->input('sort', 'updated_at'); 
+    $order = $request->input('order', 'desc');
 
-        $products = Product::with('category');
+    $products = Product::with('category');
 
-        if (!empty($search_query)) {
-            $products = $products->where('name', 'LIKE', "%{$search_query}%")
-                ->orWhere('description', 'LIKE', "%{$search_query}%")
+    if (!empty($search_query)) {
+        $products = $products->where(function($query) use ($search_query) {
+            $query->where('products.name', 'LIKE', "%{$search_query}%") // Specify the table name here
+                ->orWhere('products.description', 'LIKE', "%{$search_query}%") // And here
                 ->orWhereHas('category', function ($query) use ($search_query) {
                     $query->where('name', 'LIKE', "%{$search_query}%");
                 })
@@ -35,20 +36,21 @@ class ProductController extends Controller
                     $query->where('variant_type', 'LIKE', "%{$search_query}%")
                         ->orWhere('variant_value', 'LIKE', "%{$search_query}%");
                 });
-        }
-
-        if ($sort == 'category') {
-            $products = $products->join('categories', 'products.category_id', '=', 'categories.id')
-                                 ->orderBy('categories.name', $order)
-                                 ->select('products.*');
-        } else {
-            $products = $products->orderBy($sort, $order);
-        }
-
-        $products = $products->paginate(10);
-
-        return view('admin.products.list', ['products' => $products]);
+        });
     }
+
+    if ($sort == 'category') {
+        $products = $products->join('categories', 'products.category_id', '=', 'categories.id')
+                             ->orderBy('categories.name', $order)
+                             ->select('products.*');
+    } else {
+        $products = $products->orderBy($sort, $order);
+    }
+
+    $products = $products->paginate(10);
+
+    return view('admin.products.list', ['products' => $products]);
+}
 
     // Create
     public function create()
