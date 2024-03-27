@@ -7,6 +7,7 @@ import { ColorPicker, FilePicker, CustomButton, Tab, Preset } from "..";
 import Context from "../../store/Context";
 import ImgSlider from "./ImgSlider";
 import EditImage from "./EditImage";
+import axios from "axios";
 
 const Customizer = () => {
     const { state, dispatch } = useContext(Context);
@@ -149,7 +150,15 @@ const Customizer = () => {
         });
     };
 
-    
+    async function uploadImage(dataUrl) {
+        try {
+          const response = await axios.post('/api/upload-image', { image: dataUrl });
+          return response.data.url;
+        } catch (error) {
+          console.error('Upload failed:', error);
+          return null;
+        }
+      }
     return (
         <AnimatePresence>
             {!state.customizerState.intro && (
@@ -214,7 +223,7 @@ const Customizer = () => {
                                         const canvas =
                                             document.querySelector("canvas");
                                         const canvasURL = canvas.toDataURL();
-                                        
+                                        uploadImage(canvasURL);
                                         dispatch({
                                             type: "product/cart-add",
                                             payload: {
@@ -225,6 +234,7 @@ const Customizer = () => {
                                                 sizes: ['S', 'M', 'L', 'XL'],
                                                 selectedSize: "S",
                                                 quantity: 1,
+                                                isCustom: true
                                             },
                                         });
                                     } else {

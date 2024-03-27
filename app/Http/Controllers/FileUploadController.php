@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class FileUploadController extends Controller
 {
@@ -13,11 +14,10 @@ class FileUploadController extends Controller
 
     public function storeUploads(Request $request)
     {
-        $response = cloudinary()->upload($request->file('file')->getRealPath())->getSecurePath();
+        $dataUrl = $request->input('image');
 
-        dd($response);
+        $uploadedResult = Cloudinary::upload($dataUrl)->getSecurePath();
 
-        return back()
-            ->with('success', 'File uploaded successfully');
+        return response()->json(['url' => $uploadedResult]);
     }
 }

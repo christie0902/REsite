@@ -19,7 +19,7 @@ const ProductDetails = () => {
         const fetchProductData = async () => {
             try {
                 const response = await fetch(
-                    `http://www.re-mall.test/api/products/details/${productId}`,
+                    `/api/products/details/${productId}`,
                 );
                 const data = await response.json();
                 setProductData(data);

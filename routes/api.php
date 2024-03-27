@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Api\UserAddressController;
-
+use App\Http\Controllers\FileUploadController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,3 +43,4 @@ Route::get('/products/categories', [CategoryController::class, 'index']);
 
 Route::post('/checkout', [CheckoutController::class, 'process']);
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+Route::post('/upload-image', [FileUploadController::class, 'storeUploads']);
