@@ -104,7 +104,7 @@ const Shop = () => {
     return (
         <>
             <div
-                className="shop-container bg-fixed bg-center bg-cover text-white flex "
+                className="shop-container bg-fixed bg-center bg-cover text-white flex justify-center"
                 style={{ backgroundImage: `url(${backgroundImg})` }}
             >
                 <CategoryList />

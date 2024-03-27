@@ -31,7 +31,7 @@ const BasicCard = ({ productData }) => {
        
         <div className="mx-auto max-w-xs transition-transform duration-200 hover:scale-105 hover:border-red-500">
            
-            <div className="relative m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg">
+            <div className="relative mb-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg backdrop-blur-md bg-white/10 border border-gray-500/50 shadow-lg">
                 <Link to={`/product/details/${id}`}>
                 <a
                     className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
