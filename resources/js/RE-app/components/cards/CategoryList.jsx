@@ -59,11 +59,12 @@ const CategoryList = () => {
     };
 
     return (
-        <div className="top-0 left-0 pt-2 pl-10 lg:pt-10 lg:pl-10 bg-gray-800 w-full lg:w-1/4 h-auto bg-opacity-40 shadow-xl backdrop-filter backdrop-blur-lg hidden lg:block w-1/5 ">
+        <>
+      {/*   <div className="top-0 left-0 pt-2 pl-10 lg:pt-10 lg:pl-10 bg-gray-800 w-full lg:w-1/4 h-auto bg-opacity-40 shadow-xl backdrop-filter backdrop-blur-lg hidden lg:block w-1/5 ">
             <h3 className="font-bold text-xl mb-5">ALL CATEGORIES</h3>
             {renderParentCategories()}
-        </div>
-    );
+        </div> */}
+        </>);
 };
 
 export default CategoryList;
