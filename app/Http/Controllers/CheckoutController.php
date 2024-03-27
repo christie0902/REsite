@@ -25,7 +25,7 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
         try {
-            
+            // Create a dummy customized T-shirt product on the products table to process the order
             $order = Order::create([
                 'user_id' => $userId,
                 'total_price' => $paymentData['total'],

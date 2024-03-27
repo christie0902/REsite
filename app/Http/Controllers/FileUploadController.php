@@ -17,7 +17,7 @@ class FileUploadController extends Controller
         $dataUrl = $request->input('image');
 
         $uploadedResult = Cloudinary::upload($dataUrl)->getSecurePath();
-
+        // Add uploadedResult to custom shirts table with user id
         return response()->json(['url' => $uploadedResult]);
     }
 }

@@ -102,8 +102,34 @@ class ProductController extends Controller
 
     public function search($search_query)
     {
-        $result = Product::with('category')
+        $result = Product::with(['category', 'variants' => function ($query) {
+            $query->select('id', 'product_id', 'variant_type', 'variant_value');
+        }])
             ->where('name', 'like', '%' . $search_query . '%')->get();
+
+        $result->transform(function ($product) {
+                $sizes = [];
+                $colors = [];
+                $editions = [];
+        
+                foreach ($product->variants as $variant) {
+                    if ($variant->variant_type === 'size') {
+                        $sizes[] = $variant->variant_value;
+                    } elseif ($variant->variant_type === 'color') {
+                        $colors[] = $variant->variant_value;
+                    } elseif ($variant->variant_type === 'edition') {
+                        $editions[] = $variant->variant_value;
+                    }
+                }
+        
+                $product->sizes = $sizes;
+                $product->colors = $colors;
+                $product->editions = $editions;
+        
+                unset($product->variants);
+                return $product;
+         });
+    
 
         return response()->json($result);
     }
