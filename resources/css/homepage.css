@@ -58,7 +58,7 @@
         transform: scaleY(2);
     }
 }
-@media (max-width: 839px) {
+@media (max-width: 1141px) {
     .homepage-hero-text {
         @apply text-4xl top-0 left-1/2 w-1/2;
     }
@@ -107,10 +107,11 @@
     .customizer-link-btn {
         display: block;
         margin-top: 50px;
+        margin-right:50px;
     }
     .homepage-second-info-box {
         top: 40%;
-        left: 100%;
+        left: 90%;
     }
     .homepage-third-info-box {
         top: 50%;
