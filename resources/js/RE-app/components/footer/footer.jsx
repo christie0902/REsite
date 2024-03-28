@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -29,7 +30,7 @@ const Footer = () => {
                                 Sitemap
                             </h2>
                             <ul>
-                                <li className="mb-4">
+                            <Link to="/"><li className="mb-4">
                                     {/* Nav Link component here */}
                                     <a
                                         href="#"
@@ -37,31 +38,31 @@ const Footer = () => {
                                     >
                                         Home
                                     </a>
-                                </li>
-                                <li className="mb-4">
+                                </li></Link>
+                                <Link to="/shop"><li className="mb-4">
                                     <a
                                         href="#"
                                         className="text-gray-300 hover:text-[#294861] hover:underline"
                                     >
                                         Shop
                                     </a>
-                                </li>
-                                <li className="mb-4">
+                                </li></Link>
+                                <Link to="/community"><li className="mb-4">
                                     <a
                                         href="#"
                                         className="text-gray-300 hover:text-[#294861] hover:underline"
                                     >
                                         Community
                                     </a>
-                                </li>
-                                <li className="mb-4">
+                                </li></Link>
+                                <Link to="/customizer"><li className="mb-4">
                                     <a
                                         href="#"
                                         className="text-gray-300 hover:text-[#294861] hover:underline"
                                     >
                                         Customizer
                                     </a>
-                                </li>
+                                </li></Link>
                             </ul>
                         </div>
                         <div>
@@ -97,7 +98,7 @@ const Footer = () => {
                 </div>
                 <hr className="my-6 border-white-700 sm:mx-auto lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-gray-800 sm:text-center">
+                    <span className="text-sm text-gray-500 sm:text-center">
                         © 2024 R.E.MALL™. All Rights Reserved.
                     </span>
                     <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">

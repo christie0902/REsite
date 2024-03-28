@@ -33,7 +33,6 @@
 </form>
 
     <button id="add-product" onclick="window.location='{{ route('admin.products.add') }}'">+ Add Product</button>
-    <button id="import-csv">Import CSV</button>
   </div>
 
   @if(request()->has('search-product') && !empty(request()->input('search-product')))
@@ -57,7 +56,7 @@
     <!-- Product block -->
     @foreach ($products as $product)
         <tr>
-            <td><input type="checkbox"></td>
+            
             <td>
               <img src={{$product["image_url"]}} alt="Product Image" class="product-image">
               {{ htmlspecialchars($product["name"]) }}

@@ -71,17 +71,7 @@ const BasicCard = ({ productData }) => {
                         </div>
                     </div>
                 </Link>
-                    {/* <a
-            handleClick={() => {
-              dispatch({
-                type: "product/cart-add",
-                payload: { ...productData, size: size },
-              });
-            }}
-            href="#"
-            className="flex items-center justify-center rounded-md bg-red-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          > */}
-           
+                  
                     <div className="w-full flex justify-center">
                         <CustomButton
                             type="static"

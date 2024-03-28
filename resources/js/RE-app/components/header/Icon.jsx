@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import searchIcon from "../../assets/website-design/search-icon.svg";
 import cartIcon from "../../assets/website-design/cart-icon.svg";
 import profileIcon from "../../assets/website-design/profile-icon.svg";
-
-import SearchBar from "../SearchBar";
 import Context from "../../store/Context";
+import SearchBar from "../SearchBar";
+
 
 const Icon = ({ type }) => {
     const { state, dispatch } = useContext(Context);
@@ -36,12 +36,20 @@ const Icon = ({ type }) => {
                 break;
             case "cart":
                 setIconHTML(
+                    <div className="flex items-center relative">
                     <img
                         src={cartIcon}
                         alt="cart icon"
                         className="cart-icon-img"
-                    />,
+                    />
+                    {state.cart?.length > 0 && (
+                        <span className="cart-item-count text-red-700 absolute top-0 left-8 inline-flex items-center justify-center w-5 h-5 bg-white/50 rounded-full shadow">
+                        {state.cart.length}
+                      </span>
+                         )}
+                    </div>
                 );
+
                 setHandleClick(() => () => {
                     dispatch({ type: "product/toggle-cartVisibility" });
                 });

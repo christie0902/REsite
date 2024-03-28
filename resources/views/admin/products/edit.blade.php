@@ -92,6 +92,7 @@
                     </div>
                 @endforeach
                 <input type="file" id="productImage" name="product_images[]" accept="image/png, image/jpeg" class="form-control-file" multiple="multiple">
+                <div id="imagePreview"></div>
             </div>
             
 
@@ -154,6 +155,19 @@
     </div>
 
     <script>
+         document.getElementById('productImage').addEventListener('change', function() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            for(let file of this.files) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.height = 100;
+                img.width = 100;
+                img.style.objectFit = "contain";
+                preview.appendChild(img);
+            }
+        });
+        
     document.addEventListener("DOMContentLoaded", function() {
         let newVariantIndex = 0;
 
