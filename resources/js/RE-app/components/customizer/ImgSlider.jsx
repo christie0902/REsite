@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ImgSlider = ({ label, value, onChange }) => {
+const ImgSlider = ({ label, value, onChange, step }) => {
   return (
     <div  className="flex flex-col items-left mb-5">
     <div className='flex justify-between'>
@@ -15,6 +15,7 @@ const ImgSlider = ({ label, value, onChange }) => {
       value={value}
       onChange={(e) => onChange(parseFloat(e.target.value))}
       className="w-64"
+      step={step}
     />
     
   </div>
