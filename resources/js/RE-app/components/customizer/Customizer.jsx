@@ -12,8 +12,9 @@ import axios from "axios";
 const Customizer = () => {
     const { state, dispatch } = useContext(Context);
     const [file, setFile] = useState("");
-    const [prompt, setPrompt] = useState("");
-    const [generatingImg, setGeneratingImg] = useState(false);
+    const [imgURL, setImgURL] = useState('');
+    // const [prompt, setPrompt] = useState("");
+    // const [generatingImg, setGeneratingImg] = useState(false);
     const [activeEditorTab, setActiveEditorTab] = useState("");
     const [activeFilterTab, setActiveFilterTab] = useState({
         logoShirt: true,
@@ -153,7 +154,7 @@ const Customizer = () => {
     async function uploadImage(dataUrl) {
         try {
           const response = await axios.post('/api/upload-image', { image: dataUrl });
-          return response.data.url;
+          setImgURL(response.data.url);
         } catch (error) {
           console.error('Upload failed:', error);
           return null;
@@ -220,23 +221,23 @@ const Customizer = () => {
                                     if (tab.name === "download") {
                                         downloadCanvasToImage();
                                     } else if (tab.name === "order") {
-                                        const canvas =
-                                            document.querySelector("canvas");
+                                        const canvas = document.querySelector("canvas");
                                         const canvasURL = canvas.toDataURL();
-                                        uploadImage(canvasURL);
-                                        dispatch({
-                                            type: "product/cart-add",
-                                            payload: {
-                                                id: "CT" + Math.random().toFixed(4).toString(),
-                                                name: "Customize T-shirt",
-                                                image_url: canvasURL,
-                                                price: "50",
-                                                sizes: ['S', 'M', 'L', 'XL'],
-                                                selectedSize: "S",
-                                                quantity: 1,
-                                                isCustom: true
-                                            },
-                                        });
+                                        uploadImage(canvasURL).then(() => {
+                                            dispatch({
+                                                type: "product/cart-add",
+                                                payload: {
+                                                    id: "CT" + Math.random().toFixed(4).toString(),
+                                                    name: "Customize T-shirt",
+                                                    image_url: imgURL,
+                                                    price: "50",
+                                                    sizes: ['S', 'M', 'L', 'XL'],
+                                                    selectedSize: "S",
+                                                    quantity: 1,
+                                                    isCustom: true
+                                                },
+                                            });
+                                        }).catch(error => console.error('Upload failed:', error));                                 
                                     } else {
                                         handleActiveFilterTab(tab.name);
                                     }

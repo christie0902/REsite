@@ -10,8 +10,7 @@ function OrderSummary() {
         const fetchOrderDetails = async () => {
             try {
                 const response = await axios.get(`/api/orders/${orderId}`);
-                setOrder(response.data);
-                console.log(order);
+                setOrder(response.data.order);
             } catch (error) {
                 console.error("Error fetching order details:", error);
             }
@@ -31,6 +30,7 @@ function OrderSummary() {
         },
         total_price,
         items,
+        custom_shirts,
         created_at,
     } = order;
 
@@ -50,40 +50,57 @@ function OrderSummary() {
                         </p>
 
                         <div className="order-items space-y-4">
-                            {items.map(
-                                (
-                                    {
-                                        product,
-                                        quantity,
-                                        price,
-                                        variant_description,
-                                    },
-                                    index,
-                                ) => (
+                            {/* Render regular items */}
+                            {items &&
+                                items.map((item, index) => {
+                                    if (item.product_id === 31) return;
+                                    return (<div
+                                        key={index}
+                                        className="order-item flex items-center space-x-4"
+                                    >
+                                        <img
+                                            src={item.image_url}
+                                            alt={item.name}
+                                            className="w-16 h-16 object-cover"
+                                        />
+                                        <div>
+                                            <h3 className="text-lg font-semibold">
+                                                {item.name}
+                                            </h3>
+                                            {item.variant_description && (
+                                                <p>
+                                                    Variant:{" "}
+                                                    {item.variant_description}
+                                                </p>
+                                            )}
+                                            <p>Quantity: {item.quantity}</p>
+                                            <p>Price: ${item.price}</p>
+                                        </div>
+                                    </div>)
+                                })}
+
+                            {/* Render custom shirts */}
+                            {custom_shirts &&
+                                custom_shirts.map((shirt, index) => (
                                     <div
                                         key={index}
                                         className="order-item flex items-center space-x-4"
                                     >
                                         <img
-                                            src={product.image_url}
-                                            alt={product.name}
+                                            src={shirt.image_url}
+                                            alt="Custom Shirt"
                                             className="w-16 h-16 object-cover"
                                         />
                                         <div>
                                             <h3 className="text-lg font-semibold">
-                                                {product.name}
+                                                {shirt.name} (Custom Shirt)
                                             </h3>
-                                            <p>
-                                                Variant:{" "}
-                                                {variant_description ||
-                                                    "Standard"}
-                                            </p>
-                                            <p>Quantity: {quantity}</p>
-                                            <p>Price: ${price}</p>
+                                            <p>Size: {shirt.size}</p>
+                                            <p>Quantity: {shirt.quantity}</p>
+                                            <p>Price: ${shirt.price}</p>
                                         </div>
                                     </div>
-                                ),
-                            )}
+                                ))}
                         </div>
                     </div>
                     <div className="flex justify-between gap-5">
