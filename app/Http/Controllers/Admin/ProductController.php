@@ -27,8 +27,8 @@ class ProductController extends Controller
 
     if (!empty($search_query)) {
         $products = $products->where(function($query) use ($search_query) {
-            $query->where('products.name', 'LIKE', "%{$search_query}%") // Specify the table name here
-                ->orWhere('products.description', 'LIKE', "%{$search_query}%") // And here
+            $query->where('products.name', 'LIKE', "%{$search_query}%") 
+                ->orWhere('products.description', 'LIKE', "%{$search_query}%") 
                 ->orWhereHas('category', function ($query) use ($search_query) {
                     $query->where('name', 'LIKE', "%{$search_query}%");
                 })
