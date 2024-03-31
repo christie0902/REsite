@@ -7,7 +7,7 @@
     gap: 16px;
 }
 .order-header-row {
-    background-color: #3a3939; 
+    background-color: #3a3939;
     color: #ffffff;
 }
 
@@ -16,7 +16,7 @@
     font-size: 14px;
     font-weight: 600;
     text-align: left;
-    border-bottom: 2px solid #18202b; 
+    border-bottom: 2px solid #18202b;
 }
 
 .top-bar {
@@ -25,21 +25,24 @@
     justify-content: space-between;
 }
 
-
 .sales-card {
     height: 60px;
     flex: 1;
     background-color: #ffffff;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: 4px;
     padding: 16px;
     margin-block: 10px;
     margin-inline: 20px;
 }
-.revenue-card, 
+.revenue-card,
 .items-card {
     background-color: #ffffff;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: 4px;
     padding: 16px;
     height: 300px;
@@ -79,9 +82,9 @@
 }
 
 .orders-title {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #4a5568; 
+    color: #4a5568;
     margin-bottom: 1rem;
 }
 
@@ -147,29 +150,28 @@ form {
     align-items: center;
     gap: 10px;
     margin-left: 20px;
-    flex:1;
-    
+    flex: 1;
 }
 
 select {
     padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px; 
+    border-radius: 5px;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 16px;
     cursor: pointer;
 }
 
 button {
     padding: 8px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .filter-form_button:hover {
@@ -178,7 +180,7 @@ button {
 
 @media (max-width: 1280px) {
     .dashboard-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         padding: 10px;
         gap: 8px;
     }
@@ -186,7 +188,7 @@ button {
 
 @media screen and (max-width: 1024px) {
     .dashboard-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
     .revenue-card,
     .items-card {
@@ -213,7 +215,6 @@ button {
         margin-left: 0;
     }
 }
-
 
 @media screen and (max-width: 480px) {
     .top-bar {
