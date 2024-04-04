@@ -223,13 +223,13 @@ const Customizer = () => {
                                     } else if (tab.name === "order") {
                                         const canvas = document.querySelector("canvas");
                                         const canvasURL = canvas.toDataURL();
-                                        uploadImage(canvasURL).then(() => {
+                                        // uploadImage(canvasURL).then(() => {
                                             dispatch({
                                                 type: "product/cart-add",
                                                 payload: {
                                                     id: "CT" + Math.random().toFixed(4).toString(),
                                                     name: "Customize T-shirt",
-                                                    image_url: imgURL,
+                                                    image_url: canvasURL,
                                                     price: "50",
                                                     sizes: ['S', 'M', 'L', 'XL'],
                                                     selectedSize: "S",
@@ -237,7 +237,7 @@ const Customizer = () => {
                                                     isCustom: true
                                                 },
                                             });
-                                        }).catch(error => console.error('Upload failed:', error));                                 
+                                        // }).catch(error => console.error('Upload failed:', error));                                 
                                     } else {
                                         handleActiveFilterTab(tab.name);
                                     }
