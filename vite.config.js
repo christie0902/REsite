@@ -33,5 +33,8 @@ export default ({ mode }) => {
             },
             react(),
         ],
+        build: {
+            outDir: 'dist',
+          },
     });
 };
