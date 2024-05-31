@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Tags = ({ onTagClick, selectedTags }) => {
     const [tags, setTags] = useState([]);
+    const baseURL = process.env.MIX_APP_URL;
 
     useEffect(() => {
         loadTags().catch(console.error);
@@ -9,7 +10,7 @@ const Tags = ({ onTagClick, selectedTags }) => {
 
     const loadTags = async () => {
         try {
-            const response = await fetch(`/api/products/tags`);
+            const response = await fetch(`${baseURL}/api/products/tags`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

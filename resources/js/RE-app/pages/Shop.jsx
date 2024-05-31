@@ -12,6 +12,7 @@ const Shop = () => {
     const [selectedTags, setSelectedTags] = useState([]);
     const location = useLocation();
     const [searchResults, setSearchResults] = useState([]);
+    const baseURL = process.env.MIX_APP_URL;
 
     const [products, setProducts] = useState({
         data: [],
@@ -30,7 +31,7 @@ const Shop = () => {
 
     const performSearch = async (query) => {
         try {
-            const response = await fetch(`/api/products/search/${encodeURIComponent(query)}`);
+            const response = await fetch(`${baseURL}/api/products/search/${encodeURIComponent(query)}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch search results");
             }

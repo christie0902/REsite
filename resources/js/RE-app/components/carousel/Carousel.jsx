@@ -12,9 +12,10 @@ const Carousel = () => {
     const [carouselLength, setCarouselLength] = useState(0);
     // const [sliderLength, setSliderLength] = useState(0);
     const [featuredProducts, setFeaturedProducts] = useState([]);
+    const baseURL = process.env.MIX_APP_URL;
 
     const loadFeaturedProducts = async () => {
-        const response = await fetch("/api/featured");
+        const response = await fetch(`${baseURL}/api/featured`);
         const data = await response.json();
         setFeaturedProducts(data);
         setCarouselLength(data.length);

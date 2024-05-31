@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const CategoryList = () => {
     const [categories, setCategories] = useState({});
+    const baseURL = process.env.MIX_APP_URL;
 
     useEffect(() => {
         fetchCategories();
@@ -9,7 +10,7 @@ const CategoryList = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch("/api/products/categories");
+            const response = await fetch(`${baseURL}/api/products/categories`);
             const data = await response.json();
             setCategories(data);
         } catch (error) {

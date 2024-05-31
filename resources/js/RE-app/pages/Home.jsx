@@ -9,9 +9,10 @@ import Context from "../store/Context.js";
 
 const Home = () => {
     const { state, dispatch } = useContext(Context);
+    const baseURL = process.env.MIX_APP_URL;
 
     const getUser = async () => {
-        const response = await fetch("/api/user", {
+        const response = await fetch(`${baseURL}/api/user`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
