@@ -6,6 +6,7 @@ export default ({ mode }) => {
     const { APP_URL } = loadEnv(mode, process.cwd(), "");
 
     return defineConfig({
+        base: mode === 'production' ? '/build/' : '/',
         plugins: [
             laravel({
                 input: [
@@ -16,7 +17,6 @@ export default ({ mode }) => {
             }),
             {
                 // fixes URLs that start with / in CSS files
-                // make sure to have vite.loadEnv imported and APP_URL defined
                 name: "css-static-url-fixer",
                 enforce: "post",
                 apply: "serve",
@@ -34,7 +34,16 @@ export default ({ mode }) => {
             react(),
         ],
         build: {
-            outDir: 'dist',
-          },
+            outDir: "public/build",
+        },
+        //optimizeDeps: {
+        //    include: [], // Ensure to include any dependencies your app needs
+        //    exclude: ['@vite/client'], // Exclude @vite/client from being optimized
+        //},
+        //exclude: ['public/**/*'], // Exclude public directory from Vite processing
+        //server: {
+        //    host:'0.0.0.0',
+        //    port:5173
+        //},
     });
 };
